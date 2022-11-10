@@ -3,12 +3,14 @@ output_dir: "."
 navbar:
   title: "(tbd)"
   right:
-    - text: "About"
-      href: about.html
-    - icon: fa-envelope fa-lg
-      href: mailto:<you@youremail.com>
+    - text: "(topic 1)"
+      href: 
+    - text: "(topic 2)"
+      href: 
+    - icon: 
+      href: 
     - icon: fa-github fa-lg
-      href: http://github.com/<YOUR_GH_NAME>/
+      href: http://github.com/<Y>/
 output:
   html_document:
-    theme: cerulean
+    theme: (tbd)
