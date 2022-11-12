@@ -29,9 +29,9 @@ Final Group Project
 
     -   Website including a landing page (maps visualizing the primary
         dataset) and separate sub-pages including correlates with:
-    -   Health outcomes
-    -   Economic metrics
-    -   Environmental temperature
+        -   Health outcomes
+        -   Economic metrics
+        -   Environmental temperature
 
 5.  The anticipated data sources:
 
