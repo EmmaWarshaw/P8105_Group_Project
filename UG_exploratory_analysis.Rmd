@@ -35,7 +35,10 @@ Secondly, this EDA aims to provide:
 * relevant data visualizations of the above (notably including a map using the `leaflet` package and overtime trends);
 * **TBD** a test of homogeneity to assess the distribution of Urban Greenspaces (UG) at the City Council District and Borough levels.
 
+
 ## Data load & wrangling
+
+The primary Urban Greenspaces (UG) dataset is loaded ("UG_df_raw"). Next, `str()` and `skmir::skim()` functions are used to delve into the contents and structure of the resulting dataframe.
 
 ```{r, message = FALSE, warning = FALSE}
 UG_df_raw = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) 
@@ -48,16 +51,49 @@ skimr::skim(UG_df_raw)
 
 # Looking into key variables
 UG_df_raw %>%
-  count(qa)
+  count(borough)
 
 UG_df_raw %>%
-  count(borough)
+  count(ownertype)
 ```
+
+Additionally, a secondary dataset with the same variables aggregated by City Council Districts is loaded. Although not the main object of this EDA, it might be useful to conduct homogeneity test at such level.
+
+```{r}
+UG_agg_df= read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na = c("","Unknown")) 
+
+# Variables contained in the dataframe
+str(UG_agg_raw)
+
+# Quick summary
+skimr::skim(UG_agg_raw)
+```
+
+
+Next, the "UG_df_raw" is wrangled in order to:
+
+* select relevant variables using `select()`
+* rename certain variables for comprehension using `remame()`
+* re-order the variables using `arrange()`
+
+```{r}
+UG_df = UG_df_raw %>% 
+  select(fid:notes, address:ycoord, -doitt_id, -qa, -feat_code, -spdist1, -bbl_fixed) %>% 
+  rename(
+    UG_id = fid,
+    latitude = ycoord,
+    longitude = xcoord,
+    construction_year = cnstrct_yr
+  ) %>% 
+  arrange(UG_id, construction_year, borough, zonedist1, address, longitude, latitude)
+```
+
+Note that variable codes are included in the "README_1.html" file included inside the data folder of this project.
+
 
 ## Descriptive analysis
 
 ```{r}
-UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown"))
 ```
 
 ## Data visualization
@@ -68,5 +104,10 @@ Overtime trends (# of UG inaugurated per year).
 
 ## Test of homogeneity
 
+https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/
 
+## Acknowledgement
 
+*The primary dataset was developed by The Nature Conservancy's New York City Program (Mike Treglia and Emily Maxwell) with contributions (data aggregation and additional support) from Timon McPhearson of The Urban Systems Lab at The New School, Eric Sanderson of The Wildlife Conservation Society, and Greg Yetman of CIESIN at Columbia University.*
+
+Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxwell, Emily Nobel. (2018). Green Roofs Footprints for New York City, Assembled from Available Data and Remote Sensing (Version 1.0.0) [Available here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/CurrentDatasets). Zenodo. http://doi.org/10.5281/zenodo.1469674
