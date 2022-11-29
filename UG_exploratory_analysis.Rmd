@@ -70,7 +70,7 @@ str(UG_agg_df)
 skimr::skim(UG_agg_df)
 ```
 
-Next, the "UG_df_raw" is wrangled in order to:
+Next, the "UG_df_raw" is wrangled in order to generate a "UG_df" dataframe to be used for analysis & association to other workstreams of the project:
 
 * select relevant variables using `select()`
 * rename certain variables for comprehension using `remame()`
@@ -104,11 +104,21 @@ Note that variable name and explanations are included in the "README_1.html" fil
 
 Next, a descriptive analysis of the "UG_df" dataframe is performed. 
 
-Overall, the "UG_df" contains contains `r ncol(UG_df)` variables related to `r nrow(UG_df)` urban greenspaces in NYC. Details on the nature of its variables and summary values are found in the outputs above (chunk 1 of the data load & wrangling).
+Overall, the "UG_df" contains contains `r ncol(UG_df)` variables related to `r nrow(UG_df)` urban greenspaces in NYC. Details on the nature of its variables and summary values are found in the outputs above (chunk 1 of the data load & wrangling). 
 
-Notably, the total UG area in NYC sums to `r sum(UG_df$green_area)` square feet, being `r mean(UG_df$green_area)` square feet the average size of UGs. When assessing the proportion that each UG covers in relation to the total building area, an average `r mean(UG_df$perc_gr)`% of the affected buildings are covered in such.
+The total UG area in NYC sums to `r sum(UG_df$green_area)` square feet. The following table summarizes the average urban greenspace in NYC, including its size (in square feet), height (in feet) and percentage of green coverage (that is, the proportion of green space within the total building area).
 
-When stratified by borough, differences in the amount of UGs as well as other indicators become apparent. Key variables are summarized in the table below using `knitr:kable()`.
+```{r}
+UG_df %>% 
+  summarize(
+    mean_green = mean(green_area, na.rm = TRUE),
+    mean_height = mean(heightroof, na.rm = TRUE),
+    perc_gr = mean(perc_gr, na.rm = TRUE)
+    ) %>% 
+    knitr::kable(digits = 2)
+```
+
+When stratified by borough, differences in the amount of UGs as well as other the indicators used above become apparent. Key variables are summarized in the table below using `knitr:kable()`.
 
 ```{r}
 UG_df %>% 
@@ -116,7 +126,10 @@ UG_df %>%
   summarize(
     n = n(),
     tot_green = sum(green_area),
-    mean_green = mean(green_area, na.rm = TRUE)) %>% 
+    mean_green = mean(green_area, na.rm = TRUE),
+    mean_height = mean(heightroof, na.rm = TRUE),
+    perc_gr = mean(perc_gr, na.rm = TRUE)
+    ) %>% 
   arrange(desc(n)) %>% 
   knitr::kable(digits = 2)
 ```
@@ -136,7 +149,17 @@ UG_map
 
 **Note**: using indications on the code from [this](https://teachdatascience.com/leaflet/) website.They're very simple. On a second iteration, I intend to use the code provided by the authors referenced below (find separate .Rmd in the repo).
 
-Overtime trends (# of UG inaugurated per year).
+## UGs overtime in NYC
+**pending**
+Map Overtime trends (# of UG inaugurated per year).
+
+## Other associations
+**pending**
+Consider :
+
+* scatter plot size / height, colours by borough
+* OTHER?
+
 
 ## Test of homogeneity
 
