@@ -60,13 +60,14 @@ UG_df_raw %>%
 Additionally, a secondary dataset with the same variables aggregated by City Council Districts is loaded. Although not the main object of this EDA, it might be useful to conduct homogeneity test at such level.
 
 ```{r}
-UG_agg_df= read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na = c("","Unknown")) 
+UG_agg_df= read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na = c("","Unknown")) %>% 
+  janitor::clean_names()
 
 # Variables contained in the dataframe
-str(UG_agg_raw)
+str(UG_agg_df)
 
 # Quick summary
-skimr::skim(UG_agg_raw)
+skimr::skim(UG_agg_df)
 ```
 
 
@@ -76,20 +77,25 @@ Next, the "UG_df_raw" is wrangled in order to:
 * rename certain variables for comprehension using `remame()`
 * re-order the variables using `arrange()`
 
+**NOTE** consider removing "bin" and "bbl" if they are not needed to match with tax-related data.
+
 ```{r}
 UG_df = UG_df_raw %>% 
+  janitor::clean_names() %>% 
   select(fid:notes, address:ycoord, -doitt_id, -qa, -feat_code, -spdist1, -bbl_fixed) %>% 
   rename(
     UG_id = fid,
     latitude = ycoord,
     longitude = xcoord,
-    construction_year = cnstrct_yr
+    cons_year = cnstrct_yr,
+    green_area = gr_area,
+    building_area = bldg_area
   ) %>% 
-  arrange(UG_id, construction_year, borough, zonedist1, address, longitude, latitude)
+  select(UG_id, cons_year, borough, zonedist1, address, ownertype, longitude, latitude, green_area:groundelev, everything()) %>% 
+  drop_na(green_area)
 ```
 
-Note that variable codes are included in the "README_1.html" file included inside the data folder of this project.
-
+Note that variable name and explanations are included in the "README_1.html" file, found inside the data folder of this project.
 
 ## Descriptive analysis
 
