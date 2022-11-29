@@ -1,0 +1,70 @@
+---
+title: "UG Exploratory Data Visualization"
+author: "mm5951"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Code provided by the authors [here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/blob/master/exploratory_visualization/leaflet_exploratory01.R).
+
+The following packages have been installed: 
+
+```{r}
+install.packages("leaflet")
+install.packages("leaflet.extras")
+install.packages("readr")
+```
+
+Run the needed libraries for data visualization:
+
+```{r}
+library(leaflet)
+library(leaflet.extras)
+```
+
+Try the code provided by the Columbia team for leaflet 1:
+
+```{r}
+fName <- 'https://raw.githubusercontent.com/tnc-ny-science/NYC_GreenRoofMapping/master/greenroof_gisdata/20180220_bbl_bin/greenroofs_bbl_bin_20180220.GeoJSON'
+
+geoJson <- readr::read_file(fName)
+
+leaf %>% setView(-74.0060, 40.7128, 11) %>%
+  addBootstrapDependency() %>%
+  addGeoJSONChoropleth(
+    geoJson,
+    valueProperty = 'square_feet',
+    scale = c('white','red'), mode='q', steps = 4, padding = c(0.2,0),
+    labelProperty='id',
+     popupProperty=propstoHTMLTable(
+       props = c('id', 'square_feet', 'bbl_bldgs', 'address_pluto'),
+       table.attrs = list(class='table table-striped table-bordered'),drop.na = T),
+    color='#ffffff', weight=1, fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight=2, color='#000000',
+      fillOpacity=1, opacity =1,
+      bringToFront=TRUE, sendToBack=TRUE),
+    legendOptions = legendOptions(title='Area in Sq. Feet'),
+    group = 'reds') %>%
+  addGeoJSONChoropleth(
+    geoJson,
+    valueProperty = 'square_feet',
+    scale = c('yellow','red', 'black'), mode='q', steps = 4,
+    bezierInterpolate = TRUE,
+    labelProperty='id',
+     popupProperty=propstoHTMLTable(
+       props = c('id', 'square_feet', 'bbl_bldgs', 'address_pluto'),
+       table.attrs = list(class='table table-striped table-bordered'),drop.na = T),
+    color='#ffffff', weight=1, fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight=2, color='#000000',
+      fillOpacity=1, opacity =1,
+      bringToFront=TRUE, sendToBack=TRUE),
+    legendOptions = legendOptions(title='Area in Sq. Ft'),
+    group = 'yellow-black'
+  ) %>%
+  addLayersControl(baseGroups = c('reds','yellow-black'),
+                   options = layersControlOptions(collapsed=FALSE))
+```
+
+
