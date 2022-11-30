@@ -1,0 +1,27 @@
+---
+title: "Our Team"
+---
+
+#### Mallafre Larrosa, Meritxell: 
+-   [Contact here](mailto:<mm5951@cumc.columbia.edu>)
+-   [LinkedIn]()
+
+#### Hauser, Tim: 
+-   [Contact here](mailto:<th2899@cumc.columbia.edu>)
+-   [LinkedIn]()
+
+#### Warshaw, Emma: 
+-   [Contact here](mailto:<ew2718@cumc.columbia.edu>)
+-   [LinkedIn]()
+
+#### Kim, Esther: 
+-   [Contact here](mailto:<ei2262@cumc.columbia.edu>)
+-   [LinkedIn]()
+
+#### Hess, Niklas: 
+
+<img src="images/Headshot_Hess.jpeg" style="width:40%">
+
+-   [Contact here](mailto:<nh2706@cumc.columbia.edu>)
+-   [LinkedIn](https://www.linkedin.com/in/niklas-hess/)
+-   Niklas brings an international perspective, coupled with expertise in analytics and experience in Consulting and Private Equity, to this project. As such, he is interested in solutions that have business value and have successfully been implemented in other parts of the world. In relation to this project, he tries to go beyond theoretical findings, uncovering realities that can immediately be tackled.

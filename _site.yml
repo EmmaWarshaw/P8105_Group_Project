@@ -4,7 +4,7 @@ navbar:
   title: "Group Project"
   right:
     - text: "Our Team"
-      href: OurTeam.html
+      href: about.html
     - text: "GreenSpace Data"
       href: gsd.html
     - text: "Income Data"
