@@ -1,0 +1,38 @@
+---
+title: "Group Project"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+## Welcome to our Final Project
+
+This website is constructed as the final deliverable for the P8105 final project. 
+
+Before jumping into the actual analysis, two main topics need to be explained. First, the data that is used throughout the project. Second, three main themes that will show the intention behind and significance of this work. 
+
+The outcome of our work is something we are very excited about and hope will be the starting point of more research. Additionally, like every good public health professional, it is our goal to support positive change - the findings of this project provide initial insights that individuals, organizations, and governments can directly act upon. 
+
+
+## Our Data - High-Level Explanation
+
+The project at its core is based on four main datasets. Each of them is geographically based in New York City, and we managed to combine all of them through a location variable that specifies the NYC neighborhood. To understand how eactly they interact with one another, let's jump into each:
+
+#### Greenspace
+-   The Greenspace Dataset is ABC
+
+#### Income
+-   The Income Dataset is ABC
+
+#### Temperature
+-   The Temperature Dataset is ABC
+
+#### Health
+-   The Health Dataset is ABC
+
+
+
+## Key Analysis Themes
+
+
