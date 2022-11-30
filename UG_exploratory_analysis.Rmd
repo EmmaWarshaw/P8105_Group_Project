@@ -10,6 +10,7 @@ output: html_document
 ```{r, include = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(leaflet)
+library(ggridges)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -137,29 +138,78 @@ UG_df %>%
 ## Data visualization
 
 ## Mapping UGs in NYC
-Using the `leaflet` package to plot observations on a NY map.
+Using the `leaflet` package to plot observations on a NY map. A `pal()` function is generated to establish a color according to the size of the UG.
 
 ```{r}
-UG_map <- leaflet(UG_df) %>% 
-  addTiles() %>% 
-  addMarkers(~longitude, ~latitude, popup = ~ UG_id)
+pal <- colorNumeric(
+  palette = "viridis",
+  domain = UG_df$green_area)
+
+UG_map = UG_df %>% 
+  mutate(
+    round(green_area, digit = 2),
+    round(heightroof, digit = 2),
+    click_label = 
+      str_c("<b>Area ", green_area, "sqft</b><br>Height ", heightroof, " ft<br>")) %>% 
+  leaflet() %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addCircleMarkers(~longitude, ~latitude, radius = .1, color = ~pal(green_area), popup = ~click_label)
 
 UG_map
 ```
 
-**Note**: using indications on the code from [this](https://teachdatascience.com/leaflet/) website.They're very simple. On a second iteration, I intend to use the code provided by the authors referenced below (find separate .Rmd in the repo).
+**Pending** : for some reason the `round()` is not working. Review it.
 
-## UGs overtime in NYC
+## UGs development overtime in NYC
 **pending**
 Map Overtime trends (# of UG inaugurated per year).
+Use `cumsum` example [here](https://stackoverflow.com/questions/66105937/time-series-cumulative-data-plots-using-ggplot2)
+
+
+```{r}
+UG_overtime = UG_df %>%
+  drop_na(cons_year) %>% 
+  filter(cons_year !=0) %>% 
+  arrange(cons_year) %>% 
+  mutate(
+    cumsum_dummy = 1,
+    cumulative_UG = cumsum(cumsum_dummy)
+  )
+  
+UG_overtime %>% 
+  group_by(borough) %>% 
+  ggplot(aes(cons_year, cumulative_UG, color = borough)) +
+  geom_point() +
+  labs(
+    title = "Overtime construction of Urban Greenspaces (UG)",
+    x = "Time (year)",
+    y = "Number of UG")
+```
+
+
 
 ## Other associations
 **pending**
 Consider :
 
-* scatter plot size / height, colours by borough
+* scatter plot size / height, colours by borough 
+* ALT: ggridges of green_size by borough
 * OTHER?
 
+```{r}
+
+```
+
+
+snowfall = noaa_df %>%
+  filter(snow > 0, snow < 100) %>%
+  ggplot(aes(x = snow, y = year)) +
+  geom_density_ridges(scale = 0.8) +
+  xlim(0, 100) +
+  labs(title = "Snowfall Distribution by Year (0-100 mm)",
+       x = "Snowfall (mm)",
+       y = "Time (years) ",
+       caption = "Exploratory analysis from the ny_noaa dataset")
 
 ## Test of homogeneity
 
