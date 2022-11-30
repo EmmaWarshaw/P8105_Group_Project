@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-**PENDING** : assess which libraries to include.
+**PENDING** : review which libraries to include.
 
 ```{r, include = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -161,10 +161,8 @@ UG_map
 **Pending** : for some reason the `round()` is not working. Review it.
 
 ## UGs development overtime in NYC
-**pending**
-Map Overtime trends (# of UG inaugurated per year).
-Use `cumsum` example [here](https://stackoverflow.com/questions/66105937/time-series-cumulative-data-plots-using-ggplot2)
 
+Next, the construction of UG trends are investigated overtime. To do so, the `cumsum()` function is used over a generated dummy variable that allocated the value "1" to all UGs. Note that the observations with an invalid or missing construction year are ommited.
 
 ```{r}
 UG_overtime = UG_df %>%
@@ -186,34 +184,65 @@ UG_overtime %>%
     y = "Number of UG")
 ```
 
+**Pending**: split into 5 differnt lines per borough, as example [here](https://stackoverflow.com/questions/66105937/time-series-cumulative-data-plots-using-ggplot2)
 
 
-## Other associations
-**pending**
-Consider :
+## Distribution of UG area by borough
 
-* scatter plot size / height, colours by borough 
-* ALT: ggridges of green_size by borough
-* OTHER?
+Finally, the distribution of UG by borough is investigated. The "UG_df" is first plotted on a boxplot to have a better understanding of outliers. Given the presence of considerable outliers, the plotted green area surface is then limited to 67,000 sqft and visualized through a violin plot and a ridge plot.
+
+**Pending** : decide which to keep.
 
 ```{r}
+UG_dist = UG_df %>% 
+  ggplot(aes(x = green_area, y = borough)) + 
+  geom_boxplot() +
+  labs(
+    title = "Distribution of Urban Greenspaces (UG) surface by borough [boxplot]",
+    x = "Green Area (sqft)",
+    y = "Borough")
 
+UG_dist
+
+UG_df %>% 
+  filter(green_area <67000) %>% 
+  ggplot(aes(x = green_area, y = borough)) + 
+  geom_density_ridges(scale = .85) +
+  labs(
+    title = "Distribution of Urban Greenspaces (UG) surface by borough [ggrides]",
+    x = "Green Area (sqft)",
+    y = "Borough")
+
+
+UG_df %>% 
+  filter(green_area <67000) %>% 
+  ggplot(aes(x = green_area, y = borough)) + 
+  geom_violin(aes(fill = borough), color = "blue", alpha = .5) +
+  theme(legend.position = "bottom") +
+  labs(
+    title = "Distribution of Urban Greenspaces (UG) surface by borough [geom_violin]",
+    x = "Green Area (sqft)",
+    y = "Borough")
+```
+
+**Consider whether to include** no apparent association between UG area and building height.
+
+```{r}
+UG_df %>% 
+  filter(green_area <67000) %>% 
+  ggplot(aes(x = green_area, y = heightroof)) + 
+  geom_point(aes(color = borough), alpha = .5) +
+  labs(
+    title = "Distribution of Urban Greenspaces (UG) surface by borough [ggrides]",
+    x = "Green Area (sqft)",
+    y = "Borough")
 ```
 
 
-snowfall = noaa_df %>%
-  filter(snow > 0, snow < 100) %>%
-  ggplot(aes(x = snow, y = year)) +
-  geom_density_ridges(scale = 0.8) +
-  xlim(0, 100) +
-  labs(title = "Snowfall Distribution by Year (0-100 mm)",
-       x = "Snowfall (mm)",
-       y = "Time (years) ",
-       caption = "Exploratory analysis from the ny_noaa dataset")
-
-## Test of homogeneity
-
+## **TBD** Test of homogeneity
+To assess the distribution of Urban Greenspaces (UG) at the City Council District and Borough levels.
 https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/
+
 
 ## Acknowledgement
 
