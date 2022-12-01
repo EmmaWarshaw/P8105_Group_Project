@@ -5,8 +5,8 @@ navbar:
   right:
     - text: "Our Team"
       href: about.html
-    - text: "GreenSpace Data"
-      href: gsd.html
+    - text: "Urban Greenspaces"
+      href: ugs.html
     - text: "Income Data"
       href: financiald.html
     - text: "Health Data"
