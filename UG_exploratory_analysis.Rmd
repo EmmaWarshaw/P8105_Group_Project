@@ -77,7 +77,7 @@ Next, the "UG_df_raw" is wrangled in order to generate a "UG_df" dataframe to be
 * rename certain variables for comprehension using `remame()`
 * re-order the variables using `arrange()`
 * drop entries with now total green area available using `drop_na()` 
-* calculate percentage of green coverage of each building, as well as `recode()` borough names, with `mutate()`
+* calculate percentage of green coverage of each building, as well as `recode()` borough names and ownership status, and convert sqft int sqm, using `mutate()`
 
 ```{r}
 UG_df = UG_df_raw %>% 
@@ -98,10 +98,29 @@ UG_df = UG_df_raw %>%
          BX = "Bronx",
          MN = "Manhattan", 
          QN = "Queens",
-         SI = "Staten Island")
+         SI = "Staten Island"),
+    ownertype = recode(ownertype,
+         C = "Public",
+         M = "Other",
+         O = "Public", 
+         P = "Private",
+         X = "Other",
+         P = "Private"),
+    ownertype = replace_na(ownertype, "Private"),
+    green_area = green_area*0.09290304,
+    building_area = building_area*0.09290304,
+    heightroof = heightroof*0.3048,
+    groundelev = groundelev*0.3048
   ) %>% 
   select(UG_id, cons_year, borough, zonedist1, address, ownertype, longitude, latitude, green_area:groundelev, everything()) %>% 
-  drop_na(green_area)
+  drop_na(green_area) 
+```
+
+Checking that ownertype conversions have been done correctly:
+
+```{r}
+UG_df %>%
+  count(ownertype)
 ```
 
 **NOTE** consider removing "bin" and "bbl" if they are not needed to match with tax-related data.
