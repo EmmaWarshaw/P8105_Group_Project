@@ -1,0 +1,42 @@
+---
+title: "Codebook"
+author: "mm5951"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+This page contains information on the four datasets analyzed within this group project. Details on its primary source, as well as variables definitions and units, are specified for each of them.
+
+## Urban Green Spaces in NYC
+
+### Acknowledgment of Ownership
+
+*The primary dataset was developed by The Nature Conservancy's New York City Program (Mike Treglia and Emily Maxwell) with contributions (data aggregation and additional support) from Timon McPhearson of The Urban Systems Lab at The New School, Eric Sanderson of The Wildlife Conservation Society, and Greg Yetman of CIESIN at Columbia University.*
+
+Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxwell, Emily Nobel. (2018). Green Roofs Footprints for New York City, Assembled from Available Data and Remote Sensing (Version 1.0.0) [Available here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/CurrentDatasets). Zenodo. http://doi.org/10.5281/zenodo.1469674
+
+### Variables codebook
+
+**ID and location data**
+
+* `fid` - Unique identifier
+* `address` - Address based on MapPLUTO, joined to the dataset based on bbl.
+* `borough` - Borough abbreviation pulled from MapPLUTO.
+* `ownertype` - Owner type field pulled from MapPLUTO (C: City ownership, M: Mixed city & private ownership, O: Other – owned by either a public authority or the state or federal government, P: Private ownership, X: Fully tax-exempt property that may be owned by the city, state, or federal government; a public authority; or a private institution; blank: Unknown (usually private ownership))
+* `zonedist1` - Zoning District 1 type pulled from MapPLUTO.
+* `xcoord` - Longitude in decimal degrees.
+* `ycoord` - Latitude in decimal degrees.
+
+**Urban Green Space data**
+
+* `gr_area` - Total area of the footprint of the green roof as per this data layer, in square feet, calculated using the projected coordinate system (EPSG 2263).
+* `bldg_area` - Total area of the footprint of the associated building, in square feet, calculated using the projected coordinate system (EPSG 2263).
+* `prop_gr` - Proportion of the building covered by green roof according to this layer (gr_area/bldg_area).
+* `cnstrct_yr` - Year the building was constructed, pulled from the Building Footprint data.
+* `heightroof` - Height of the roof of the associated building, pulled from the Building Footprint Data.
+* `groundelev` - Lowest elevation at the building level, pulled from the Building Footprint Data.
+
+**NYC building identifier**
+
+* `bin` - NYC Building ID Number based on overlap between green roof areas and a building footprint dataset for NYC from August, 2017. (Newer building footprint datasets do not have linkages to the tax lot identifier (bbl), thus this older dataset was used). The most current building footprint dataset should be available at: https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh. Associated metadata for fields from that dataset are available at https://github.com/CityOfNewYork/nyc-geo-metadata/blob/master/Metadata/Metadata_BuildingFootprints.md.
+* `bbl` - Boro Block and Lot number as a single string. This field is a tax lot identifier for NYC, which can be tied to the Digital Tax Map and PLUTO/MapPLUTO. Metadata for fields pulled from PLUTO/MapPLUTO can be found in the PLUTO Data Dictionary. All joins to this bbl were based on MapPLUTO version 18v1.
