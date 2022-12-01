@@ -132,10 +132,7 @@ UG_df %>%
 **VARIABLE DESCRIPTION** available within "README_1.html" file, found inside the data folder of this project. Consider merging all variable keys into 1 general README in the shared repo ("codebook").
 
 
-Dataset with aggregated
-
-
--hvi_nta_2018_max
+Dataset with aggregated UGS at the district level:
 
 ```{r}
 UG_agg_df= read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na = c("","Unknown")) %>% 
