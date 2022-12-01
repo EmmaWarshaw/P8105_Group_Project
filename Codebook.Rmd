@@ -15,7 +15,7 @@ This page contains information on the four datasets analyzed within this group p
 
 Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxwell, Emily Nobel. (2018). Green Roofs Footprints for New York City, Assembled from Available Data and Remote Sensing (Version 1.0.0) [Available here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/CurrentDatasets). Zenodo. http://doi.org/10.5281/zenodo.1469674
 
-### Variables codebook
+### Primary Dataset: Variables codebook
 
 **ID and location data**
 
@@ -24,19 +24,34 @@ Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxw
 * `borough` - Borough abbreviation pulled from MapPLUTO.
 * `ownertype` - Owner type field pulled from MapPLUTO (C: City ownership, M: Mixed city & private ownership, O: Other – owned by either a public authority or the state or federal government, P: Private ownership, X: Fully tax-exempt property that may be owned by the city, state, or federal government; a public authority; or a private institution; blank: Unknown (usually private ownership))
 * `zonedist1` - Zoning District 1 type pulled from MapPLUTO.
-* `xcoord` - Longitude in decimal degrees.
-* `ycoord` - Latitude in decimal degrees.
+* `longitude` - Longitude in decimal degrees.
+* `latitude` - Latitude in decimal degrees.
 
 **Urban Green Space data**
 
-* `gr_area` - Total area of the footprint of the green roof as per this data layer, in square feet, calculated using the projected coordinate system (EPSG 2263).
-* `bldg_area` - Total area of the footprint of the associated building, in square feet, calculated using the projected coordinate system (EPSG 2263).
-* `prop_gr` - Proportion of the building covered by green roof according to this layer (gr_area/bldg_area).
-* `cnstrct_yr` - Year the building was constructed, pulled from the Building Footprint data.
-* `heightroof` - Height of the roof of the associated building, pulled from the Building Footprint Data.
-* `groundelev` - Lowest elevation at the building level, pulled from the Building Footprint Data.
+* `green_area` - Total area of the footprint of the green roof as per this data layer, in square meter, calculated using the projected coordinate system (EPSG 2263).
+* `building_area` - Total area of the footprint of the associated building, in square meter, calculated using the projected coordinate system (EPSG 2263).
+* `prop_gr` - Proportion (%) of the building covered by green roof according to this layer (gr_area/bldg_area).
+* `cons_year` - Year the building was constructed, pulled from the Building Footprint data.
+* `heightroof` - Height of the roof of the associated building, in meter, pulled from the Building Footprint Data.
+* `groundelev` - Lowest elevation at the building level, in meter, pulled from the Building Footprint Data.
 
 **NYC building identifier**
 
 * `bin` - NYC Building ID Number based on overlap between green roof areas and a building footprint dataset for NYC from August, 2017. (Newer building footprint datasets do not have linkages to the tax lot identifier (bbl), thus this older dataset was used). The most current building footprint dataset should be available at: https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh. Associated metadata for fields from that dataset are available at https://github.com/CityOfNewYork/nyc-geo-metadata/blob/master/Metadata/Metadata_BuildingFootprints.md.
 * `bbl` - Boro Block and Lot number as a single string. This field is a tax lot identifier for NYC, which can be tied to the Digital Tax Map and PLUTO/MapPLUTO. Metadata for fields pulled from PLUTO/MapPLUTO can be found in the PLUTO Data Dictionary. All joins to this bbl were based on MapPLUTO version 18v1.
+
+
+### Aggregated Dataset : Variables codebook
+
+The same authors provide an additional dataset aggregated at the City Council District, which is used for regtression purposes.
+
+* `coun_dist` - Unique Identifier for each City Council District
+* `borough` -  Name of the borough containing the respective City Council District
+* `num_greenroofs` - Number of Green Roofs Contained in the respective City Council District
+* `green_area` - total area (square meters) of green roofs in each City Council District
+* `num_bldgs_total` - Number of total buildings contained within the respective City Council District
+* `building_area` - Total area (square meters) of buildings in each City Council District
+* `prop_gbuild` - Proportion (%) of the buildings in each City Council District with a green roof
+* `prop_gr` - Proportion (%) of the rooftop area (building footprint area) covered by green roof within each City Council District
+
