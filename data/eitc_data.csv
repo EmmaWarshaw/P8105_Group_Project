@@ -1,0 +1,296 @@
+"tax_year","credit_type","borough","number_of_claims","boro_credit_total","average_credit"
+"2020","City EITC","Bronx",155137,17479508,113
+"2020","City EITC","Brooklyn",217022,23476211,108
+"2020","City EITC","Manhattan",81521,7457908,91
+"2020","City EITC","Queens",180052,17052581,95
+"2020","City EITC","Staten Island",25939,2697082,104
+"2020","State EITC","Bronx",151102,101354645,671
+"2020","State EITC","Brooklyn",207871,136217277,655
+"2020","State EITC","Manhattan",78324,43332160,553
+"2020","State EITC","Queens",171281,98808431,577
+"2020","State EITC","Staten Island",24849,15633585,629
+"2020","Noncust. EITC","Bronx",267,108605,407
+"2020","Noncust. EITC","Brooklyn",241,91469,380
+"2020","Noncust. EITC","Manhattan",115,45140,393
+"2020","Noncust. EITC","Queens",215,80798,376
+"2020","Noncust. EITC","Staten Island",26,12267,472
+"2019","City EITC","Bronx",185457,22528682,121
+"2019","City EITC","Brooklyn",264976,30676678,116
+"2019","City EITC","Manhattan",103018,9678535,94
+"2019","City EITC","Queens",235955,23611607,100
+"2019","City EITC","Staten Island",30505,3369389,110
+"2019","State EITC","Bronx",181051,130923294,723
+"2019","State EITC","Brooklyn",254409,178138193,700
+"2019","State EITC","Manhattan",99545,56660748,569
+"2019","State EITC","Queens",225046,136747063,608
+"2019","State EITC","Staten Island",29332,19594226,668
+"2019","Noncust. EITC","Bronx",377,194486,516
+"2019","Noncust. EITC","Brooklyn",417,204963,492
+"2019","Noncust. EITC","Manhattan",179,90177,504
+"2019","Noncust. EITC","Queens",347,179383,517
+"2019","Noncust. EITC","Staten Island",54,25003,463
+"2018","City EITC","Bronx",185292,22795000,123
+"2018","City EITC","Brooklyn",269570,31666000,117
+"2018","City EITC","Manhattan",103966,9928000,95
+"2018","City EITC","Queens",235766,23988000,102
+"2018","City EITC","Staten Island",29835,3317000,111
+"2018","State EITC","Bronx",181152,132254000,730
+"2018","State EITC","Brooklyn",258943,183420000,708
+"2018","State EITC","Manhattan",100344,57900000,577
+"2018","State EITC","Queens",225095,138611000,616
+"2018","State EITC","Staten Island",28690,19238000,671
+"2018","Noncust. EITC","Bronx",411,204000,498
+"2018","Noncust. EITC","Brooklyn",481,242000,504
+"2018","Noncust. EITC","Manhattan",244,125000,511
+"2018","Noncust. EITC","Queens",351,180000,513
+"2018","Noncust. EITC","Staten Island",62,28000,459
+"2017","City EITC","Bronx",193031,24281000,126
+"2017","City EITC","Brooklyn",286020,34055000,119
+"2017","City EITC","Manhattan",111234,10883000,98
+"2017","City EITC","Queens",248568,25944000,104
+"2017","City EITC","Staten Island",30474,3394000,111
+"2017","State EITC","Bronx",188101,140861000,749
+"2017","State EITC","Brooklyn",275382,197353000,717
+"2017","State EITC","Manhattan",107353,63484000,591
+"2017","State EITC","Queens",238151,149935000,630
+"2017","State EITC","Staten Island",29366,19666000,670
+"2017","Noncust. EITC","Bronx",473,238000,503
+"2017","Noncust. EITC","Brooklyn",524,270000,516
+"2017","Noncust. EITC","Manhattan",217,104000,479
+"2017","Noncust. EITC","Queens",402,211000,524
+"2017","Noncust. EITC","Staten Island",53,29000,538
+"2016","City EITC","Bronx",195538,24117000,123
+"2016","City EITC","Brooklyn",292902,34701000,118
+"2016","City EITC","Manhattan",115979,11171000,96
+"2016","City EITC","Queens",250071,26059000,104
+"2016","City EITC","Staten Island",29952,3283000,110
+"2016","State EITC","Bronx",190404,139930000,735
+"2016","State EITC","Brooklyn",281960,201268000,714
+"2016","State EITC","Manhattan",111884,65194000,583
+"2016","State EITC","Queens",239608,150719000,629
+"2016","State EITC","Staten Island",28924,19065000,659
+"2016","Noncust. EITC","Bronx",484,248000,513
+"2016","Noncust. EITC","Brooklyn",555,283000,509
+"2016","Noncust. EITC","Manhattan",262,133000,506
+"2016","Noncust. EITC","Queens",461,237000,515
+"2016","Noncust. EITC","Staten Island",64,27000,429
+"2015","City EITC","Bronx",199493,24623000,123
+"2015","City EITC","Brooklyn",302413,36006000,119
+"2015","City EITC","Manhattan",122000,11882000,97
+"2015","City EITC","Queens",255169,26812000,105
+"2015","City EITC","Staten Island",30518,3332000,109
+"2015","State EITC","Bronx",194873,143335000,736
+"2015","State EITC","Brooklyn",292189,209283000,716
+"2015","State EITC","Manhattan",117969,69446000,589
+"2015","State EITC","Queens",245545,155467000,633
+"2015","State EITC","Staten Island",29589,19418000,656
+"2015","Noncust. EITC","Bronx",471,238000,505
+"2015","Noncust. EITC","Brooklyn",574,295000,515
+"2015","Noncust. EITC","Manhattan",255,134000,527
+"2015","Noncust. EITC","Queens",468,250000,534
+"2015","Noncust. EITC","Staten Island",62,28000,448
+"2014","City EITC","Bronx",202768,24957000,123
+"2014","City EITC","Brooklyn",307574,36326000,118
+"2014","City EITC","Manhattan",125667,12079000,96
+"2014","City EITC","Queens",256292,26886000,105
+"2014","City EITC","Staten Island",30398,3289000,108
+"2014","State EITC","Bronx",198261,144905000,731
+"2014","State EITC","Brooklyn",298182,210897000,707
+"2014","State EITC","Manhattan",121866,70394000,578
+"2014","State EITC","Queens",247658,155773000,629
+"2014","State EITC","Staten Island",29385,19094000,650
+"2014","Noncust. EITC","Bronx",566,273000,482
+"2014","Noncust. EITC","Brooklyn",645,316000,490
+"2014","Noncust. EITC","Manhattan",323,156000,482
+"2014","Noncust. EITC","Queens",519,275000,530
+"2014","Noncust. EITC","Staten Island",83,41000,498
+"2013","City EITC","Bronx",199044,23973000,120
+"2013","City EITC","Brooklyn",305021,35435000,116
+"2013","City EITC","Manhattan",127167,12049000,95
+"2013","City EITC","Queens",249726,25579000,102
+"2013","City EITC","Staten Island",29591,3141000,106
+"2013","State EITC","Bronx",194772,138837000,713
+"2013","State EITC","Brooklyn",296361,205342000,693
+"2013","State EITC","Manhattan",123645,70209000,568
+"2013","State EITC","Queens",242233,148002000,611
+"2013","State EITC","Staten Island",28749,18208000,633
+"2013","Noncust. EITC","Bronx",432,204000,472
+"2013","Noncust. EITC","Brooklyn",543,268000,494
+"2013","Noncust. EITC","Manhattan",268,132000,492
+"2013","Noncust. EITC","Queens",400,214000,534
+"2013","Noncust. EITC","Staten Island",66,33000,493
+"2012","City EITC","Bronx",192687,22797000,118
+"2012","City EITC","Brooklyn",296851,33746000,114
+"2012","City EITC","Manhattan",126880,11899000,94
+"2012","City EITC","Queens",240063,24234000,101
+"2012","City EITC","Staten Island",28448,2969000,104
+"2012","State EITC","Bronx",188620,131690000,698
+"2012","State EITC","Brooklyn",288198,195138000,677
+"2012","State EITC","Manhattan",122973,68993000,561
+"2012","State EITC","Queens",232672,139767000,601
+"2012","State EITC","Staten Island",27586,17176000,623
+"2012","Noncust. EITC","Bronx",443,208000,470
+"2012","Noncust. EITC","Brooklyn",615,284000,462
+"2012","Noncust. EITC","Manhattan",310,150000,483
+"2012","Noncust. EITC","Queens",456,218000,478
+"2012","Noncust. EITC","Staten Island",56,25000,448
+"2011","City EITC","Bronx",196819,23017000,117
+"2011","City EITC","Brooklyn",299352,33660000,112
+"2011","City EITC","Manhattan",121282,11179000,92
+"2011","City EITC","Queens",244512,24806000,101
+"2011","City EITC","Staten Island",29000,3018000,104
+"2011","State EITC","Bronx",193128,132961000,688
+"2011","State EITC","Brooklyn",291362,194672000,668
+"2011","State EITC","Manhattan",117114,64405000,550
+"2011","State EITC","Queens",237672,143182000,602
+"2011","State EITC","Staten Island",28250,17468000,618
+"2011","Noncust. EITC","Bronx",385,171000,444
+"2011","Noncust. EITC","Brooklyn",534,247000,462
+"2011","Noncust. EITC","Manhattan",239,104000,434
+"2011","Noncust. EITC","Queens",450,195000,433
+"2011","Noncust. EITC","Staten Island",63,29000,459
+"2010","City EITC","Bronx",194553,22743000,117
+"2010","City EITC","Brooklyn",289794,32050000,111
+"2010","City EITC","Manhattan",120327,10963000,91
+"2010","City EITC","Queens",233307,23118000,99
+"2010","City EITC","Staten Island",28018,2911000,104
+"2010","State EITC","Bronx",191615,131493000,686
+"2010","State EITC","Brooklyn",283395,185401000,654
+"2010","State EITC","Manhattan",116996,63195000,540
+"2010","State EITC","Queens",227345,133386000,587
+"2010","State EITC","Staten Island",27396,16871000,616
+"2010","Noncust. EITC","Bronx",338,144000,425
+"2010","Noncust. EITC","Brooklyn",495,217000,438
+"2010","Noncust. EITC","Manhattan",233,101000,435
+"2010","Noncust. EITC","Queens",398,178000,448
+"2010","Noncust. EITC","Staten Island",63,27000,428
+"2009","City EITC","Bronx",198530,23252000,117
+"2009","City EITC","Brooklyn",290982,32377000,111
+"2009","City EITC","Manhattan",125486,11573000,92
+"2009","City EITC","Queens",232677,23408000,101
+"2009","City EITC","Staten Island",27791,2882000,104
+"2009","State EITC","Bronx",196179,134899000,688
+"2009","State EITC","Brooklyn",284926,187960000,660
+"2009","State EITC","Manhattan",121894,66932000,549
+"2009","State EITC","Queens",227988,136421000,598
+"2009","State EITC","Staten Island",27209,16728000,615
+"2009","Noncust. EITC","Bronx",415,176000,421
+"2009","Noncust. EITC","Brooklyn",562,240000,418
+"2009","Noncust. EITC","Manhattan",257,113000,395
+"2009","Noncust. EITC","Queens",391,167000,405
+"2009","Noncust. EITC","Staten Island",53,26000,414
+"2008","City EITC","Bronx",183548,19924000,109
+"2008","City EITC","Brooklyn",266246,27256000,102
+"2008","City EITC","Manhattan",118284,10311000,87
+"2008","City EITC","Queens",208133,19149000,92
+"2008","City EITC","Staten Island",24858,2352000,95
+"2008","State EITC","Bronx",181977,115417000,634
+"2008","State EITC","Brooklyn",261589,157303000,601
+"2008","State EITC","Manhattan",115577,59582000,516
+"2008","State EITC","Queens",204547,110545000,540
+"2008","State EITC","Staten Island",24367,13600000,558
+"2008","Noncust. EITC","Bronx",273,115000,421
+"2008","Noncust. EITC","Brooklyn",345,144000,418
+"2008","Noncust. EITC","Manhattan",174,69000,395
+"2008","Noncust. EITC","Queens",234,95000,405
+"2008","Noncust. EITC","Staten Island",28,12000,414
+"2007","City EITC","Bronx",197120,22318000,113
+"2007","City EITC","Brooklyn",280222,29124000,104
+"2007","City EITC","Manhattan",144185,13584000,94
+"2007","City EITC","Queens",211039,19658000,93
+"2007","City EITC","Staten Island",24869,2376000,96
+"2007","State EITC","Bronx",196021,129757000,662
+"2007","State EITC","Brooklyn",275968,168417000,610
+"2007","State EITC","Manhattan",142010,79002000,556
+"2007","State EITC","Queens",207396,113526000,547
+"2007","State EITC","Staten Island",24496,13747000,561
+"2007","Noncust. EITC","Bronx",121,53000,436
+"2007","Noncust. EITC","Brooklyn",132,58000,442
+"2007","Noncust. EITC","Manhattan",98,43000,440
+"2007","Noncust. EITC","Queens",87,36000,417
+"2007","Noncust. EITC","Staten Island",11,5000,483
+"2006","City EITC","Bronx",176560,18706000,106
+"2006","City EITC","Brooklyn",258720,25556000,99
+"2006","City EITC","Manhattan",136798,12273000,90
+"2006","City EITC","Queens",192057,16926000,88
+"2006","City EITC","Staten Island",22782,2050000,90
+"2006","State EITC","Bronx",174098,107606000,618
+"2006","State EITC","Brooklyn",253855,147164000,580
+"2006","State EITC","Manhattan",134022,70863000,529
+"2006","State EITC","Queens",187931,97345000,518
+"2006","State EITC","Staten Island",22362,11817000,528
+"2006","Noncust. EITC","Bronx",110,41000,372
+"2006","Noncust. EITC","Brooklyn",151,63000,417
+"2006","Noncust. EITC","Manhattan",107,49000,461
+"2006","Noncust. EITC","Queens",86,34000,395
+"2006","Noncust. EITC","Staten Island",13,4000,286
+"2005","City EITC","Bronx",160708,15943000,99
+"2005","City EITC","Brooklyn",247982,23426000,94
+"2005","City EITC","Manhattan",127296,10925000,86
+"2005","City EITC","Queens",183163,15564000,85
+"2005","City EITC","Staten Island",23092,2033000,88
+"2005","State EITC","Bronx",158948,91777000,577
+"2005","State EITC","Brooklyn",243123,134727000,554
+"2005","State EITC","Manhattan",127266,63618000,500
+"2005","State EITC","Queens",179702,89622000,499
+"2005","State EITC","Staten Island",22772,11740000,516
+"2004","City EITC","Bronx",155574,15142000,97
+"2004","City EITC","Brooklyn",243880,22460000,92
+"2004","City EITC","Manhattan",132863,11101000,84
+"2004","City EITC","Queens",177276,14459000,82
+"2004","City EITC","Staten Island",21599,1781000,82
+"2004","State EITC","Bronx",157360,86716000,551
+"2004","State EITC","Brooklyn",246765,129082000,523
+"2004","State EITC","Manhattan",135058,63771000,472
+"2004","State EITC","Queens",180104,82864000,460
+"2004","State EITC","Staten Island",22036,10251000,465
+"2003","State EITC","Bronx",164032,91997000,561
+"2003","State EITC","Brooklyn",251143,135329000,539
+"2003","State EITC","Manhattan",133040,65481000,492
+"2003","State EITC","Queens",182266,89547000,491
+"2003","State EITC","Staten Island",21463,10435000,486
+"2002","State EITC","Bronx",157673,77925000,494
+"2002","State EITC","Brooklyn",245262,118139000,482
+"2002","State EITC","Manhattan",128220,56642000,442
+"2002","State EITC","Queens",174167,76391000,439
+"2002","State EITC","Staten Island",20705,8963000,433
+"2001","State EITC","Bronx",156811,72086000,460
+"2001","State EITC","Brooklyn",232706,101556000,436
+"2001","State EITC","Manhattan",124398,52111000,419
+"2001","State EITC","Queens",164035,65525000,399
+"2001","State EITC","Staten Island",18340,7229000,394
+"2000","State EITC","Bronx",151412,60529000,400
+"2000","State EITC","Brooklyn",224946,85541000,380
+"2000","State EITC","Manhattan",120154,43783000,364
+"2000","State EITC","Queens",159614,56013000,351
+"2000","State EITC","Staten Island",17042,5865000,344
+"1999","State EITC","Bronx",139076,47251000,340
+"1999","State EITC","Brooklyn",218545,71962000,329
+"1999","State EITC","Manhattan",121345,37900000,312
+"1999","State EITC","Queens",158961,48818000,307
+"1999","State EITC","Staten Island",16288,4813000,295
+"1998","State EITC","Bronx",128936,42087000,326
+"1998","State EITC","Brooklyn",216374,69397000,321
+"1998","State EITC","Manhattan",111618,33655000,302
+"1998","State EITC","Queens",161919,49273000,304
+"1998","State EITC","Staten Island",15520,4508000,290
+"1997","State EITC","Bronx",118201,36577000,309
+"1997","State EITC","Brooklyn",210313,64366000,306
+"1997","State EITC","Manhattan",108177,31156000,288
+"1997","State EITC","Queens",158045,46116000,292
+"1997","State EITC","Staten Island",14811,4109000,277
+"1996","State EITC","Bronx",102913,29071000,282
+"1996","State EITC","Brooklyn",198264,56680000,286
+"1996","State EITC","Manhattan",113192,30140000,266
+"1996","State EITC","Queens",146882,40078000,273
+"1996","State EITC","Staten Island",13719,3580000,261
+"1995","State EITC","Bronx",99505,13110000,132
+"1995","State EITC","Brooklyn",197062,26119000,133
+"1995","State EITC","Manhattan",104300,12665000,121
+"1995","State EITC","Queens",150980,19085000,126
+"1995","State EITC","Staten Island",14384,1701000,118
+"1994","State EITC","Bronx",84073,7320000,87
+"1994","State EITC","Brooklyn",167670,14758000,88
+"1994","State EITC","Manhattan",86138,6882000,80
+"1994","State EITC","Queens",128081,10849000,85
+"1994","State EITC","Staten Island",12182,946000,78
