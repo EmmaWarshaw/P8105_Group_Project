@@ -26,3 +26,84 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+Roofs planted with vegetation — **Urban Green Spaces (UGS)** — can help cities adapt to a changing climate by absorbing storm water, lowering local temperatures, and providing insulation that cuts indoor heating and cooling costs. Yet green roofs **cover less than 0.1% of New York City’s 1 million buildings**, according to a [new analysis performed by colleagues at Columbia University](https://news.climate.columbia.edu/2022/11/01/new-study-provides-first-look-at-green-roof-distribution-across-nyc/).
+
+Hereby we present a **secondary analysis of the publicly available dataset**, which includes data from n=736 UGS as of 2016. In complementary analyses found within the project website, we **draw links to economical, clinical and environmental factors** which could potentially be associated with the distribution of UGS within New York City (NYC).
+
+## Goals of the analysis
+
+The primary goal of this analysis is to provide a primary dataset of NYC Urban Green Spaces upon which regression analysis can be conducted with potentially associated dimensions (temperature, econometrics, and health outcomes).
+
+Secondly, this analysis aims to provide:
+
+* a descriptive analysis of the NYC Urban Green Spaces (UGS) primary dataset, as well as stratified analysis at the City Council District and Borough levels;
+* relevant data visualizations of the above (notably including a map using the `leaflet` package);
+* an attempt to fit the dataset into a linear regression model to elucidate differences in the distributuion of UGS surfaces at the City Council District and Borough levels.
+
+## Data load & wrangling
+
+The **primary Urban Green Spaces (UGS) dataset** is loaded and wrangled to generate a **`UG_df` dataframe**. The following procedure is applied: 
+
+* select relevant variables using `select()`
+* rename certain variables for comprehension using `remame()`
+* re-order the variables using `arrange()`
+* drop entries with now total green area available using `drop_na()` 
+* calculate percentage of green coverage of each building, as well as `recode()` borough names and ownership status, and convert sqm int sqm, using `mutate()`
+* note ownertypes are aggregated into "Public", "Private" and "Other" as per mapPLUTO definitions (refer to the codebook for more details). Given the presence of "na", the `replace_na()` function is employed.
+
+```{r, message = FALSE, warning = FALSE}
+UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) %>% 
+  janitor::clean_names() %>% 
+  select(fid:notes, address:ycoord, -doitt_id, -qa, -feat_code, -spdist1, -bbl_fixed) %>% 
+  rename(
+    UG_id = fid,
+    latitude = ycoord,
+    longitude = xcoord,
+    cons_year = cnstrct_yr,
+    green_area = gr_area,
+    building_area = bldg_area
+  ) %>% 
+  mutate(
+    prop_gr = prop_gr*100,
+    borough = recode(borough,
+         BK = "Brooklyn",
+         BX = "Bronx",
+         MN = "Manhattan", 
+         QN = "Queens",
+         SI = "Staten Island"),
+    ownertype = recode(ownertype,
+         C = "Public",
+         M = "Other",
+         O = "Public", 
+         P = "Private",
+         X = "Other",
+         P = "Private"),
+    ownertype = replace_na(ownertype, "Private"),
+    green_area = green_area*0.09290304,
+    building_area = building_area*0.09290304,
+    heightroof = heightroof*0.3048,
+    groundelev = groundelev*0.3048
+  ) %>% 
+  select(UG_id, cons_year, borough, zonedist1, address, ownertype, longitude, latitude, green_area:groundelev, everything()) %>% 
+  drop_na(green_area) 
+```
+
+Notably, the same authors provide an aggregated dataset at the City Council District which is loaded as a **secondary UGS dataset** under the **`UG_agg_df`** name.
+
+```{r, message = FALSE, warning = FALSE}
+UG_agg_df= read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na = c("","Unknown")) %>% 
+  janitor::clean_names() %>% 
+  select(coun_dist:prop_greenroofarea_of_bldgarea) %>% 
+  rename(
+    green_area = greenroof_area_sqmeters,
+    building_area = bldg_area_total_sqmeters,
+    prop_gbuild = prop_greenroofs_of_bldgs,
+    prop_gr = prop_greenroofarea_of_bldgarea
+  ) %>% 
+  mutate(
+    prop_gr = prop_gr*100,
+    prop_gbuild = prop_gbuild*100,
+    green_area = green_area*0.09290304,
+    building_area = building_area*0.09290304
+  )
+```
