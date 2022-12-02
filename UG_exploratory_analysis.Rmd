@@ -255,6 +255,22 @@ UG_overtime %>%
 **Consider**: split into 5 differnt lines per borough, as example [here](https://stackoverflow.com/questions/66105937/time-series-cumulative-data-plots-using-ggplot2)
 
 
+### Distribution of UGS overall
+Right-skewed distribution of UGS size. 
+
+```{r}
+UG_dist = UG_df %>%
+  filter(green_area <6000) %>%
+  ggplot(aes(x = green_area)) + 
+  geom_density() +
+  labs(
+    title = "Distribution of Urban Green Spaces (UGS)",
+    x = "Green Area (sqm)",
+    y = "Percentage")
+
+UG_dist
+```
+
 ### Distribution of UGS surface by borough
 
 Finally, the distribution of UGS surface by borough is investigated. The "UG_df" is first plotted on a boxplot to have a better understanding of outliers. Given the presence of considerable outliers, the plotted green area surface is then limited to 67,000 sqm and visualized through a violin plot and a ridge plot.
@@ -369,7 +385,6 @@ ANOVA2a = aov(cumsum_dummy ~ borough, data = UG_overtime)
 ANOVA2a %>% 
   broom::tidy()
 ```
-
 
 ## Acknowledgement
 
