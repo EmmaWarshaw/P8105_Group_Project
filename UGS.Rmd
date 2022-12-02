@@ -270,12 +270,30 @@ We observe a progressive construction of UGS overtime, with a rampant trend as o
 
 In this section, we perform different regression analyses to understand whether the location within NYC (x: predictor variables, both "borough" and "city council district") influences either the size or number of UGS (y: outcome variable, both "green_area" and "num_greenroofs").
 
-### UGS development overtime in NYC
-ANOVA test of differences of green_area means by borough
+### UGS number by borough and city council district
+We first investigate whether there are differences in the amount of UGS by borough and city council district (using the `UG_agg_df`). We run linear regression `lm()` models.
 
 ```{r}
-ANOVA1 = aov(green_area ~ borough, data = UG_df)
+fit1 = lm(num_greenroofs ~ borough, data = UG_agg_df)
 
-ANOVA1 %>% 
+fit1 %>% 
   broom::tidy()
 ```
+
+```{r}
+fit2 = lm(num_greenroofs ~ coun_dist, data = UG_agg_df)
+
+fit2 %>% 
+  broom::tidy()
+```
+
+### UGS surface by borough 
+Next, we investigate differences on the UGS surface area by borough. Given the presence of outliers and a right-skewed distribution observed in the descriptive analysis above, we apply a Kruskal-Wallis test.
+
+```{r}
+fit3 = kruskal.test(green_area ~ borough, data = UG_df)
+
+fit3 %>% 
+  broom::tidy()
+```
+**Interpretations of the lm models pending**
