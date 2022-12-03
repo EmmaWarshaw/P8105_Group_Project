@@ -11,8 +11,12 @@ title: "Our Team"
 -   [LinkedIn]()
 
 #### Warshaw, Emma: 
+
+<img src="images/Warshaw_headshot.jpg" style="width:40%">
+
 -   [Contact here](mailto:<ew2718@cumc.columbia.edu>)
--   [LinkedIn]()
+-   [LinkedIn](https://www.linkedin.com/in/emma-warshaw-a8047b151/)
+-   Emma specializes in Population and Family Health, health policy, and data science, bringing an interdisciplinary approach to this project.  She is interested in using data science to create better policy that puts the health of individuals and families first.
 
 #### Kim, Esther: 
 -   [Contact here](mailto:<ei2262@cumc.columbia.edu>)
