@@ -2,26 +2,50 @@
 title: "Our Team"
 ---
 
-#### Mallafre Larrosa, Meritxell: 
+#### Mallafre Larrosa, Meritxell
+
+<img src="images/MML_pic.jpeg" style="width:40%">
+
 -   [Email](mailto:<mm5951@cumc.columbia.edu>)
--   [LinkedIn]()
+-   [LinkedIn](https://www.linkedin.com/in/meritxellml/)
 
-#### Hauser, Tim: 
+Meritxell is a Medical Doctor (MD, University of Barcelona, 2020) in pursuit of a career at the intersection of Cancer Control and Global Health Governance. As such, she brings a breadth of practical experience to this project and pushes all members through her quantitative and qualitative data skills.
+In relation to this project, coming from one of the most beautiful places in the world, she is interested in the effect of green spaces in the context of a highly urbanized environment (NYC).
+
+
+#### Hauser, Tim
+
+<img src="images/Tim_pic.jpeg" style="width:40%">
+
+
 -   [Email](mailto:<th2899@cumc.columbia.edu>)
--   [LinkedIn]()
+-   [LinkedIn](https://www.linkedin.com/in/hausertim/)
 
-#### Warshaw, Emma: 
+
+#### Warshaw, Emma
+
+<img src="images/Emma_pic.jpeg" style="width:40%">
+
+
 -   [Email](mailto:<ew2718@cumc.columbia.edu>)
--   [LinkedIn]()
+-   [LinkedIn](https://www.linkedin.com/in/emma-warshaw-a8047b151/)
 
-#### Kim, Esther: 
+
+#### Kim, Esther
+
+<img src="images/Esther_pic.jpeg" style="width:40%">
+
 -   [Email](mailto:<ei2262@cumc.columbia.edu>)
--   [LinkedIn]()
+-   [LinkedIn](https://www.linkedin.com/in/kim-h-esther/)
 
-#### Hess, Niklas: 
+
+#### Hess, Niklas
 
 <img src="images/Headshot_Hess.jpeg" style="width:40%">
 
+
 -   [Email](mailto:<nh2706@cumc.columbia.edu>)
 -   [LinkedIn](https://www.linkedin.com/in/niklas-hess/)
--   Niklas brings an international perspective, coupled with expertise in analytics and experience in Consulting and Private Equity, to this project. As such, he is interested in solutions that have business value and have successfully been implemented in other parts of the world. In relation to this project, he tries to go beyond theoretical findings, uncovering realities that can immediately be tackled.
+
+Niklas brings an international perspective, coupled with expertise in analytics and experience in Consulting and Private Equity, to this project. As such, he is interested in solutions that have business value and have successfully been implemented in other parts of the world. 
+In relation to this project, he tries to go beyond theoretical findings, uncovering realities that can immediately be tackled.
