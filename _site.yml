@@ -12,7 +12,7 @@ navbar:
     - text: "Health Data"
       href: healthd.html
     - text: "Temperature Data"
-      href: temphd.html
+      href: temp.html
     - text: "Analysis Dashboard"
       href: analysisd.html
     - text: "Codebook"

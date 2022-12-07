@@ -55,3 +55,51 @@ The same authors provide an additional dataset aggregated at the City Council Di
 * `prop_gbuild` - Proportion (%) of the buildings in each City Council District with a green roof
 * `prop_gr` - Proportion (%) of the rooftop area (building footprint area) covered by green roof within each City Council District
 
+## Temperature in NYC
+
+The datasets to analyze the s
+(NYC.gov)[https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/]. The full dataset came be found (Github)[https://github.com/nychealth/EHDP-data/tree/production/indicators]. 
+
+## Heat Vulnerability Index (NTA)
+
+The heat vulnerability index dataset shows the community-level heat impacts due to extreme heat events. The data were collected from 188 neighborhoods across the 5 boroughs of NYC. 
+
+The heat vulnerability index is on a 5-point scale, with 1 being the lowest risk and 5 being the highest risk. It is based on a statistical model that uses social and environmental factors, such as surface temperature, green space, air conditioning access, poverty, and Black population, to estimate the risk of heat-related death. The Black population was identified as the most excluded from heat resources. Residents who are at highest heat risk do not have or use air conditioning, are older or have chronic health conditions or serious mental illnesses.
+
+The dataset used is a collection of data sources:
+ - American Community Survey  (2013-2017 5-year estimates)
+ - New York City Department of Parks and Recreation (2017)
+ - U.S. Geological Survey LandSat (2018)
+ - United States Census Housing and Vacancy Survey (2017)
+
+## Daytime Summer Surface Temperature
+
+The daytime summer surface temperature dataset shows the surface temperatures of 188 neighborhood tabulation areas (NTAs) in New York City. NTAs  are neighborhoods that were created by the NYC Department of Planning by aggregating census tracts into 195 neighborhood-like areas. Some neighborhoods were combined to reach the minimum population of 15,000 per NTA.
+
+The daytime surface temperature was collected in Fahrenheit and varies based on vegetative covering and materials that retain heat, such as paved roads, sidewalks, and buildings. Neighborhoods with higher temperatures are seen to have more heat-exacerbated deaths associated with extreme heat events. The data source is the U.S. Geological Survey.
+
+NTAs were used because we were able to match the neighborhoods across the two datasets, Heat Vulnerability Index and Daytime Summer Surface Temperature
+
+**`envo_health` data**
+
+*`daytime_surface_temp` = daytime landsat thermal data on surface collected on July 17, 2018 (averaged spatially), Farenheit
+*`heat_vulnerability_index` = score ranging from 1 (lowest risk) to 5 (highest risk)
+*`neighborhood` = 188 neighborhood tabulation areas 
+*`latitude`, `longitude` = coordinates of the neighborhood tabulation areas (Note: Some coordinates may not accurately represent the combined NTAs due to multiple neighborhoods being grouped together)
+*`borough` = New York City boroughs
+*`geo_id` = geography ID for this entry (coded in the original dataset)
+
+**`envo_greenroof` data**
+
+The `envo_greenroof` dataset shows the average green area, average daytime surface temperature, and average heat vulnerability index for each of the 5 boroughs in NYC. This dataset was created by taking the average of green area (calculated using the primary dataset) and merging it with the average of daytime surface temperature and average heat vulnerability index (calculated using the `envo_health` dataset). 
+
+*`borough` = New York City boroughs
+*`avg_green_area` = average area of the footprint of the green roof as per this data layer, in square meter
+*`avg_daytime_temp` = average daytime surface temperature, Farenheits
+*`avg_heat_index` = average heat vulnerability index score 
+
+References
+
+1. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Heat vulnerability index (NTA). Accessed at "https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/" on 12/06/2022.
+
+2. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Daytime summer surface temperature. Accessed at "https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/" on 12/06/2022.
