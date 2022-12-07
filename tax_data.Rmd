@@ -315,8 +315,34 @@ tax_comp_df = eitc_data %>%
     tax_year = as.numeric(tax_year)
   )
 
-greenspace_tax_comp = nyc_trend = left_join(tax_comp_df, greenspace_df, by = c("borough" = "borough", "tax_year" = "tax_year"))
+greenspace_tax_comp = nyc_trend = left_join(tax_comp_df, greenspace_df, by = c("borough" = "borough", "tax_year" = "tax_year")) %>% 
+  select(-c(noncust_eitc))
 
+greenspace_time = greenspace_tax_comp %>%
+  ggplot(aes(x = tax_year, y = green_area_cum, color = borough)) + 
+  geom_point() + geom_line() +
+  labs(
+    x = "Tax year", 
+    y = "Cummulative Greenspace (m^2)"
+  ) 
 
+ggplot_greenspace = ggplotly(greenspace_time) %>% 
+  add_lines(name = "greenspace", legendgroup = "greenspace")
+
+average_tax_time = greenspace_tax_comp %>%
+  ggplot(aes(x = tax_year, y = eitc, color = borough)) + 
+  geom_point() + geom_line() + 
+  labs(
+    x = "Tax year", 
+    y = "Average EITC (dollars)", 
+  )
+
+ggplot_tax = ggplotly(average_tax_time) %>% 
+  add_lines(name = "tax", legendgroup = "tax")
+
+subplot(style(ggplot_greenspace, showlegend = FALSE), 
+        style(ggplot_tax, showlegend = TRUE), 
+        titleY = TRUE, 
+        shareX = TRUE) %>% 
+  layout(title = 'Side By Side: Cummulative Greenspace and Average EITC by Borough, 2006-2018')
 ```
-
