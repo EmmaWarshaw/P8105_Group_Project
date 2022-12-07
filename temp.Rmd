@@ -34,6 +34,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This analysis includes datasets that were retrieved from the number of  [Climate Datasets](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/?id=2141#display=summary) publicly available by NYC.gov. The datasets used are "Daytime Summer Surface Temperatures" and "Heat Vulnerability Index (NTA)". The NTA codes were used to merge the two datasets.
 
+## Why Temperature?
+
+It is hypothesized that urban green spaces are important in bringing down the air temperature in cities such as New York City. In this exploratory analysis, we will explore how high the temperatures are in New York City and if there is an association with the amount of green spaces in the area. 
+
 ```{r, echo = FALSE, include = FALSE}
 envo_health = read_csv("data/envo_health.csv") %>% 
   clean_names()
@@ -46,6 +50,8 @@ envo_health =
 ```
 
 # Summary Statistics
+
+## Mean Surface Daytime Temperature by Borough
 ```{r, echo = FALSE}
 envo_health %>% 
   group_by(borough) %>% 
@@ -53,7 +59,12 @@ envo_health %>%
     mean_daytime = mean(daytime_surface_temp)
   ) %>% 
   knitr::kable(digits = 3, align = "cc", caption = "Table 1: Mean Surface Daytime Temperature by Borough", col.names = c("Borough", "Mean Temperature (°C)"))
+```
 
+The daytime surface temperature was collected in Fahrenheit and varies based on vegetative covering and materials that retain heat, such as paved roads, sidewalks, and buildings. Neighborhoods with higher temperatures are seen to have more heat-exacerbated deaths associated with extreme heat events. In Table 1, there does not seem to much variability in the mean surface daytime temperature across the 5 boroughs. 
+
+## Mean Heat Vulnerability Index by Borough
+```{r, echo = FALSE}
 envo_health %>% 
   group_by(borough) %>% 
   summarise(
@@ -61,9 +72,10 @@ envo_health %>%
   ) %>% 
   knitr::kable(digits = 3, align = "cc", caption = "Table 2: Mean Heat Vulnerability Index by Borough", col.names = c("Borough", "Mean Heat Vulnerability Score"))
 ```
-Score
+*Note: Score ranges from 1 (lowest risk) to 5 (highest risk), with low vulnerability at no risk of heat illness and death.*
 
-Each neighborhood receives a score from 1 (lowest risk) to 5 (highest risk) based on a statistical model that uses social and environmental factors to estimate risk of heat-related death across NYC neighborhoods. A low vulnerability score does not mean no risk. Every neighborhood has residents at risk for heat illness and death. Residents who are at highest heat risk are those who do not have or use air conditioning and are older or have chronic health conditions or serious mental illnesses
+In Table 2, Bronx has the highest mean heat vulnerability score (4.086), making it the borough with the high risk of heat illness and death. Staten Island has the lowest mean heat vulnerability score (1.526), with residents having little to no risk of heat illness and death. Bronx is known to have a large Black population and a larger proportion of individuals with lower income. 
+
 
 # New York City Map
 #### Daytime Surface Temperature and Heat Vulnerability Index by Location
@@ -203,6 +215,8 @@ envoroof_map
 ```
 **The Christmas trees in the urban green spaces, daytime surface temperature, and heat vulnerability index New York City map represent the urban green spaces in New York City.**
 
+The map above shows a large percentage of urban green spaces located in lower Manhattan, which also has one of the lowest daytime surface temperatures and heat vulnerability index. In neighborhoods with higher daytime surface temperatures and heat vulnerability index, there is little to no urban green spaces. The amount of urban green spaces present may affect the daytime surface temperatures and heat vulnerability index of neighborhoods in New York City. 
+
 ```{r, echo = FALSE, include = FALSE}
 envo_greenroof = read_csv("data/envo_greenroof.csv") %>% 
   clean_names()
@@ -226,7 +240,10 @@ envo_greenroof_surfmodel =
 
 envo_greenroof_surfmodel %>% 
   knitr::kable(digits = 3, align = "lcccc", caption = "Table 6: Coefficient Estimates of Linear Model Assessing the Association Between Average Green Roof Surface Area and Average Daytime Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+```
+There does not seem to be a relationship between the average area of green roof and average daytime surface temperature. 
 
+```{r, echo = FALSE}
 envo_greenroof_heatmodel = 
   lm(avg_heat_index ~ avg_green_area, data = envo_greenroof) %>% 
   tidy() %>% 
@@ -239,8 +256,11 @@ envo_greenroof_heatmodel =
 envo_greenroof_heatmodel %>% 
   knitr::kable(digits = 3, align = "lcccc", caption = "Table 7: Coefficient Estimates of Linear Model Assessing the Association Between Average Green Roof Surface Area and Average Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
+There does not seem to be a relationship between the average area of green roof and average heat vulnerability index. 
 
-# Limitations
+# Conclusion and Limitations
+
+Although this analysis did not find an association between the amount of urban green spaces present and daytime surface temperature or the amount of urban green spaces present and heat vulnerability index, there still seems to be an effect of urban green spaces on air temperature in the 5 boroughs of New York City. Urban green spaces have been found to be effective in bringing down temperatures in neighborhood that lack enough green spaces, such as the Bronx. It is important to keep exploring the impact on urban green spaces, especially as a means to fight climate change!
 
 There are limitations to the temperature analyses. 
 

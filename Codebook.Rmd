@@ -64,7 +64,7 @@ The datasets to analyze the s
 
 The heat vulnerability index dataset shows the community-level heat impacts due to extreme heat events. The data were collected from 188 neighborhoods across the 5 boroughs of NYC. 
 
-The heat vulnerability index is on a 5-point scale, with 1 being the lowest risk and 5 being the highest risk. It is based on a statistical model that uses social and environmental factors, such as surface temperature, green space, air conditioning access, poverty, and Black population, to estimate the risk of heat-related death. The Black population was identified as the most excluded from heat resources.
+The heat vulnerability index is on a 5-point scale, with 1 being the lowest risk and 5 being the highest risk. It is based on a statistical model that uses social and environmental factors, such as surface temperature, green space, air conditioning access, poverty, and Black population, to estimate the risk of heat-related death. The Black population was identified as the most excluded from heat resources. Residents who are at highest heat risk do not have or use air conditioning, are older or have chronic health conditions or serious mental illnesses.
 
 The dataset used is a collection of data sources:
  - American Community Survey  (2013-2017 5-year estimates)
@@ -83,6 +83,7 @@ NTAs were used because we were able to match the neighborhoods across the two da
 **`envo_health` data**
 
 *`daytime_surface_temp` = daytime landsat thermal data on surface collected on July 17, 2018 (averaged spatially), Farenheit
+*`heat_vulnerability_index` = score ranging from 1 (lowest risk) to 5 (highest risk)
 *`neighborhood` = 188 neighborhood tabulation areas 
 *`latitude`, `longitude` = coordinates of the neighborhood tabulation areas (Note: Some coordinates may not accurately represent the combined NTAs due to multiple neighborhoods being grouped together)
 *`borough` = New York City boroughs
