@@ -1,0 +1,608 @@
+---
+title: "Asthma Rates & Urban Green Spaces in NYC"
+author: "th2899"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r, include = FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(leaflet)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+Asthma is triggered by an allergic reaction between the lungs and allergens in the environment including air pollution, diesel exhaust particles, tobacco smoke, cockroach particles, dander, and mold (Columbia Center for Children’s Environmental Health, 2022). Heightened asthma rates are one of the negative health outcomes resulting from high population density of cities (and resulting high density of environmental toxins being released into the atmosphere). The burden of asthma falls disproportionately on the most disadvantaged residents of New York City. A study has reported that children in East Harlem are 13 times more likely to go to the emergency room for asthma-related incidents compared to children in the nearby affluent Upper East side. The inequality is reflected by the 31% of East Harlem residents living in poverty compared to 7% in the Upper East Side. Racial demographics mirror this pattern, with East Harlem being ½ Latino and ⅓ Black compared to the 78% white Upper East Side (LóPez et al., 2015).
+
+Could roofs planted with vegetation, aka. **Urban Green Spaces (UGS)**, help reduce the burden of asthma? At least in theory, plants absorb gaseous pollutants that are  in the air. By absorbing  harmful gases, plants release oxygen into the atmosphere which could help to combat the harmful effects of air pollution. Our hypothesis is that by having green spaces in urbanised areas, such as rooftop vegetation, a higher quality of the air within the surrounding area could be achieved.
+
+In the following analysis, we will be drawing on a dataset of asthma hopsitalizations and ED visits between 2000 and 2019 in New York State, broken down by regions. A total of 3870 observations are recorded. 
+
+## Goals of the analysis
+
+The primary goal of this analysis is to provide an overview of asthma rates across the different boroughs of NYC. We would like to understand whether there have been any changes over time. Secondly, we would like to understand whether there might be any links between the UGS dataset and the asthma dataset. For example, did increases in the primary dataset on NYC Urban Green Spaces also correlate with a simultaneous decrease in asthma rates? 
+
+## Data load & wrangling
+
+We load and wrangle the **two primary Urban Green Spaces (UGS) dataset** as described in the page dedicated to the UGS dataset to generate a **`UG_df` dataframe** and an  **`UG_agg_df` dataframe**.
+
+```{r, message = FALSE, warning = FALSE}
+UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) %>% 
+  janitor::clean_names() %>% 
+  select(fid:notes, address:ycoord, -doitt_id, -qa, -feat_code, -spdist1, -bbl_fixed) %>% 
+  rename(
+    UG_id = fid,
+    latitude = ycoord,
+    longitude = xcoord,
+    cons_year = cnstrct_yr,
+    green_area = gr_area,
+    building_area = bldg_area
+  ) %>% 
+  mutate(
+    prop_gr = prop_gr*100,
+    borough = recode(borough,
+         BK = "Brooklyn",
+         BX = "Bronx",
+         MN = "Manhattan", 
+         QN = "Queens",
+         SI = "Staten Island"),
+    ownertype = recode(ownertype,
+         C = "Public",
+         M = "Other",
+         O = "Public", 
+         P = "Private",
+         X = "Other",
+         P = "Private"),
+    ownertype = replace_na(ownertype, "Private"),
+    green_area = green_area*0.09290304,
+    building_area = building_area*0.09290304,
+    heightroof = heightroof*0.3048,
+    groundelev = groundelev*0.3048
+  ) %>% 
+  select(UG_id, cons_year, borough, zonedist1, address, ownertype, longitude, latitude, green_area:groundelev, everything()) %>% 
+  drop_na(green_area) 
+```
+
+Next, we load and wrangle the **secondary NY Asthma dataset** as described in the page dedicated to the UGS dataset to generate a **`asthma_df` dataframe**. The dataset is available in the "data" folder within the project's repository. The following procedure is then applied: 
+
+* select relevant variables using `select()`
+* rename certain variables for comprehension using `remame()`
+* re-order the variables using `arrange()`
+* drop entries with now total green area available using `drop_na()` 
+* calculate percentage of green coverage of each building, as well as `recode()` borough names and ownership status, and convert sqm int sqm, using `mutate()`
+* note ownertypes are aggregated into "Public", "Private" and "Other" as per mapPLUTO definitions (refer to the codebook for more details). Given the presence of "na", the `replace_na()` function is employed.
+
+```{r, message = FALSE, warning = FALSE}
+asthma_df = read_csv("./data/NYS_ASTHMA.csv", na = c("","Unknown")) %>% 
+  janitor::clean_names() %>% 
+  filter(county %in% c("Bronx", "Kings", "Queens", "New York County", "New York City", "Richmond")) %>%
+  filter(year  %in% c("2005-2007", "2006-2008", "2007-2009", "2008-2010", "2009-2011", "2010-2012", "2011-2013", "2012-2014", "2013-2015", "2014-2016", "2015-2017", "2016-2018", "2017-2019")) %>% 
+  select(-subgroup1, -subgroup_cat1:-subgroup_cat2, -c_rate10k:-c_rate10kpy, -aa_rate10k) %>% 
+  rename(borough = county) %>% 
+  mutate(
+    borough = recode(borough,
+                     "Kings" = "Brooklyn",
+                     "New York County" = "Manhattan",
+                     "Richmond" = "Staten Island"),
+    year = recode(year,
+                  "2005-2007" = 2006,
+                  "2006-2008" = 2007, 
+                  "2007-2009" = 2008, 
+                  "2008-2010" = 2009, 
+                  "2009-2011" = 2010, 
+                  "2010-2012" = 2011, 
+                  "2011-2013" = 2012, 
+                  "2012-2014" = 2013, 
+                  "2013-2015" = 2014, 
+                  "2014-2016" = 2015, 
+                  "2015-2017" = 2016, 
+                  "2016-2018" = 2017, 
+                  "2017-2019" = 2018),
+    borough = recode(borough,
+                     "Kings" = "Brooklyn",
+                     "New York County" = "Manhattan",
+                     "Richmond" = "Staten Island")
+  )
+```
+
+
+**ADD LINK TO CODEBOOK** 
+Note that all variable names are available in the [project's codebook](codebook.html).
+
+## Descriptive analysis
+
+Next, we perform a descriptive analysis of the NY Astma secondary dataset, as well as stratified analysis at the borough level.
+
+### Overall `asthma_df` Datset Descriptive Analysis
+
+Overall, the ***asthma_df** contains contains `r ncol(asthma_df)` variables related to `r nrow(asthma_df)` measures of asthma in NYC. The total UGS area in NYC sums to `r sum(UG_df$green_area)` square meter. The following table summarizes the average UGS in NYC, including its size (in square meter), height (in meter) and percentage of green coverage (that is, the proportion of green space within the total building area). Key variables are summarized in the table below using `knitr:kable()`.
+
+```{r}
+asthma_df %>% 
+  filter(indicator == "ED Visits") %>% 
+  filter(borough == "New York City") %>% 
+  ggplot(aes(year, aa_rate10kpy)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "loess", se = FALSE, color = "red") +
+  labs(
+    title = "ED Visits per 10k inhabitants over time",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+```{r}
+asthma_df %>% 
+  filter(indicator == "Hospitalizations") %>% 
+  filter(borough == "New York City") %>% 
+  ggplot(aes(year, aa_rate10kpy)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "loess", se = FALSE, color = "red") +
+  labs(
+    title = "Hospitalizations per 10k inhabitants over time",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+By borough
+
+```{r}
+asthma_df %>% 
+  filter(indicator == "ED Visits") %>% 
+  filter(borough != "New York City") %>%
+  ggplot(aes(year, aa_rate10kpy, color = borough)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "ED Visits per 10k inhabitants over time",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+```{r}
+asthma_df %>% 
+  filter(indicator == "Hospitalizations") %>% 
+  filter(borough != "New York City") %>%
+  ggplot(aes(year, aa_rate10kpy, color = borough)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "Hospitalizations per 10k inhabitants over time",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+**average**
+
+per 10k
+
+```{r}
+asthma_df %>%
+  group_by(indicator, borough) %>% 
+  summarize(
+    mean_values = mean(aa_rate10kpy)) %>% 
+  pivot_wider(
+    names_from = "indicator",
+    values_from = "mean_values") %>% 
+  knitr::kable(digits = 2)
+```
+
+```{r}
+asthma_df %>%
+  filter(indicator == "ED Visits") %>% 
+  ggplot(aes(x = borough, y = aa_rate10kpy)) +
+  geom_bar(stat = "identity")
+```
+
+```{r}
+asthma_df %>%
+  filter(borough != "New York City") %>% 
+  filter(indicator == "ED Visits") %>% 
+  ggplot(aes(x = borough, y = count)) +
+  geom_bar(stat = "identity")
+```
+
+
+**snapshot 2018**
+
+per 10k
+
+```{r}
+asthma_df %>%
+  filter(year == 2018) %>% 
+  group_by(indicator, borough) %>% 
+  summarize(
+    current_values = aa_rate10kpy) %>% 
+  pivot_wider(
+    names_from = "indicator",
+    values_from = "current_values") %>% 
+  knitr::kable(digits = 2)
+```
+
+```{r}
+asthma_df %>%
+  filter(year == 2018) %>% 
+  filter(indicator == "ED Visits") %>% 
+  ggplot(aes(x = borough, y = aa_rate10kpy)) +
+  geom_bar(stat = "identity")
+```
+
+```{r}
+asthma_df %>%
+  filter(year == 2018) %>% 
+  filter(indicator == "Hospitalizations") %>% 
+  ggplot(aes(x = borough, y = aa_rate10kpy)) +
+  geom_bar(stat = "identity")
+```
+
+
+total
+
+```{r}
+asthma_df %>%
+  filter(year == 2018) %>% 
+  group_by(indicator, borough) %>% 
+  summarize(
+    current_values = count) %>% 
+  pivot_wider(
+    names_from = "indicator",
+    values_from = "current_values") %>% 
+  knitr::kable(digits = 2)
+```
+
+```{r}
+asthma_df %>%
+  filter(borough != "New York City") %>% 
+  filter(year == 2018) %>% 
+  filter(indicator == "ED Visits") %>% 
+  ggplot(aes(x = borough, y = count)) +
+  geom_bar(stat = "identity")
+```
+
+
+### Linear Models
+
+```{r}
+asthma_df_lm = asthma_df %>% 
+  filter(borough != "New York City") %>% 
+  mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island")))
+```
+
+
+
+```{r}
+fit1 = lm(aa_rate10kpy ~ borough, data = asthma_df_lm)
+
+fit1 %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 2)
+```
+
+
+### COMPARISON WITH UGS
+
+
+```{r}
+UG_df %>%
+  drop_na(cons_year) %>% 
+  filter(cons_year > 2005) %>% 
+  arrange(borough, cons_year) %>% 
+  select(cons_year, borough, green_area) %>% 
+  group_by(borough, cons_year) %>% 
+  summarize(
+    green_area_sum = sum(green_area)) %>% 
+  mutate(green_area_cum = cumsum(green_area_sum)) %>% 
+  knitr::kable(digits = 2)
+
+ug_bronx = UG_df %>%
+  drop_na(cons_year) %>% 
+  filter(cons_year > 2005) %>% 
+  arrange(borough, cons_year) %>% 
+  select(cons_year, borough, green_area) %>% 
+  filter(borough == "Bronx") %>% 
+  group_by(cons_year) %>% 
+  summarize(
+    green_area_sum = sum(green_area)) %>% 
+  mutate(green_area_cum = cumsum(green_area_sum),
+         borough = "Bronx") 
+
+ug_brook = UG_df %>%
+  drop_na(cons_year) %>% 
+  filter(cons_year > 2005) %>% 
+  arrange(borough, cons_year) %>% 
+  select(cons_year, borough, green_area) %>% 
+  filter(borough == "Brooklyn") %>% 
+  group_by(cons_year) %>% 
+  summarize(
+    green_area_sum = sum(green_area)) %>% 
+  mutate(green_area_cum = cumsum(green_area_sum),
+         borough = "Brooklyn")
+
+ug_manh = UG_df %>%
+  drop_na(cons_year) %>% 
+  filter(cons_year > 2005) %>% 
+  arrange(borough, cons_year) %>% 
+  select(cons_year, borough, green_area) %>% 
+  filter(borough == "Manhattan") %>% 
+  group_by(cons_year) %>% 
+  summarize(
+    green_area_sum = sum(green_area)) %>% 
+  mutate(green_area_cum = cumsum(green_area_sum),
+         borough = "Manhattan")
+
+ug_queens = UG_df %>%
+  drop_na(cons_year) %>% 
+  filter(cons_year > 2005) %>% 
+  arrange(borough, cons_year) %>% 
+  select(cons_year, borough, green_area) %>% 
+  filter(borough == "Queens") %>% 
+  group_by(cons_year) %>% 
+  summarize(
+    green_area_sum = sum(green_area)) %>% 
+  mutate(green_area_cum = cumsum(green_area_sum),
+         borough = "Queens")
+  
+ug_tidy = bind_rows(ug_bronx, ug_brook, ug_manh, ug_queens) %>% 
+  rename(year = cons_year)
+```
+
+
+visualize
+
+```{r}
+ug_tidy %>% 
+  group_by(year) %>% 
+  summarise(overall = sum(green_area_cum)) %>% 
+  ggplot(aes(year, overall)) +
+  geom_point(alpha = .5)
+```
+
+```{r}
+ug_tidy %>% 
+  ggplot(aes(year, green_area_cum, color = borough)) +
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE)
+```
+
+
+combine
+
+
+```{r}
+combined_df = left_join(asthma_df_lm, ug_tidy, by=c('year'='year', 'borough'='borough')) %>% 
+  select(-green_area_sum)
+```
+
+```{r}
+comb_man_df = combined_df %>% 
+  filter(borough == "Manhattan")
+
+fit2 = lm(aa_rate10kpy ~ green_area_cum, data = comb_man_df)
+
+fit2 %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 2)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+UG_df %>% 
+  summarize(
+    mean_green = mean(green_area, na.rm = TRUE),
+    median_green = median(green_area),
+    min_green = min(green_area),
+    max_green = max(green_area),
+    mean_height = mean(heightroof, na.rm = TRUE),
+    perc_green = mean(prop_gr, na.rm = TRUE)
+    ) %>% 
+    knitr::kable(digits = 2)
+```
+
+Overall, within New York City, UGS have an **mean size of 334.52 sqm (range 0.94-25,763.66 sqm)**. The broad range of values, as well as the median situated at 109.06 sqm (way below the mean), it suggests this variable's **right-skewed distribution**. We will explore this more in the "data visualization" section below. On average, UGS in NYC are situated at **43.47 m of height**, and **cover 19.63% of the total building's surface**.
+
+### Stratified Analysis by Borough
+
+When stratified by borough, differences in the number and dimensions of UGS become apparent. Following a similar procedure as above, we generate a summary table below, arranged according to the amount of UGS present in each borough.
+
+```{r}
+UG_df %>% 
+  group_by(borough) %>% 
+  summarize(
+    n = n(),
+    perc = n()/736*100,
+    tot_green = sum(green_area),
+    mean_green = mean(green_area, na.rm = TRUE),
+    median_green = median(green_area),
+    min_green = min(green_area),
+    max_green = max(green_area),
+    mean_height = mean(heightroof, na.rm = TRUE),
+    perc_green = mean(prop_gr, na.rm = TRUE)
+    ) %>% 
+  arrange(desc(n)) %>% 
+  knitr::kable(digits = 2)
+```
+
+**Manhattan** contains over 63% of all NYC's UGS (n=465), situated at a considerably higher altitude (mean height 54.24 m). Nevertheless, its UGS are also the smallest in percentual terms when asessing the proportion of building coverage (15.24%). Conversely, **Queens** and **Staten Island** have the lowest amoung of UGS (n=50 and n=4, respectively), but their UGS area the biggest on average (mean sizes of 468.55 and 456.72 sqm, respectively). These results could be linked to the property prices in each areas (further analysis would be needed to assess so).
+
+
+### Stratified Analysis by City Council District 
+
+Although NYC city council districts typically correspond to borough sub-divisions, the equivalence is not perfect (note council district #8 belongs to both Manhattan and Bronx, more info [here](https://council.nyc.gov/districts/)). In that sense, the same authors provide a similar dataset aggregated at the City Council District level, which we have loaded with the `UG_agg_df` name. A similar descriptive analysis as above is performed. Notably, in this dataset the total number of buildings per district is available, and therefore we compute the percentage of buildings with an UGS.
+
+```{r}
+UG_agg_df %>% 
+  group_by(coun_dist) %>% 
+  summarize(
+    borough = borough,
+    n = num_greenroofs,
+    perc_UGS = num_greenroofs/736*100,
+    perc_building = num_greenroofs/num_bldgs_total*100,
+    mean_green = mean(green_area/num_greenroofs, na.rm = TRUE),
+    ) %>% 
+  arrange(desc(n)) %>% 
+  knitr::kable(digits = 2)
+```
+
+As a result, we observe that **3 City Council Districts in Manhattan concentrate over half of the borough's UGS (n=318)**, with over 1% of its buildings covered by green spaces. Conversely, **8 districts within Bronx, Queens, Brooklyn and Staten Island have no UGS at all**. These results suggest the existence of distribution differences, which will be addressed in the last section of this analysis.
+
+
+
+## Data visualization
+
+### Mapping UGS in NYC
+Using the `leaflet` package, we plot each UGS on a NYC map. A `pal()` function is generated to establish a color according to the size of the UGS.
+
+```{r}
+pal <- colorNumeric(
+  palette = "viridis",
+  domain = UG_df$green_area)
+
+UG_map = UG_df %>% 
+  mutate(
+    green_area = round(green_area, digit = 2),
+    heightroof = round(heightroof, digit = 2),
+    click_label = 
+      str_c("<b>Area ", green_area, " sqm</b><br>Height ", heightroof, " m<br>")) %>% 
+  leaflet() %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>% 
+  addCircleMarkers(~longitude, ~latitude, radius = .1, color = ~pal(green_area), popup = ~click_label)
+
+UG_map
+```
+
+As described above, we observe a concentration of UGS in southern Manhattan. Scarce green spaces are present in southern Brooklyn, Staten Island, Queens or the Bronx.
+
+
+### Distribution of UGS surface by borough
+
+Next, the distribution of UGS surface by borough is investigated. The `UG_df` is first plotted on a boxplot to have a better understanding of outliers (as we have indication of a right-skewed disribution according to the descriptive analysis above). 
+
+```{r}
+UG_boxplot = UG_df %>% 
+  ggplot(aes(x = green_area, y = borough)) + 
+  geom_boxplot() +
+  labs(
+    title = "Distribution of UGS surface by borough",
+    x = "Green Area (sqm)",
+    y = "Borough")
+
+UG_boxplot
+```
+
+Given the presence of considerable outliers, the plotted green area surface is then limited to 10,000 sqm and visualized through a violin plot.
+
+```{r}
+UG_violin = UG_df %>% 
+  filter(green_area <10000) %>% 
+  ggplot(aes(x = green_area, y = borough)) + 
+  geom_violin(aes(fill = borough), color = "blue", alpha = .5) +
+  theme(legend.position = "bottom") +
+  labs(
+    title = "Distribution of UGS surface by borough",
+    x = "Green Area (sqm)",
+    y = "Borough")
+
+UG_violin
+```
+
+Overall, these visualizations confirm the sparse distribution of UGS surface area (sqm) accross boroughs, as well as suggest differences according to its location (see map above). We will investigate this further through regression in the upcoming section.
+
+### UGS development overtime in NYC
+
+Finally, the construction of UGS trends is investigated overtime. To do so, the `cumsum()` function is used over a generated dummy variable that allocates the value "1" to all UGS. Note that the observations with an invalid or missing construction year are omited.
+
+```{r}
+UG_overtime = UG_df %>%
+  drop_na(cons_year) %>% 
+  filter(cons_year !=0) %>% 
+  arrange(cons_year) %>% 
+  mutate(
+    cumsum_dummy = 1,
+    cumulative_UG = cumsum(cumsum_dummy)
+  )
+  
+UG_overtime %>% 
+  group_by(borough) %>% 
+  ggplot(aes(cons_year, cumulative_UG, color = borough)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "Overtime construction of Urban Green Spaces (UGS)",
+    x = "Time (year)",
+    y = "Number of UGS")
+```
+
+We observe a progressive construction of UGS overtime, with a rampant trend as of early 2000s (potentially linked to urban planning regulations and greater interest in climate change mitigation strategies).
+
+## Regression analyses
+
+In this section, we perform different regression analyses to understand whether the location within NYC (x: predictor variables, both "borough" and "city council district") influences either the size or number of UGS (y: outcome variable, both "green_area" and "num_greenroofs").
+
+### UGS number by borough and city council district
+We first investigate whether there are differences in the amount of UGS by borough and city council district (using the `UG_agg_df`). We run linear regression `lm()` models.
+
+```{r}
+fit1 = lm(num_greenroofs ~ borough, data = UG_agg_df)
+
+fit1 %>% 
+  broom::tidy()
+```
+
+```{r}
+fit2 = lm(num_greenroofs ~ coun_dist, data = UG_agg_df)
+
+fit2 %>% 
+  broom::tidy()
+```
+
+### UGS surface by borough 
+Next, we investigate differences on the UGS surface area by borough. Given the presence of outliers and a right-skewed distribution observed in the descriptive analysis above, we apply a Kruskal-Wallis test.
+
+```{r}
+fit3 = kruskal.test(green_area ~ borough, data = UG_df)
+
+fit3 %>% 
+  broom::tidy()
+```
+**Interpretations of the lm models pending**
