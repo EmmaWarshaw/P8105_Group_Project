@@ -103,3 +103,29 @@ References
 1. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Heat vulnerability index (NTA). Accessed at "https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/" on 12/06/2022.
 
 2. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Daytime summer surface temperature. Accessed at "https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/" on 12/06/2022.
+
+
+## Asthma NYS Dataset
+
+The dataset provides data of the number and rate of asthma hospitalizations and emergency department (ED) visits in New York State. These data are presented by age groups, sex, month of year, and total population for 3 selected year intervals (ex. 2000-2002, 2001-2003, etc...). These data show only a small proportion of people who have asthma, those whose condition is serious enough to require an emergency department (ED) visit or hospital stay. Data show the number of asthma ED visits and hospitalizations rather than the number of patients who were admitted or seen for asthma related illness. For example, if a person was hospitalized twice they would be counted twice.
+
+### Asthma Age-Adjusted Hospitalization Rates
+
+Rates are calculated as the number of asthma hospitalizations per 10,000 residents in 5-year age groups using age-specific weights based on the estimated 2008-2010 population. The maps show average asthma age-adjusted hospitalization rates for the selected three year period. Users can compare asthma hospitalizations across counties in the following regions: New York State (whole state), New York City, New York State Excluding New York City. Users can see more clearly the differences in asthma hospitalization rates between the remaining New York State counties when New York City counties are removed from the display.
+
+### Asthma Age-Adjusted Emergency Department Visit Rates
+
+Rates are calculated as the number of asthma ED visits per 10,000 residents in 5-year age groups using age-specific weights based on the estimated 2008-2010 population. The maps show average asthma age-adjusted ED visit rates for the selected three year period. Users can compare asthma ED visits across counties in the following regions: New York State (whole state), New York City, New York State Excluding New York City. Users can see more clearly the differences in asthma ED visits rates between the remaining New York State counties when New York City counties are removed from the display.
+
+### Critical Variables
+
+The following variables are present in the wrangeles and tidied `asthma_df` (and `asthma2_df`) dataframes:
+
+* `borough` = New York City boroughs
+* `indicator` = shows what metric `aa_rate10ky` stands for: either age adjusted ED Visits (see explanation above), age adjusted Hospitalizations (see explanation above), or a self-created Severity Metric (ED visits divded by Hospitalizations, only present in `asthma2_df`)
+* `year` = year the measure was recorded
+* `aa_rate10kpy` = value of indicator per 10k inhabitants per year within a given borough
+* `count` = absolute value of indicator per year within a given borough 
+* `daily_average` = absolute value of indicator per day within a given borough and year
+
+
