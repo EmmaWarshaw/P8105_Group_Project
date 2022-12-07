@@ -166,6 +166,7 @@ asthma_df %>%
   filter(borough != "New York City") %>%
   ggplot(aes(year, aa_rate10kpy, color = borough)) +
   geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) +
   labs(
     title = "ED Visits per 10k inhabitants over time",
     x = "Time (year)",
@@ -216,6 +217,8 @@ asthma_df %>%
   geom_bar(stat = "identity")
 ```
 
+
+TBD: Showing ratio - hosp / ID visist
 
 **snapshot 2018**
 
@@ -275,6 +278,8 @@ asthma_df %>%
 
 
 ### Linear Models
+
+split ED and hosp and %
 
 ```{r}
 asthma_df_lm = asthma_df %>% 
@@ -387,6 +392,21 @@ combined_df = left_join(asthma_df_lm, ug_tidy, by=c('year'='year', 'borough'='bo
   select(-green_area_sum)
 ```
 
+
+```{r}
+library(zoo)
+
+test_df = combined_df %>% 
+  na.locf()
+
+test_df$green_area_cum[14] = 6843.786
+test_df$green_area_cum[79] = 6843.786
+
+# Emma: I had to replace two values, as the astham dataset is ED visits + Hospitalizations in one (so I had to replace 2x the Brookly/2006 value). Oh and one more thing: staten island is not usable obviously, as there are no values, so just disregard that in any combined UGS / tax data analysis.
+```
+
+
+
 ```{r}
 comb_man_df = combined_df %>% 
   filter(borough == "Manhattan")
@@ -395,7 +415,16 @@ fit2 = lm(aa_rate10kpy ~ green_area_cum, data = comb_man_df)
 
 fit2 %>% 
   broom::tidy() %>% 
-  knitr::kable(digits = 2)
+  knitr::kable(digits = 10)
+```
+
+
+```{r}
+fit3 = lm(aa_rate10kpy ~ green_area_cum, data = combined_df)
+
+fit3 %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 10)
 ```
 
 
