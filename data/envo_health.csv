@@ -1,0 +1,189 @@
+﻿Year,Neighborhood,daytime surface temp,heat vulnerability index,latitude,longitude,Borough,GeoID
+2018,Longwood,100.5059621,5,40.8248,-73.8916,Bronx,533
+2018,Allerton-Pelham Gardens,100.3260498,4,40.8593,-73.8565,Bronx,531
+2018,West Farms-Bronx River,98.45348523,4,40.8378,-73.8743,Bronx,508
+2018,Parkchester,99.13813341,4,40.8383,-73.8566,Bronx,546
+2018,Soundview-Bruckner,97.95714902,4,40.8164,-73.8678,Bronx,555
+2018,Woodlawn-Wakefield,99.18113081,4,40.8982,-73.8674,Bronx,562
+2018,Bronxdale,98.41129675,4,40.8507,-73.8665,Bronx,507
+2018,Schuylerville-Throgs Neck-Edgewater Park,98.31424687,1,40.8226,-73.8196,Bronx,552
+2018,Highbridge,98.34586192,5,40.8369,-73.9271,Bronx,526
+2018,North Riverdale-Fieldston-Riverdale,93.75325594,1,40.8898,-73.9022,Bronx,522
+2018,Spuyten Duyvil-Kingsbridge,96.01150345,2,40.8812,-73.9174,Bronx,529
+2018,Soundview-Castle Hill-Clason Point-Harding Park,98.66421206,4,40.8160,-73.8564,Bronx,509
+2018,Morrisania-Melrose,99.62527004,5,40.8311,-73.9059,Bronx,535
+2018,Norwood,95.82301036,4,40.8810,73.8785,Bronx,543
+2018,Bedford Park-Fordham North,97.36595337,4,40.8701,-73.8857,Bronx,505
+2018,Fordham South,97.90899079,5,40.8590,-73.8863,Bronx,540
+2018,Mount Hope,98.41642463,5,40.8489,-73.9051,Bronx,541
+2018,Eastchester-Edenwald-Baychester,99.75155476,5,40.8864,-73.8412,Bronx,503
+2018,Co-op City,97.24959011,2,40.8739,-73.8294,Bronx,513
+2018,East Tremont,99.61480703,5,40.8454,-73.8910,Bronx,517
+2018,Pelham Parkway,98.9602741,3,40.8553,-73.8640,Bronx,549
+2018,Kingsbridge Heights,97.28756036,4,40.8711,-73.8976,Bronx,530
+2018,University Heights-Morris Heights,97.78919346,5,40.8541,-73.9198,Bronx,536
+2018,Crotona Park East,99.96817839,5,40.8365,-73.8934,Bronx,575
+2018,East Concourse-Concourse Village,99.23604297,5,40.8234,-73.9201,Bronx,514
+2018,Williamsbridge-Olinville,98.94766622,5,40.8788,-73.8528,Bronx,544
+2018,Claremont-Bathgate,99.99337193,5,40.8453,-73.8983,Bronx,501
+2018,Belmont,98.66615307,5,40.8535,-73.8894,Bronx,506
+2018,Van Nest-Morris Park-Westchester Square,100.6371194,4,40.8484,-73.8637,Bronx,537
+2018,Westchester-Unionport,100.0616984,4,40.8273,-73.8501,Bronx,559
+2018,Melrose South-Mott Haven North,101.0500345,5,40.8090,-73.9229,Bronx,534
+2018,Pelham Bay-Country Club-City Island,97.12331344,1,40.8476,-73.7865,Bronx,510
+2018,Hunts Point,100.3563415,5,40.8094,-73.8803,Bronx,527
+2018,Mott Haven-Port Morris,99.78349601,5,40.8022,-73.9166,Bronx,539
+2018,West Concourse,97.86397915,5,40.8370,-73.8654,Bronx,563
+2018,Borough Park,99.88664623,4,40.6335,-73.9929,Brooklyn,4788
+2018,Homecrest,99.7768284,3,40.6005,-73.9566,Brooklyn,4725
+2018,Madison,99.5815292,2,40.6069,-73.9480,Brooklyn,4744
+2018,Kensington-Ocean Parkway,97.93548896,3,40.6357,-73.9727,Brooklyn,4741
+2018,Erasmus,98.62793997,5,40.6509,-73.9527,Brooklyn,4795
+2018,Clinton Hill,97.91798144,3,40.6897,-73.9661,Brooklyn,4769
+2018,Midwood,100.0216211,3,40.6204,-73.9600,Brooklyn,4743
+2018,Gravesend,97.08159805,3,40.5968,-73.9750,Brooklyn,4726
+2018,Bensonhurst East,97.4443799,3,40.6113,-73.9977,Brooklyn,4729
+2018,Williamsburg,100.9400709,5,40.7081,-73.9571,Brooklyn,4772
+2018,Bedford,99.10601538,5,40.6872,-73.9418,Brooklyn,4775
+2018,Stuyvesant Heights,98.40353384,5,40.6813,73.9438,Brooklyn,4735
+2018,Ocean Hill,100.6156822,5,40.6783,-73.9108,Brooklyn,4779
+2018,Crown Heights South,96.97785742,4,40.6681,-73.9448,Brooklyn,4763
+2018,Rugby-Remsen Village,99.64184773,5,40.6515,-73.9132,Brooklyn,4796
+2018,Starrett City,95.46796727,3,40.6501,-73.8837,Brooklyn,4793
+2018,East Flatbush-Farragut,100.5330843,5,40.6482,-73.9300,Brooklyn,4791
+2018,Bushwick South,100.6920085,5,40.6898,-73.9178,Brooklyn,4778
+2018,Bushwick North,99.46850629,4,40.6944,-73.9213,Brooklyn,4777
+2018,Ocean Parkway South,99.85968273,3,40.6131,-73.9686,Brooklyn,4746
+2018,Fort Greene,97.59009996,3,40.6921,-73.9742,Brooklyn,4768
+2018,East New York (Pennsylvania Ave),100.9352549,5,40.6704,-73.8955,Brooklyn,4785
+2018,Bath Beach,93.93655307,1,40.6039,-74.0062,Brooklyn,4727
+2018,Bensonhurst West,96.55480716,2,40.6113,-73.9977,Brooklyn,4728
+2018,North Side-South Side,99.30084261,3,40.7163,-73.9584,Brooklyn,4773
+2018,Brownsville,100.6871618,5,40.6652,-73.9125,Brooklyn,4781
+2018,Prospect Lefferts Gardens-Wingate,97.79867373,4,40.6590,-73.9507,Brooklyn,4760
+2018,Seagate-Coney Island,95.37607858,4,40.5768,-74.0080,Brooklyn,4721
+2018,Windsor Terrace,95.63084832,1,40.6539,-73.9757,Brooklyn,4740
+2018,Canarsie,99.18746771,4,40.6402,-73.9061,Brooklyn,4750
+2018,Flatbush,97.09132122,3,40.6415,-73.9594,Brooklyn,4742
+2018,Flatlands,100.5489472,4,40.6233,-73.9322,Brooklyn,4758
+2018,Park Slope-Gowanus,96.49922988,2,40.6711,-73.9814,Brooklyn,4737
+2018,Sheepshead Bay-Gerritsen Beach-Manhattan Beach,96.19700926,2,40.5912,-73.9446,Brooklyn,4717
+2018,East Williamsburg,100.0169823,4,40.7142,-73.9316,Brooklyn,4790
+2018,Brooklyn Heights-Cobble Hill,95.68860108,2,40.6960,-73.9933,Brooklyn,4709
+2018,DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill,98.08880548,3,40.6961,-73.9845,Brooklyn,4738
+2018,Georgetown-Marine Park-Bergen Beach-Mill Basin,99.39089197,2,40.6114,-73.9332,Brooklyn,4745
+2018,Carroll Gardens-Columbia Street-Red Hook,96.96953473,2,40.6874,-74.0021,Brooklyn,4733
+2018,Sunset Park East,96.68955268,3,40.6455,-74.0124,Brooklyn,4734
+2018,Sunset Park West,97.52891384,4,40.6455,-74.0124,Brooklyn,4732
+2018,Brighton Beach,95.49984914,3,40.5781,-73.9597,Brooklyn,4719
+2018,Greenpoint,98.71340828,3,40.7305,-73.9515,Brooklyn,4776
+2018,Dyker Heights,96.0590563,2,40.6168,-74.0183,Brooklyn,4730
+2018,Bay Ridge,93.95180299,1,40.6264,-74.0299,Brooklyn,4731
+2018,Crown Heights North,97.82917058,5,40.6681,-73.9448,Brooklyn,4761
+2018,Prospect Heights,96.61703529,3,40.6774,-73.9668,Brooklyn,4764
+2018,East New York,100.6624704,5,40.6591,-73.8759,Brooklyn,4782
+2018,Cypress Hills-City Line,98.95599168,4,40.7014,-73.8686,Brooklyn,4783
+2018,Clinton,98.27316566,2,40.7638,-73.9918,Manhattan,6115
+2018,Battery Park City-Lower Manhattan,92.562363,1,40.7116,-74.0158,Manhattan,6125
+2018,Lincoln Square,96.39471475,2,40.7738,-73.9845,Manhattan,6114
+2018,Midtown-Midtown South,97.48645553,2,40.7522,-73.9875,Manhattan,6117
+2018,Upper East Side-Carnegie Hill,97.47081353,1,40.7845,-73.9551,Manhattan,6140
+2018,Central Harlem North-Polo Grounds,98.39010671,5,40.8272,-73.9380,Manhattan,6103
+2018,Yorkville,96.63946686,1,40.7762,-73.9492,Manhattan,6132
+2018,Marble Hill-Inwood,97.08473142,3,40.8723,-73.9067,Manhattan,6101
+2018,Hudson Yards-Chelsea-Flatiron-Union Square,99.13090091,2,40.7465,-74.0014,Manhattan,6113
+2018,West Village,98.00360227,1,40.7347,-74.0048,Manhattan,6123
+2018,Upper West Side,95.50503561,1,40.7870,-73.9754,Manhattan,6112
+2018,Hamilton Heights,95.1472136,3,40.8253,-73.9476,Manhattan,6104
+2018,East Harlem South,97.75786465,4,40.7921,-73.9374,Manhattan,6133
+2018,Central Harlem South,98.34958117,5,40.8089,-73.9482,Manhattan,6111
+2018,East Harlem North,98.17807516,5,40.7957,-73.9389,Manhattan,6134
+2018,East Village,98.28278123,3,40.7265,-73.9815,Manhattan,6122
+2018,Lower East Side,97.43372259,3,40.7150,-73.9843,Manhattan,6128
+2018,Murray Hill-Kips Bay,97.81269679,2,40.7395,-73.9771,Manhattan,6120
+2018,Gramercy,99.92538267,3,40.7368,-73.9845,Manhattan,6121
+2018,Stuyvesant Town-Cooper Village,94.05055582,1,40.7320,-73.9780,Manhattan,6150
+2018,Manhattanville,96.75853841,4,40.8169,-73.9558,Manhattan,6106
+2018,Morningside Heights,96.21608824,2,40.8105,73.9621,Manhattan,6109
+2018,SoHo-TriBeCa-Civic Center-Little Italy,98.67849915,2,40.7293,-73.9874,Manhattan,6124
+2018,Chinatown,97.76658434,4,40.7158,-73.9970,Manhattan,6127
+2018,Washington Heights North,94.62675737,1,40.8520,-73.9360,Manhattan,6135
+2018,Washington Heights South,95.56111375,2,40.8402,-73.9402,Manhattan,6136
+2018,Turtle Bay-East Midtown,97.19526825,2,40.7571,73.9719,Manhattan,6119
+2018,Lenox Hill-Roosevelt Island,96.237478,1,40.7605,-73.9510,Manhattan,6131
+2018,Murray Hill,100.1024543,2,40.7479,-73.9757,Queens,8151
+2018,East Elmhurst,101.2176968,4,40.7738,-73.8713,Queens,8127
+2018,Hollis,102.367204,5,40.7112,-73.7625,Queens,8107
+2018,Fresh Meadows-Utopia,99.88598452,1,40.7327,-73.7849,Queens,8141
+2018,St. Albans,102.3406254,5,40.6895,-73.7644,Queens,8108
+2018,Jamaica Estates-Holliswood,98.37872136,1,40.7332,-73.7632,Queens,8106
+2018,Cambria Heights,102.4313774,4,40.6922,-73.7331,Queens,8133
+2018,Ridgewood,96.42482076,1,40.7044,-73.9018,Queens,8120
+2018,Queensbridge-Ravenswood-Long Island City,100.0018043,4,40.7557,-73.9457,Queens,8168
+2018,Glendale,97.60272096,2,40.7017,-73.8842,Queens,8119
+2018,Van Cortlandt Village,95.5629472,3,40.8837,-73.8931,Queens,528
+2018,Pomonok-Flushing Heights-Hillcrest,101.0543095,3,40.7323,-73.8108,Queens,8138
+2018,Queens Village,102.6698068,4,40.7157,-73.7419,Queens,8134
+2018,Middle Village,98.45919411,1,40.7174,-73.8743,Queens,8121
+2018,South Ozone Park,102.4467514,4,40.6764,-73.8125,Queens,8155
+2018,Maspeth,99.72052044,2,40.7294,-73.9066,Queens,8130
+2018,College Point,99.74570545,2,40.7864,-73.8390,Queens,8123
+2018,Douglas Manor-Douglaston-Little Neck,96.96541459,1,40.7590,-73.7397,Queens,8145
+2018,Auburndale,101.4404933,2,40.7578,-73.7834,Queens,8148
+2018,East Flushing,101.418616,2,40.7685,-73.8328,Queens,8152
+2018,Rosedale,99.22625859,3,40.6576,-73.7331,Queens,8105
+2018,Bayside-Bayside Hills,100.1625428,2,40.7531,-73.7662,Queens,8146
+2018,Old Astoria,97.62442989,3,40.7670,-73.9210,Queens,8171
+2018,Steinway,97.77586287,2,40.7745,-73.9037,Queens,8172
+2018,Ft. Totten-Bay Terrace-Clearview,97.98401077,1,40.7814,-73.7782,Queens,8147
+2018,Flushing,99.81605958,3,40.7675,-73.8331,Queens,8122
+2018,Springfield Gardens North,101.5070215,5,40.6626,-73.7684,Queens,8102
+2018,Oakland Gardens,97.96167588,1,40.7409,-73.7582,Queens,8142
+2018,Kew Gardens Hills,100.3330553,2,40.7247,-73.8208,Queens,8137
+2018,Corona,100.710801,4,40.7450,-73.8643,Queens,8125
+2018,North Corona,100.2777221,4,40.7544,-73.8669,Queens,8126
+2018,Forest Hills,98.63326093,2,40.7181,-73.8448,Queens,8117
+2018,Rego Park,100.0791442,3,40.7256,-73.8625,Queens,8118
+2018,Jackson Heights,99.03884791,2,40.7557,-73.8831,Queens,8128
+2018,Woodside,100.2248207,3,40.7533,-73.9069,Queens,8163
+2018,Briarwood-Jamaica Hills,101.0696527,3,40.7111,-73.8141,Queens,8135
+2018,Kew Gardens,98.05061647,2,40.7057,-73.8272,Queens,8160
+2018,Astoria,97.60236377,2,40.7644,-73.9235,Queens,8170
+2018,Queensboro Hill,99.95463356,2,40.7438,-73.8257,Queens,8162
+2018,Hammels-Arverne-Edgemere,93.70108657,3,40.5964,-73.7847,Queens,8112
+2018,Far Rockaway-Bayswater,95.9282564,4,40.6068,-73.7669,Queens,8115
+2018,Bellerose,100.55664,2,40.7362,-73.7137,Queens,8143
+2018,Glen Oaks-Floral Park-New Hyde Park,99.97110548,1,40.7239,-73.7058,Queens,8144
+2018,South Jamaica,102.7573889,5,40.6809,-73.7919,Queens,8101
+2018,Baisley Park,101.7113114,4,40.6738,-73.7860,Queens,8176
+2018,Laurelton,102.1181001,4,40.6776,-73.7448,Queens,8166
+2018,Hunters Point-Sunnyside-West Maspeth,99.11029112,3,40.7429,-73.9188,Queens,8131
+2018,Springfield Gardens South-Brookville,101.1868077,4,40.6626,-73.7684,Queens,8103
+2018,Woodhaven,100.4091347,3,40.6901,-73.8566,Queens,8153
+2018,Whitestone,99.87599413,1,40.7920,-73.8096,Queens,8149
+2018,Ozone Park,101.3239333,3,40.6794,73.8507,Queens,8156
+2018,Lindenwood-Howard Beach,96.85238947,1,40.6617,-73.8478,Queens,8157
+2018,Richmond Hill,102.3394208,4,40.6958,-73.8272,Queens,8154
+2018,Jamaica,102.5513715,5,40.7027,73.7890,Queens,8161
+2018,Breezy Point-Belle Harbor-Rockaway Park-Broad Channel,94.28468415,2,40.5510,-73.9376,Queens,8110
+2018,Elmhurst,100.8520893,3,40.7380,-73.8801,Queens,8129
+2018,Elmhurst-Maspeth,99.93787093,3,40.7429,-73.8800,Queens,8150
+2018,Arden Heights,97.73813675,1,40.5564,-74.1735,Staten Island,8548
+2018,Annadale-Huguenot-Prince's Bay-Eltingville,95.91782064,1,40.5290,-74.1976,Staten Island,8501
+2018,Charleston-Richmond Valley-Tottenville,93.95047383,1,40.5201,-74.2293,Staten Island,8511
+2018,Rossville-Woodrow,96.93967518,1,40.5457,-74.2163,Staten Island,8532
+2018,Grymes Hill-Clifton-Fox Hills,95.48650392,2,40.6187,-74.0935,Staten Island,8508
+2018,New Dorp-Midland Beach,99.10974709,1,40.5740,-74.1160,Staten Island,8545
+2018,New Brighton-Silver Lake,96.55750031,1,40.6404,-74.0902,Staten Island,8535
+2018,West New Brighton-New Brighton-St. George,96.66523531,3,40.6350,-74.1120,Staten Island,8522
+2018,Westerleigh,99.23379108,1,40.6163,-74.1387,Staten Island,8507
+2018,Port Richmond,101.6232665,4,40.6339,-74.1361,Staten Island,8528
+2018,West Brighton,95.92833295,2,40.6270,-74.1093,Staten Island,4723
+2018,Mariner's Harbor-Arlington-Port Ivory-Graniteville,100.1636673,3,40.6368,-74.1588,Staten Island,8512
+2018,New Springville-Bloomfield-Travis,96.71574245,1,40.5848,-74.1603,Staten Island,8505
+2018,Oakwood-Oakwood Beach,95.98250809,1,40.5490,-74.1118,Staten Island,8525
+2018,Great Kills,98.54796589,1,40.5543,-74.1563,Staten Island,8554
+2018,Grasmere-Arrochar-Ft. Wadsworth,95.38452307,1,40.6061,-74.0602,Staten Island,8514
+2018,Stapleton-Rosebank,96.36805787,2,40.6265,-74.0776,Staten Island,8537
+2018,Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill,97.63927997,1,40.6014,-74.1034,Staten Island,8524
+2018,Old Town-Dongan Hills-South Beach,97.11233097,1,40.5963,-74.0875,Staten Island,8536
