@@ -1,0 +1,49 @@
+---
+title: "Data Dictionary: Tax Data"
+author: "Emma Warshaw"
+date: "2022-12-07"
+output: html_document
+---
+
+```{r, include = FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(rvest)
+library(httr)
+library(plotly)
+library(patchwork)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+The data used for this project comes from two different data sources: 
+
+The first is the [EITC Data](https://data.ny.gov/Government-Finance/Earned-Income-Tax-Credit-EITC-Claims-by-Credit-Typ/6q7b-8vuf), provided by New York State Open Data. 
+
+The second is [Population Estimates](https://www.nyc.gov/site/planning/planning-level/nyc-population/nyc-population-current-estimates.page), provided by the U.S. Census Bureau.
+
+Once cleaned and optimized for use in this project, the variables of interest are as follows: 
+
+`tax_year` (numeric): The tax year, from 1994 - 2020
+`credit_type` (character): The type of credit received, either `City EITC`, `State EITC` or `Noncust. EITC`
+`borough`(character): Borough of New York City, either `Bronx`, `Brooklyn`, `Manhattan`, `Queens`, or `Staten Island`
+`number_of_claims`(numeric): The number of claims filed 
+`boro_credit_total`(numeric): The total amount, in dollars, received in EITC credit
+`average_credit`(numeric): The average dollar amount of the EITC credit
+`popestimate` (numeric): The population estimate for each borough, from 2016-2018
+
+
+
+

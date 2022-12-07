@@ -1,0 +1,273 @@
+---
+title: "Earned Income Tax Data (EITC) and Population"
+author: "Emma Warshaw"
+date: "2022-11-30"
+output: html_document
+---
+
+```{r, include = FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(rvest)
+library(httr)
+library(plotly)
+library(patchwork)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+We're interested in understanding the financial status of residents in each borough, ideally to understand differences in relation to rooftop greenspace in each borough.  
+
+One way to get a general understanding of socioeconomic status in each borough is to look at Earned Income Tax Credit (EITC) data. EITC is designed to give a tax credit to low-to-moderate income workers and families.  Specific qualifications and income thresholds can be found [here](https://www1.nyc.gov/assets/dca/downloads/pdf/consumers/Tax-Credit-Fast-Facts.pdf).   
+
+There are two different types of EITC in this data set, with one type having two categories.  
+
+EITC is offered by both the state and the city, although the state tends to give a higher credit: claimants can file for both of these.  
+
+The Noncustodial Parent EITC is offered exclusively by the state and claimants can only file for this credit alone.  If they claim Noncustodial Parent EITC, it disqualifies them from regular EITC eligibility.  
+
+The qualification criteria do not overlap but the underlying economic considerations are the same.  
+
+##Import the EITC Data Using an API
+
+This data was provided by [New York State Data.Ny.Gov](https://data.ny.gov/Government-Finance/Earned-Income-Tax-Credit-EITC-Claims-by-Credit-Typ/6q7b-8vuf).  The original data set includes information for all counties in New York State.  For purposes of this project, we're only interested in New York City, and the five counties that correspond to each borough.   
+
+```{r, echo = FALSE}
+tax_data = 
+  GET("https://data.ny.gov/resource/6q7b-8vuf.json", query = list("$limit" = 5000)) %>% 
+  content("text") %>% 
+  jsonlite::fromJSON() %>% 
+  as_tibble()
+```
+
+##Tidy the data 
+
+There are several columns that we won't need for this analysis.  The `notes`, `place_of_residence`, and `place_of_residence_sort_order` will be dropped because they either don't contain any data (i.e. notes) or they're redundant of other columns.  
+
+Next, we'll filter this data to only show the counties withing New York City: Bronx, Kings, Manhattan, Queens and Richmond.  For consistency across the project, we'll then convert the county names to their corresponding borough names.  There are two that need to change: Kings County corresponds to Brooklyn and Richmond County corresponds to Staten Island. 
+
+Next, we'll clean up the `credit_type` variable names for ease of use, then we'll coerce character columns to numeric as needed.
+
+Finally, the `credit_amount_claimed_in_thousands` needs to be multiplied by 1000 to get the actual dollar amount claimed in each borough.  I'm also going to rename `county` to `borough`for consistency across the project.   
+
+```{r, echo = FALSE}
+eitc_data = tax_data %>%
+  select(-c(notes, place_of_residence, place_of_residence_sort_order)) %>% 
+  filter(county %in% c("Bronx", "Kings", "Manhattan", "Queens", "Richmond")) %>% 
+  mutate(county = case_when(
+    county == 'Kings' ~ 'Brooklyn', 
+    county == 'Richmond' ~ 'Staten Island', 
+    county == 'Bronx' ~ 'Bronx',
+    county == 'Manhattan' ~ 'Manhattan',
+    county == 'Queens' ~ 'Queens'
+  )) %>% 
+  mutate(credit_type = case_when(
+    credit_type == 'NYC EITC' ~ 'City EITC',
+    credit_type == 'NYS EITC' ~ 'State EITC',
+    credit_type == 'NYS Noncustodial Parent EITC' ~ 'Noncust. EITC'
+  )) %>% 
+  mutate(
+    credit_amount_claimed_in_thousands = as.numeric(credit_amount_claimed_in_thousands), 
+    number_of_claims = as.numeric(number_of_claims),
+    average_credit = as.numeric(average_credit)) %>% 
+  mutate(credit_amount_claimed_in_thousands = credit_amount_claimed_in_thousands * 1000) %>% 
+  rename(boro_credit_total = credit_amount_claimed_in_thousands, 
+         borough = county) %>% 
+  mutate(
+    borough = as_factor(borough),
+    borough = fct_relevel(borough , "Manhattan"))
+
+write.csv(eitc_data, "/Users/emmawarshaw/Desktop/Data Science 1/eitc_data.csv", row.names = FALSE)
+```
+
+##Overall Trends
+
+First, we'll create a graph to show the number of claims in each borough from 2006 onward.  Although the data goes back as far as 1994, the City EITC wasn't introduced until 2004 and the Noncustodial Parent EITC wasn't introduced until 2006.  For consistency, we'll look at 2006 onward for an idea of the overall number of claims made each year in each borough.      
+
+```{r, echo = FALSE}
+overall_trend = eitc_data %>% 
+  filter(tax_year %in% (2006:2020)) %>%
+  select(-boro_credit_total, -average_credit) %>% 
+  arrange(borough, tax_year) %>%
+  pivot_wider(
+    names_from = credit_type,
+    values_from = number_of_claims
+  ) %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    total_claims = city_eitc + state_eitc + noncust_eitc)
+
+overall_point = overall_trend %>%
+  ggplot(aes(x = tax_year, y = total_claims, color = borough, group = 1)) + 
+  geom_point() + geom_line() + 
+  labs(
+    title = "Number of Claims Per Borough, 2006-2020", 
+    x = "Tax year", 
+    y = "Number of Claims", 
+    caption = "Data from NYC Open Data"
+  )
+
+ggplotly(overall_point)
+```
+
+##Proportion of Each Borough Filing a Claim
+
+The graph above shows the overall trend in the number of claims filed per borough, but this relationship scales with population of each borough.  For instance, Brooklyn is the most populace borough, so it logically follows that the most claims were filed in that borough.  
+
+Instead of looking at the trend, it would be helpful to understand what percentage of each borough's population files a claim.  Each year, [The US Census Bureau](https://www.nyc.gov/site/planning/planning-level/nyc-population/nyc-population-current-estimates.page) extrapolates estimated county populace, basing their projections on the most recent Census data and vital statistics.  We're going to pull these estimates into a dataframe, merge it with our tax data, then find the proportion of claimants in each borough.  
+
+We'll limit the time frame from 2016-2018, the same years that the `Greenspace` data were collected.  The code book for this data can be accessed [here](https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/cc-est2019-agesex.pdf). 
+
+```{r, echo = FALSE}
+population_estimates = read.csv("./data/census_pop_estimations copy.csv")
+
+nyc_estimates = population_estimates %>% 
+  filter(CTYNAME %in% c("Bronx County", "Kings County", "New York County", "Queens County", "Richmond County")) %>% 
+  filter(YEAR %in% c("9", "10", "11")) %>% 
+  select(c("CTYNAME", "YEAR", "POPESTIMATE")) %>% 
+  janitor::clean_names() %>% 
+  rename(borough = ctyname) %>% 
+  mutate(borough = case_when(
+    borough == 'Kings County' ~ 'Brooklyn', 
+    borough == 'Richmond County' ~ 'Staten Island', 
+    borough == 'Bronx County' ~ 'Bronx',
+    borough == 'New York County' ~ 'Manhattan',
+    borough == 'Queens County' ~ 'Queens'
+  )) %>% 
+  rename(tax_year = year) %>% 
+  mutate(tax_year = case_when(
+    tax_year == "9" ~ "2016",
+    tax_year == "10" ~ "2017",
+    tax_year == "11" ~ "2018"
+  )) %>% 
+  arrange(borough, tax_year) %>% 
+  mutate(
+    borough = as_factor(borough),
+    borough = fct_relevel(borough , "Manhattan"))
+
+two_year_trend = overall_trend %>% 
+  filter(tax_year %in% c("2016", "2017", "2018")) %>% 
+  arrange(borough, tax_year) %>% 
+  select(borough, tax_year, city_eitc, state_eitc, noncust_eitc, total_claims)
+
+nyc_trend = left_join(two_year_trend, nyc_estimates, by = c("borough" = "borough", "tax_year" = "tax_year"))
+
+nyc_trend = nyc_trend %>% 
+  mutate(
+    prop_claims = (total_claims/popestimate), 
+    prop_claims = round(prop_claims, 4), 
+    borough = as_factor(borough))
+
+nyc_trend %>%
+  plot_ly(y = ~prop_claims, color = ~borough, type = "box", colors = "viridis") %>% 
+  layout(xaxis = list(title = 'Borough'), yaxis = list(title = 'Proportion Filing Claim'), title = "Average Proportion Filing EITC Claim by Borough, 2016-2018")
+```
+
+##Hypothesis Testing: Proportion of Claimants
+
+Graphically, we can see that there is a difference in the proportion of claimants in each borough.  Statistically, we have to establish the significance of this finding. 
+
+First we'll run an ANOVA F-test to determine if the group proportions are different.  For purposes of this project, we're using Manhattan as our universal reference group, so we'll then see which proportions differ from Manhattan.     
+
+```{r, echo = FALSE}
+lm.model = lm(prop_claims ~ borough, data = nyc_trend)
+
+model_output = summary(lm.model)
+
+model_output %>% 
+  broom::tidy() %>% 
+  knitr::kable()
+```
+
+The F-test gives a p-value far less than our accepted significance level of 0.05, so we know there is at least one proportion that is different among the 5 borough.  
+
+When we analyze against a reference group, we see that Bronx, Brooklyn and Queens are all statistically different from Manhattan.  Using our visualizations, we see that the proportion of claimants is higher in these boroughs.  
+
+##Average Claim Amount 
+
+Next, we'll look at the average claim amount 2016-2018 for each borough, stratifying by credit type.  Since our primary `Greenspace` data set only includes data from 2016-2018, we're going to limit our analysis to these years.  Since the qualification criteria is the same for City and State EITC, we're going to add the amounts to create a single category called `EITC`.   
+
+```{r, echo = FALSE}
+average_claim = eitc_data %>%
+  filter(tax_year %in% (2016:2018)) %>%
+  select(-boro_credit_total, -number_of_claims) %>% 
+  arrange(borough, tax_year) %>%
+  pivot_wider(
+    names_from = credit_type,
+    values_from = average_credit
+  ) %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    eitc = city_eitc + state_eitc
+  ) %>% 
+  select(tax_year, borough, noncust_eitc, eitc) %>%
+  group_by(tax_year, borough)
+
+eitc_distribution = average_claim %>%
+  plot_ly(y = ~eitc, color = ~borough, type = "box", colors = "viridis") %>% 
+  layout(xaxis = list(title = 'Borough'), yaxis = list(title = 'EITC 2016-2018 (dollars)'), title = "Average EITC Credit Amount from 2016-2018, by Borough")
+
+
+noncust_eitc_distribution = average_claim %>%
+  plot_ly(y = ~noncust_eitc, color = ~borough, type = "box", colors = "viridis") %>% 
+  layout(xaxis = list(title = 'Borough'), yaxis = list(title = 'Noncustodial EITC, 2016-2018 (dollars)'), title = "Average Noncustodial EITC Credit Amount from 2016-2018, by Borough")
+
+eitc_distribution
+noncust_eitc_distribution
+
+```
+
+##Hypothesis Testing: Proportion of Claimants
+
+Similar to the population proportions, we need to test if these difference are significant. 
+
+We'll start with the EITC data and run an ANOVA F-test to determine if the amount claimed is different in each borough.  We'll then use Manhattan as our reference group to see which boroughs are paying a different amount. 
+
+```{r, echo = FALSE}
+eitc.lm.model = lm(eitc ~ borough, data = average_claim)
+
+eitc_model_output = summary(eitc.lm.model)
+
+eitc_model_output %>% 
+  broom::tidy() %>% 
+  knitr::kable()
+```
+
+The F-test gives a p-value far less than our accepted significance level of 0.05, so we know there is at least one average amount that is different among the 5 borough.  
+
+When we analyze against a reference group, we see that Bronx, Brooklyn, Queens and Staten Island are all statistically different from Manhattan.  Using our visualizations, we see that the average amount of EITC credit is higher in these boroughs
+
+Repeating the same process, we'll now run the same model for Noncustodial EITC: 
+
+```{r}
+noncust.lm.model = lm(noncust_eitc ~ borough, data = average_claim)
+
+noncust_model_output = summary(noncust.lm.model)
+
+noncust_model_output %>% 
+  broom::tidy() %>% 
+  knitr::kable()
+```
+
+The F-test gives a p-value of 0.4237.  For Noncustodial EITC, there is no statistical difference in the average amount of credit received among the 5 boroughs.   
+
+##Conclusion
+
+Based on this tax data, we can see that the overall trend in the number of claims filed between 2006-2020 scales directly with the population of each borough.  When find the proportion of claimants in each borough, however, we see that there is a difference.  When compared to Manhattan, the Bronx, Brooklyn, and Queens all file a higher proportion of claims.  
+
+Moving on to average dollar amount of the credit in each borough, there's no statstical difference in Noncustodial EITC among the boroughs.  
+
+For EITC between 2016-2018, however, the Bronx, Brooklyn, Queens and Staten Island all claims a higher dollar amount in credit, on average.  
+
+From our visualizations, we can see that Bronx residents files the highest proportion of claims and receive the highest dollar amount in credit.  
