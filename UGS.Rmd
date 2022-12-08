@@ -7,6 +7,8 @@ output: html_document
 
 ```{r, include = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(broom)
+library(janitor)
 library(leaflet)
 
 knitr::opts_chunk$set(
@@ -107,7 +109,6 @@ UG_agg_df= read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na =
   )
 ```
 
-**ADD LINK TO CODEBOOK** 
 Note that all variable names are available in the [project's codebook](codebook.html).
 
 ## Descriptive analysis
@@ -128,7 +129,7 @@ UG_df %>%
     mean_height = mean(heightroof, na.rm = TRUE),
     perc_green = mean(prop_gr, na.rm = TRUE)
     ) %>% 
-    knitr::kable(digits = 2)
+    knitr::kable(digits = 3, align = "lcccc", caption = "Table 1: Summary Metrics of Urban Green Spaces (UGS) in New York City (NYC), including surface metrics (in sqm, mean, median and range), building height (in m) and proportion of UGS coverage from total building surface (%)", col.names = c("Mean surface", "Median surf.", "Minimum surf.", "Maximum surf.", "Mean building height", "Percent of UGS"))
 ```
 
 Overall, within New York City, UGS have an **mean size of 334.52 sqm (range 0.94-25,763.66 sqm)**. The broad range of values, as well as the median situated at 109.06 sqm (way below the mean), it suggests this variable's **right-skewed distribution**. We will explore this more in the "data visualization" section below. On average, UGS in NYC are situated at **43.47 m of height**, and **cover 19.63% of the total building's surface**.
@@ -152,7 +153,7 @@ UG_df %>%
     perc_green = mean(prop_gr, na.rm = TRUE)
     ) %>% 
   arrange(desc(n)) %>% 
-  knitr::kable(digits = 2)
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 2: Summary Metrics of Urban Green Spaces (UGS) in New York City (NYC) by Borough")
 ```
 
 **Manhattan** contains over 63% of all NYC's UGS (n=465), situated at a considerably higher altitude (mean height 54.24 m). Nevertheless, its UGS are also the smallest in percentual terms when asessing the proportion of building coverage (15.24%). Conversely, **Queens** and **Staten Island** have the lowest amoung of UGS (n=50 and n=4, respectively), but their UGS area the biggest on average (mean sizes of 468.55 and 456.72 sqm, respectively). These results could be linked to the property prices in each areas (further analysis would be needed to assess so).
@@ -173,7 +174,7 @@ UG_agg_df %>%
     mean_green = mean(green_area/num_greenroofs, na.rm = TRUE),
     ) %>% 
   arrange(desc(n)) %>% 
-  knitr::kable(digits = 2)
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 3: Summary Metrics of Urban Green Spaces (UGS) in New York City (NYC) by City Council District")
 ```
 
 As a result, we observe that **3 City Council Districts in Manhattan concentrate over half of the borough's UGS (n=318)**, with over 1% of its buildings covered by green spaces. Conversely, **8 districts within Bronx, Queens, Brooklyn and Staten Island have no UGS at all**. These results suggest the existence of distribution differences, which will be addressed in the last section of this analysis.
@@ -274,21 +275,49 @@ In this section, we perform different regression analyses to understand whether 
 We first investigate whether there are differences in the amount of UGS by borough and city council district (using the `UG_agg_df`). We run linear regression `lm()` models.
 
 ```{r}
-fit1 = lm(num_greenroofs ~ borough, data = UG_agg_df)
+NumberUG_borough_model = 
+  lm(num_greenroofs ~ borough, data = UG_agg_df) %>% 
+  tidy() %>% 
+  select(-statistic) %>% 
+  mutate(
+    low_conf = estimate - 1.96*std.error,
+    upper_conf = estimate + 1.96*std.error) %>%  
+  select(-std.error)
 
-fit1 %>% 
-  broom::tidy()
+NumberUG_borough_model %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 4: Coefficient Estimates of Linear Model Assessing the Association Between Number of Green Roof Spaces and Borough in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
 
 ```{r}
-fit2 = lm(num_greenroofs ~ coun_dist, data = UG_agg_df)
+NumberUG_CounDist_model = 
+  lm(num_greenroofs ~ coun_dist, data = UG_agg_df) %>% 
+  tidy() %>% 
+  select(-statistic) %>% 
+  mutate(
+    low_conf = estimate - 1.96*std.error,
+    upper_conf = estimate + 1.96*std.error) %>%  
+  select(-std.error)
 
-fit2 %>% 
-  broom::tidy()
+NumberUG_CounDist_model %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 5: Coefficient Estimates of Linear Model Assessing the Association Between Number of Green Roof Spaces and City Concil District in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
 
 ### UGS surface by borough 
 Next, we investigate differences on the UGS surface area by borough. Given the presence of outliers and a right-skewed distribution observed in the descriptive analysis above, we apply a Kruskal-Wallis test.
+
+```{r}
+UGarea_borough_model = 
+  lm(green_area ~ borough, data = UG_df) %>% 
+  tidy() %>% 
+  select(-statistic) %>% 
+  mutate(
+    low_conf = estimate - 1.96*std.error,
+    upper_conf = estimate + 1.96*std.error) %>%  
+  select(-std.error)
+
+UGarea_borough_model %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 6: Coefficient Estimates of Linear Model Assessing the Association Between Green Area of Green Roof Spaces and Borough in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+```
 
 ```{r}
 fit3 = kruskal.test(green_area ~ borough, data = UG_df)
@@ -296,4 +325,5 @@ fit3 = kruskal.test(green_area ~ borough, data = UG_df)
 fit3 %>% 
   broom::tidy()
 ```
+
 **Interpretations of the lm models pending**
