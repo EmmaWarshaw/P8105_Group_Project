@@ -215,7 +215,7 @@ envoroof_map
 
 The map above shows a large percentage of urban green spaces located in lower Manhattan, which also has one of the lowest daytime surface temperatures and heat vulnerability index. In neighborhoods with higher daytime surface temperatures and heat vulnerability index, there is little to no urban green spaces. The amount of urban green spaces present may affect the daytime surface temperatures and heat vulnerability index of neighborhoods in New York City. 
 
-### Univariate Models to Explore the Effect of Total Average Urban Green Spaces in NYC
+### Univariate Models to Explore the Effect of Total Urban Green Spaces in NYC
 
 ```{r, echo = FALSE, include = FALSE}
 envo_greenroof = read_csv("data/envo_greenroof.csv") %>% 
@@ -230,7 +230,7 @@ envo_greenroof =
 
 ```{r, echo = FALSE}
 envo_greenroof_surfmodel = 
-  lm(avg_daytime_temp ~ avg_total_green_area, data = envo_greenroof) %>% 
+  lm(avg_daytime_temp ~ total_green_area, data = envo_greenroof) %>% 
   tidy() %>% 
   select(-statistic) %>% 
   mutate(
@@ -239,13 +239,13 @@ envo_greenroof_surfmodel =
   select(-std.error)
 
 envo_greenroof_surfmodel %>% 
-  knitr::kable(digits = 8, align = "lcccc", caption = "Table 6: Coefficient Estimates of Linear Model Assessing the Association Between Average Green Roof Surface Area and Average Daytime Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+  knitr::kable(digits = 8, align = "lcccc", caption = "Table 6: Coefficient Estimates of Linear Model Assessing the Association Between Total Green Roof Surface Area and Average Daytime Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
-There does not seem to be a relationship between the average area of green roof and average daytime surface temperature. 
+There does not seem to be a relationship between the total area of green roof and average daytime surface temperature. 
 
 ```{r, echo = FALSE}
 envo_greenroof_heatmodel = 
-  lm(avg_heat_index ~ avg_total_green_area, data = envo_greenroof) %>% 
+  lm(avg_heat_index ~ total_green_area, data = envo_greenroof) %>% 
   tidy() %>% 
   select(-statistic) %>% 
   mutate(
@@ -254,9 +254,9 @@ envo_greenroof_heatmodel =
   select(-std.error)
 
 envo_greenroof_heatmodel %>% 
-  knitr::kable(digits = 8, align = "lcccc", caption = "Table 7: Coefficient Estimates of Linear Model Assessing the Association Between Average Green Roof Surface Area and Average Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+  knitr::kable(digits = 8, align = "lcccc", caption = "Table 7: Coefficient Estimates of Linear Model Assessing the Association Between Total Green Roof Surface Area and Average Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
-There does not seem to be a relationship between the average area of green roof and average heat vulnerability index. 
+There does not seem to be a relationship between the total area of green roof and average heat vulnerability index. 
 
 # Conclusion and Limitations
 
