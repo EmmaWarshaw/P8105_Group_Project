@@ -20,9 +20,9 @@ The outcome of our work is something we are very excited about and hope will be 
 
 The beauty of a final project within this format is the ability to present important information beyond the data outputs. Since a groups work is based on individuals and their own lived experiences, we want to take this opportunity to present our team to you. With 5 members and 5 unique perspectives on this project, please feel free to click [**HERE**](about.html) to find out more.
 
-
-
-
+    
+    
+    
 
 ::: {align="center"}
 ## Key Themes
@@ -39,10 +39,10 @@ The beauty of a final project within this format is the ability to present impor
     Within Public Health, this question is tackled by systems thinking. Simply put, your access to education influences your access to work, which in turn influences your income and investments within your community, which ultimately influence your neighborhoods access to education.
 
     For this group, applying systems thinking meant looking beyond individual analysis, but combining all data-sets to understand how green spaces, income, health, and temperature could all influence one another. The findings are fascinating and can be found *here*.
-
-
-
-
+    
+    
+    
+    
 
 ::: {align="center"}
 ## The Data

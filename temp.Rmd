@@ -28,8 +28,6 @@ scale_fill_discrete = scale_fill_viridis_d
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# NYC Environment and Health Data
-
 ## About the Dataset
 
 This analysis includes datasets that were retrieved from the number of  [Climate Datasets](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/?id=2141#display=summary) publicly available by NYC.gov. The datasets used are "Daytime Summer Surface Temperatures" and "Heat Vulnerability Index (NTA)". The NTA codes were used to merge the two datasets.
@@ -45,7 +43,7 @@ envo_health = read_csv("data/envo_health.csv") %>%
 envo_health = 
   envo_health %>% 
   mutate(
-    daytime_surface_temp = (daytime_surface_temp- 32)*.5556 
+    daytime_surface_temp = (daytime_surface_temp - 32)*.5556 
   )
 ```
 
@@ -91,7 +89,7 @@ envo_map = envo_health %>%
     leaflet() %>% 
   addProviderTiles(providers$CartoDB.Positron) %>% 
   addCircleMarkers(lng = ~longitude, lat = ~latitude, radius = .1, color = ~pal(daytime_surface_temp), popup = ~click_label) %>% 
-  setView(lng=-73.935242, lat=40.730610, zoom = 11) %>% 
+  setView(lng = -73.935242, lat = 40.730610, zoom = 11) %>% 
   addLegend("bottomright", pal = pal, values = ~daytime_surface_temp,
     title = "Temperature",
     labFormat = labelFormat(suffix = "°C"),

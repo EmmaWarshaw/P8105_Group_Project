@@ -1,7 +1,5 @@
 ---
 title: "Asthma Rates & Urban Green Spaces in NYC"
-author: "th2899"
-date: "`r Sys.Date()`"
 output: html_document
 ---
 
