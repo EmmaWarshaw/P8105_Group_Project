@@ -1,12 +1,10 @@
 ---
-title: "Group Project"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
+output: html_document
 ---
 
-# Welcome to our Final Project
+::: {align="center"}
+# [Welcome to our Final Project]{style="color: red;"}
+:::
 
 This website is constructed as the final deliverable for the ***P8105 final project***. Before jumping into the actual analysis, three main topics need to be explained.
 
@@ -16,11 +14,19 @@ This website is constructed as the final deliverable for the ***P8105 final proj
 
 The outcome of our work is something we are very excited about and hope will be the starting point of more research. Additionally, like every good public health professional, it is our goal to support positive change - the findings of this project provide initial insights that individuals, organizations, and governments can directly act upon.
 
-## [Our Team](about.html)
+::: {align="center"}
+## Our Team
+:::
 
 The beauty of a final project within this format is the ability to present important information beyond the data outputs. Since a groups work is based on individuals and their own lived experiences, we want to take this opportunity to present our team to you. With 5 members and 5 unique perspectives on this project, please feel free to click [**HERE**](about.html) to find out more.
 
+
+
+
+
+::: {align="center"}
 ## Key Themes
+:::
 
 1.  **Location Matters:** Anyone active in Public Health will know that location is one of the most important determinants of health. One of the key examples of this is redlining - referring to a discriminatory US practice that saw predominantly black neighborhoods being disadvantaged by withholding loans, public spending, and more. While redlining as a "known" practice might be an atrocity of the past, the underlying importance of ones living location continues to matter A LOT. Just think about implicit biases, access to education, environmental factors, and density of healthcare providers. As such, it was very clear to this group that our project needed to incorporate some type of location factor.
 
@@ -34,26 +40,32 @@ The beauty of a final project within this format is the ability to present impor
 
     For this group, applying systems thinking meant looking beyond individual analysis, but combining all data-sets to understand how green spaces, income, health, and temperature could all influence one another. The findings are fascinating and can be found *here*.
 
+
+
+
+
+::: {align="center"}
 ## The Data
+:::
 
 The project at its core is based on four main data-sets. Each of them is geographically based in New York City, and we managed to combine all of them through a location variable that specifies the NYC neighborhood. To understand how exactly they interact with one another, let's jump into each:
 
-#### [Urban Greenspace](UGS.html)
+##### [Urban Greenspace](UGS.html)
 
 -   The *Greenspace Analysis* is ABC
 
-#### [Tax Credits](tax_data.html)
+##### [Tax Credits](tax_data.html)
 
 -   The *Tax Credit Analyis* is ABC
 
-#### [Temperature](temp.html)
+##### [Temperature](temp.html)
 
 -   The *Temperature Analysis* is ABC
 
-#### [Asthma](asthma.html)
+##### [Asthma](asthma.html)
 
 -   The *Asthma Analysis* is ABC
 
-#### [Joint Analysis Dashboard](analysis.html)
+##### [Joint Analysis Dashboard](analysis.html)
 
 -   ABC

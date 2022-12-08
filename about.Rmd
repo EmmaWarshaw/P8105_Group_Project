@@ -1,56 +1,57 @@
----
-title: "Our Team"
----
+------------------------------------------------------------------------
 
-#### Mallafre Larrosa, Meritxell
+------------------------------------------------------------------------
 
-<img src="images/MML_pic.jpeg" style="width:40%">
+::: {align="center"}
+# Our Team
 
--   [Email](mailto:<mm5951@cumc.columbia.edu>)
--   [LinkedIn](https://www.linkedin.com/in/meritxellml/)
+#### Meritxell, Mallafre Larrosa
 
-Meritxell is a Medical Doctor (MD, University of Barcelona, 2020) in pursuit of a career at the intersection of Cancer Control and Global Health Governance. As such, she brings a breadth of practical experience to this project and pushes all members through her quantitative and qualitative data skills.
-In relation to this project, coming from one of the most beautiful places in the world, she is interested in the effect of green spaces in the context of a highly urbanized environment (NYC).
+<img src="images/MML_pic.jpeg" style="width:40%"/>
 
+[Email](mailto:%3Cmm5951@cumc.columbia.edu%3E)
 
-#### Hauser, Tim
+[LinkedIn](https://www.linkedin.com/in/meritxellml/)
 
-<img src="images/Tim_pic.jpeg" style="width:40%">
+Meritxell is a Medical Doctor (MD, University of Barcelona, 2020) in pursuit of a career at the intersection of Cancer Control and Global Health Governance. As such, she brings a breadth of practical experience to this project and pushes all members through her quantitative and qualitative data skills. In relation to this project, coming from one of the most beautiful places in the world, she is interested in the effect of green spaces in the context of a highly urbanized environment (NYC).
 
+#### Tim Hauser
 
--   [Email](mailto:<th2899@cumc.columbia.edu>)
--   [LinkedIn](https://www.linkedin.com/in/hausertim/)
+<img src="images/Tim_pic.jpeg" style="width:40%"/>
 
-Tim is an MBA / MPH dual degree student. Prior to graduate school, he worked as a consultant in McKinsey's Healthcare practice on a wide range of topics: from M&A due diligence, R&D strategy, to operational product launch support. He aims to pursue a career that will allow him to incorporate his knowledge of public health in commercial oriented applications of healthcare and expects the use of epidemiological, as done in this project, will be  a core component of his future work.
+[Email](mailto:%3Cth2899@cumc.columbia.edu%3E)
 
+[LinkedIn](https://www.linkedin.com/in/hausertim/)
 
-#### Warshaw, Emma
+Tim is an MBA / MPH dual degree student. Prior to graduate school, he worked as a consultant in McKinsey's Healthcare practice on a wide range of topics: from M&A due diligence, R&D strategy, to operational product launch support. He aims to pursue a career that will allow him to incorporate his knowledge of public health in commercial oriented applications of healthcare and expects the use of epidemiological, as done in this project, will be a core component of his future work.
 
-<img src="images/Warshaw_headshot.jpg" style="width:40%">
+#### Emma Warshaw
 
--   [Contact here](mailto:<ew2718@cumc.columbia.edu>)
--   [LinkedIn](https://www.linkedin.com/in/emma-warshaw-a8047b151/)
+<img src="images/Warshaw_headshot.jpg" style="width:40%"/>
+
+[Email](mailto:%3Cew2718@cumc.columbia.edu%3E)
+
+[LinkedIn](https://www.linkedin.com/in/emma-warshaw-a8047b151/)
 
 Emma specializes in Population and Family Health, health policy, and data science, bringing an interdisciplinary approach to this project. She is interested in using data science to create better policy that puts the health of individuals and families first.
 
+#### Esther Kim
 
-#### Kim, Esther
+<img src="images/Esther_pic.jpeg" style="width:40%"/>
 
-<img src="images/Esther_pic.jpeg" style="width:40%">
+[Email](mailto:%3Cei2262@cumc.columbia.edu%3E)
 
--   [Email](mailto:<ei2262@cumc.columbia.edu>)
--   [LinkedIn](https://www.linkedin.com/in/kim-h-esther/)
+[LinkedIn](https://www.linkedin.com/in/kim-h-esther/)
 
 Esther specializes in Epidmiology, using her practical and numerical skills to enhance this project. She is particularly interested in the temperature and real estate aspect of the analysis, aiming to find insights that can inform crucial NYC building rules.
 
+#### Niklas Hess
 
-#### Hess, Niklas
+<img src="images/Headshot_Hess.jpeg" style="width:40%"/>
 
-<img src="images/Headshot_Hess.jpeg" style="width:40%">
+[Email](mailto:%3Cnh2706@cumc.columbia.edu%3E)
 
+[LinkedIn](https://www.linkedin.com/in/niklas-hess/)
 
--   [Email](mailto:<nh2706@cumc.columbia.edu>)
--   [LinkedIn](https://www.linkedin.com/in/niklas-hess/)
-
-Niklas brings an international perspective, coupled with expertise in analytics and experience in Consulting and Private Equity, to this project. As such, he is interested in solutions that have business value and have successfully been implemented in other parts of the world. 
-In relation to this project, he tries to go beyond theoretical findings, uncovering realities that can immediately be tackled.
+Niklas brings an international perspective, coupled with expertise in analytics and experience in Consulting and Private Equity, to this project. As such, he is interested in solutions that have business value and have successfully been implemented in other parts of the world. In relation to this project, he tries to go beyond theoretical findings, uncovering realities that can immediately be tackled.
+:::

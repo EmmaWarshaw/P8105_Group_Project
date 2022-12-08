@@ -1,4 +1,3 @@
-name: "Group Project"
 output_dir: "."
 navbar:
   title: "Group Project"
@@ -14,7 +13,7 @@ navbar:
     - text: "Temperature"
       href: temp.html
     - text: "Joint Analysis Dashboard"
-      href: anlysis.html
+      href: analysis.html
     - text: "Codebook"
       href: Codebook.html
     - icon: fa-envelope fa-lg

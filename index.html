@@ -11,7 +11,7 @@
 
 
 
-<title>Group Project</title>
+<title>index.knit</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,9 +29,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -231,69 +228,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -301,16 +235,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -346,7 +270,7 @@ div.tocify {
   <a href="temp.html">Temperature</a>
 </li>
 <li>
-  <a href="anlysis.html">Joint Analysis Dashboard</a>
+  <a href="analysis.html">Joint Analysis Dashboard</a>
 </li>
 <li>
   <a href="Codebook.html">Codebook</a>
@@ -372,13 +296,14 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Group Project</h1>
 
 </div>
 
 
-<div id="welcome-to-our-final-project" class="section level1">
-<h1>Welcome to our Final Project</h1>
+<div id="welcome-to-our-final-project" class="section level1"
+align="center">
+<h1><span style="color: red;">Welcome to our Final Project</span></h1>
+</div>
 <p>This website is constructed as the final deliverable for the
 <strong><em>P8105 final project</em></strong>. Before jumping into the
 actual analysis, three main topics need to be explained.</p>
@@ -395,17 +320,18 @@ every good public health professional, it is our goal to support
 positive change - the findings of this project provide initial insights
 that individuals, organizations, and governments can directly act
 upon.</p>
-<div id="our-team" class="section level2">
-<h2><a href="about.html">Our Team</a></h2>
+<div id="our-team" class="section level2" align="center">
+<h2>Our Team</h2>
+</div>
 <p>The beauty of a final project within this format is the ability to
 present important information beyond the data outputs. Since a groups
 work is based on individuals and their own lived experiences, we want to
 take this opportunity to present our team to you. With 5 members and 5
 unique perspectives on this project, please feel free to click <a
 href="about.html"><strong>HERE</strong></a> to find out more.</p>
-</div>
-<div id="key-themes" class="section level2">
+<div id="key-themes" class="section level2" align="center">
 <h2>Key Themes</h2>
+</div>
 <ol style="list-style-type: decimal">
 <li><p><strong>Location Matters:</strong> Anyone active in Public Health
 will know that location is one of the most important determinants of
@@ -443,51 +369,47 @@ individual analysis, but combining all data-sets to understand how green
 spaces, income, health, and temperature could all influence one another.
 The findings are fascinating and can be found <em>here</em>.</p></li>
 </ol>
-</div>
-<div id="the-data" class="section level2">
+<div id="the-data" class="section level2" align="center">
 <h2>The Data</h2>
+</div>
 <p>The project at its core is based on four main data-sets. Each of them
 is geographically based in New York City, and we managed to combine all
 of them through a location variable that specifies the NYC neighborhood.
 To understand how exactly they interact with one another, let’s jump
 into each:</p>
-<div id="urban-greenspace" class="section level4">
-<h4><a href="UGS.html">Urban Greenspace</a></h4>
+<div id="urban-greenspace" class="section level5">
+<h5><a href="UGS.html">Urban Greenspace</a></h5>
 <ul>
 <li>The <em>Greenspace Analysis</em> is ABC</li>
 </ul>
 </div>
-<div id="tax-credits" class="section level4">
-<h4><a href="tax_data.html">Tax Credits</a></h4>
+<div id="tax-credits" class="section level5">
+<h5><a href="tax_data.html">Tax Credits</a></h5>
 <ul>
 <li>The <em>Tax Credit Analyis</em> is ABC</li>
 </ul>
 </div>
-<div id="temperature" class="section level4">
-<h4><a href="temp.html">Temperature</a></h4>
+<div id="temperature" class="section level5">
+<h5><a href="temp.html">Temperature</a></h5>
 <ul>
 <li>The <em>Temperature Analysis</em> is ABC</li>
 </ul>
 </div>
-<div id="asthma" class="section level4">
-<h4><a href="asthma.html">Asthma</a></h4>
+<div id="asthma" class="section level5">
+<h5><a href="asthma.html">Asthma</a></h5>
 <ul>
 <li>The <em>Asthma Analysis</em> is ABC</li>
 </ul>
 </div>
-<div id="joint-analysis-dashboard" class="section level4">
-<h4><a href="analysis.html">Joint Analysis Dashboard</a></h4>
+<div id="joint-analysis-dashboard" class="section level5">
+<h5><a href="analysis.html">Joint Analysis Dashboard</a></h5>
 <ul>
 <li>ABC</li>
 </ul>
 </div>
-</div>
-</div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -520,35 +442,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
