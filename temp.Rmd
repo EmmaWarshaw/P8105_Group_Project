@@ -30,7 +30,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## About the Dataset
 
-This analysis includes datasets that were retrieved from the number of  [Climate Datasets](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/?id=2141#display=summary) publicly available by NYC.gov. The datasets used are "Daytime Summer Surface Temperatures" and "Heat Vulnerability Index (NTA)". The NTA codes were used to merge the two datasets.
+This analysis includes datasets that were retrieved from the number of  [Climate Datasets](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/?id=2141#display=summary) publicly available by NYC.gov. The datasets used are "Daytime Summer Surface Temperatures (°F)" and "Heat Vulnerability Index (NTA)". The NTA codes were used to merge the two datasets.
 
 ## Why Temperature?
 
@@ -228,7 +228,7 @@ envo_greenroof =
 
 ```{r, echo = FALSE}
 envo_greenroof_surfmodel = 
-  lm(avg_daytime_temp ~ avg_green_area, data = envo_greenroof) %>% 
+  lm(avg_daytime_temp ~ avg_total_green_area, data = envo_greenroof) %>% 
   tidy() %>% 
   select(-statistic) %>% 
   mutate(
@@ -243,7 +243,7 @@ There does not seem to be a relationship between the average area of green roof 
 
 ```{r, echo = FALSE}
 envo_greenroof_heatmodel = 
-  lm(avg_heat_index ~ avg_green_area, data = envo_greenroof) %>% 
+  lm(avg_heat_index ~ avg_total_green_area, data = envo_greenroof) %>% 
   tidy() %>% 
   select(-statistic) %>% 
   mutate(
@@ -258,10 +258,10 @@ There does not seem to be a relationship between the average area of green roof 
 
 # Conclusion and Limitations
 
-Although this analysis did not find an association between the amount of urban green spaces present and daytime surface temperature or the amount of urban green spaces present and heat vulnerability index, there still seems to be an effect of urban green spaces on air temperature in the 5 boroughs of New York City. Urban green spaces have been found to be effective in bringing down temperatures in neighborhood that lack enough green spaces, such as the Bronx. It is important to keep exploring the impact on urban green spaces, especially as a means to fight climate change!
+Although this analysis did not find an association between the amount of urban green spaces present and daytime surface temperature or the amount of urban green spaces present and heat vulnerability index, there still seems to be an effect of urban green spaces on air temperature in the 5 boroughs of New York City. Urban green spaces have been found to be effective in bringing down temperatures in neighborhood that lack green spaces, such as the Bronx. It is important to keep exploring the impact on urban green spaces, especially as a means to fight climate change!
 
 There are limitations to the temperature analyses. 
 
 1. The datasets vary in the date of collection. Although the `envo_health` dataset is comparable by neighborhood, the daytime surface temperature data were collected on a single day and the heat vulnerability index data were collected across a few years. 
 
-2. The temperature datasets and the primary dataset are not collected from the same location. It may be interesting to explore the association of green space are and temperature predictors from data that were collected at the same coordinate. This may give a better understanding of the impact of green space area and at risk neighborhoods. 
+2. The temperature dataset and the primary dataset are not collected from the same location. It may be interesting to explore the association of green space are and temperature predictors from data that were collected at the same coordinate. This may give a better understanding of the impact of green space area and at risk neighborhoods. 
