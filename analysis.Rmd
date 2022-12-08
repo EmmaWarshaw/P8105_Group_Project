@@ -1,0 +1,106 @@
+---
+title: "Joint Analysis Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(flexdashboard)
+library(plotly)
+```
+
+## Tax Credits & Urban Greenspace
+
+```{r, echo = FALSE}
+test_df = read.csv("./data/test_df.csv")
+
+greenspace_df = test_df %>% 
+  filter(indicator %in% ("ED Visits")) %>% 
+  select(borough, year, green_area_cum) %>% 
+  filter(borough %in% c("Bronx", "Brooklyn", "Queens", "Manhattan")) %>% 
+  rename(tax_year = year) %>% 
+  mutate(
+    borough = as.factor(borough)
+  )
+
+tax_comp_df = eitc_data %>%
+  filter(tax_year %in% (2006:2018)) %>%
+  select(-boro_credit_total, -number_of_claims) %>% 
+  arrange(borough, tax_year) %>%
+  pivot_wider(
+    names_from = credit_type,
+    values_from = average_credit
+  ) %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    eitc = city_eitc + state_eitc
+  ) %>% 
+  select(tax_year, borough, noncust_eitc, eitc) %>%
+  group_by(tax_year, borough) %>% 
+  filter(borough %in% c("Bronx", "Brooklyn", "Queens", "Manhattan")) %>% 
+  mutate(
+    tax_year = as.numeric(tax_year)
+  )
+
+greenspace_tax_comp = nyc_trend = left_join(tax_comp_df, greenspace_df, by = c("borough" = "borough", "tax_year" = "tax_year")) %>% 
+  select(-c(noncust_eitc))
+
+greenspace_time = greenspace_tax_comp %>%
+  ggplot(aes(x = tax_year, y = green_area_cum, color = borough)) + 
+  geom_point() + geom_line() +
+  labs(
+    x = "Tax year", 
+    y = "Cummulative Greenspace (m^2)"
+  ) 
+
+ggplot_greenspace = ggplotly(greenspace_time) %>% 
+  add_lines(name = "greenspace", legendgroup = "greenspace")
+
+average_tax_time = greenspace_tax_comp %>%
+  ggplot(aes(x = tax_year, y = eitc, color = borough)) + 
+  geom_point() + geom_line() + 
+  labs(
+    x = "Tax year", 
+    y = "Average EITC (dollars)", 
+  )
+
+ggplot_tax = ggplotly(average_tax_time) %>% 
+  add_lines(name = "tax", legendgroup = "tax")
+
+subplot(style(ggplot_greenspace, showlegend = FALSE), 
+        style(ggplot_tax, showlegend = TRUE), 
+        titleY = TRUE, 
+        shareX = TRUE) %>% 
+  layout(title = 'Side By Side: Cummulative Greenspace and Average EITC by Borough, 2006-2018')
+```
+
+## Asthma & Urban Greenspaces
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+edvisits = asthma_df %>% 
+  filter(indicator == "ED Visits") %>% 
+  ggplot(aes(year, aa_rate10kpy, color = borough)) +
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "ED Visits per 10k inhabitants over time",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+
+ugstime = ug_tidy %>% 
+  ggplot(aes(year, green_area_cum, color = borough)) +
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Total UGS surface per borough over time",
+    x = "Time (year)",
+    y = "Total surface area of (vertical) UGS in square meter")
+
+edvisits + ugstime
+```
+

@@ -6,15 +6,15 @@ navbar:
     - text: "Our Team"
       href: about.html
     - text: "Urban Greenspaces"
-      href: ugs.html
-    - text: "Income Data"
-      href: financiald.html
-    - text: "Health Data"
-      href: healthd.html
-    - text: "Temperature Data"
+      href: UGS.html
+    - text: "Tax credits"
+      href: tax_data.html
+    - text: "Asthma"
+      href: asthma.html
+    - text: "Temperature"
       href: temp.html
-    - text: "Analysis Dashboard"
-      href: analysisd.html
+    - text: "Joint Analysis Dashboard"
+      href: anlysis.html
     - text: "Codebook"
       href: Codebook.html
     - icon: fa-envelope fa-lg

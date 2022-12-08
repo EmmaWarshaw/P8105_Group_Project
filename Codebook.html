@@ -9,9 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="mm5951" />
 
-<meta name="date" content="2022-12-05" />
+<meta name="date" content="2022-12-08" />
 
 <title>Codebook</title>
 
@@ -260,19 +259,19 @@ $(document).ready(function () {
   <a href="about.html">Our Team</a>
 </li>
 <li>
-  <a href="ugs.html">Urban Greenspaces</a>
+  <a href="UGS.html">Urban Greenspaces</a>
 </li>
 <li>
-  <a href="financiald.html">Income Data</a>
+  <a href="tax_data.html">Tax credits</a>
 </li>
 <li>
-  <a href="healthd.html">Health Data</a>
+  <a href="asthma.html">Asthma</a>
 </li>
 <li>
-  <a href="temphd.html">Temperature Data</a>
+  <a href="temp.html">Temperature</a>
 </li>
 <li>
-  <a href="analysisd.html">Analysis Dashboard</a>
+  <a href="anlysis.html">Analysis Dashboard</a>
 </li>
 <li>
   <a href="Codebook.html">Codebook</a>
@@ -299,8 +298,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Codebook</h1>
-<h4 class="author">mm5951</h4>
-<h4 class="date">2022-12-05</h4>
+<h4 class="date">2022-12-08</h4>
 
 </div>
 
@@ -310,8 +308,8 @@ this group project. Details on its primary source, as well as variables
 definitions and units, are specified for each of them.</p>
 <div id="urban-green-spaces-in-nyc" class="section level2">
 <h2>Urban Green Spaces in NYC</h2>
-<div id="acknowledgment-of-ownership" class="section level3">
-<h3>Acknowledgment of Ownership</h3>
+<div id="acknowledgment-of-ownership" class="section level4">
+<h4>Acknowledgment of Ownership</h4>
 <p><em>The primary dataset was developed by The Nature Conservancy’s New
 York City Program (Mike Treglia and Emily Maxwell) with contributions
 (data aggregation and additional support) from Timon McPhearson of The
@@ -326,8 +324,8 @@ href="https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenro
 here</a>. Zenodo. <a href="http://doi.org/10.5281/zenodo.1469674"
 class="uri">http://doi.org/10.5281/zenodo.1469674</a></p>
 </div>
-<div id="primary-dataset-variables-codebook" class="section level3">
-<h3>Primary Dataset: Variables codebook</h3>
+<div id="primary-dataset-variables-codebook" class="section level4">
+<h4>Primary Dataset: Variables codebook</h4>
 <p><strong>ID and location data</strong></p>
 <ul>
 <li><code>fid</code> - Unique identifier</li>
@@ -382,10 +380,10 @@ PLUTO/MapPLUTO can be found in the PLUTO Data Dictionary. All joins to
 this bbl were based on MapPLUTO version 18v1.</li>
 </ul>
 </div>
-<div id="aggregated-dataset-variables-codebook" class="section level3">
-<h3>Aggregated Dataset : Variables codebook</h3>
+<div id="aggregated-dataset-variables-codebook" class="section level4">
+<h4>Aggregated Dataset : Variables codebook</h4>
 <p>The same authors provide an additional dataset aggregated at the City
-Council District, which is used for regtression purposes.</p>
+Council District, which is used for regression purposes.</p>
 <ul>
 <li><code>coun_dist</code> - Unique Identifier for each City Council
 District</li>
@@ -406,6 +404,177 @@ footprint area) covered by green roof within each City Council
 District</li>
 </ul>
 </div>
+</div>
+<div id="temperature-in-nyc" class="section level2">
+<h2>Temperature in NYC</h2>
+<p>The datasets to analyze the s (NYC.gov)[<a
+href="https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/"
+class="uri">https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/</a>]. The
+full dataset came be found (Github)[<a
+href="https://github.com/nychealth/EHDP-data/tree/production/indicators"
+class="uri">https://github.com/nychealth/EHDP-data/tree/production/indicators</a>].</p>
+<div id="heat-vulnerability-index-nta" class="section level4">
+<h4>Heat Vulnerability Index (NTA)</h4>
+<p>The heat vulnerability index dataset shows the community-level heat
+impacts due to extreme heat events. The data were collected from 188
+neighborhoods across the 5 boroughs of NYC.</p>
+<p>The heat vulnerability index is on a 5-point scale, with 1 being the
+lowest risk and 5 being the highest risk. It is based on a statistical
+model that uses social and environmental factors, such as surface
+temperature, green space, air conditioning access, poverty, and Black
+population, to estimate the risk of heat-related death. The Black
+population was identified as the most excluded from heat resources.
+Residents who are at highest heat risk do not have or use air
+conditioning, are older or have chronic health conditions or serious
+mental illnesses.</p>
+<p>The dataset used is a collection of data sources: - American
+Community Survey (2013-2017 5-year estimates) - New York City Department
+of Parks and Recreation (2017) - U.S. Geological Survey LandSat (2018) -
+United States Census Housing and Vacancy Survey (2017)</p>
+</div>
+<div id="daytime-summer-surface-temperature" class="section level4">
+<h4>Daytime Summer Surface Temperature</h4>
+<p>The daytime summer surface temperature dataset shows the surface
+temperatures of 188 neighborhood tabulation areas (NTAs) in New York
+City. NTAs are neighborhoods that were created by the NYC Department of
+Planning by aggregating census tracts into 195 neighborhood-like areas.
+Some neighborhoods were combined to reach the minimum population of
+15,000 per NTA.</p>
+<p>The daytime surface temperature was collected in Fahrenheit and
+varies based on vegetative covering and materials that retain heat, such
+as paved roads, sidewalks, and buildings. Neighborhoods with higher
+temperatures are seen to have more heat-exacerbated deaths associated
+with extreme heat events. The data source is the U.S. Geological
+Survey.</p>
+<p>NTAs were used because we were able to match the neighborhoods across
+the two datasets, Heat Vulnerability Index and Daytime Summer Surface
+Temperature</p>
+<p><strong><code>envo_health</code> data</strong></p>
+<p><em><code>daytime_surface_temp</code> = daytime landsat thermal data
+on surface collected on July 17, 2018 (averaged spatially), Farenheit
+</em><code>heat_vulnerability_index</code> = score ranging from 1
+(lowest risk) to 5 (highest risk) <em><code>neighborhood</code> = 188
+neighborhood tabulation areas </em><code>latitude</code>,
+<code>longitude</code> = coordinates of the neighborhood tabulation
+areas (Note: Some coordinates may not accurately represent the combined
+NTAs due to multiple neighborhoods being grouped together)
+<em><code>borough</code> = New York City boroughs
+</em><code>geo_id</code> = geography ID for this entry (coded in the
+original dataset)</p>
+<p><strong><code>envo_greenroof</code> data</strong></p>
+<p>The <code>envo_greenroof</code> dataset shows the average green area,
+average daytime surface temperature, and average heat vulnerability
+index for each of the 5 boroughs in NYC. This dataset was created by
+taking the average of green area (calculated using the primary dataset)
+and merging it with the average of daytime surface temperature and
+average heat vulnerability index (calculated using the
+<code>envo_health</code> dataset).</p>
+<p><em><code>borough</code> = New York City boroughs
+</em><code>avg_green_area</code> = average area of the footprint of the
+green roof as per this data layer, in square meter
+<em><code>avg_daytime_temp</code> = average daytime surface temperature,
+Farenheits </em><code>avg_heat_index</code> = average heat vulnerability
+index score</p>
+<p>References</p>
+<ol style="list-style-type: decimal">
+<li><p>New York City Department of Health, Environment &amp; Health Data
+Portal. “Climate” data. Heat vulnerability index (NTA). Accessed at “<a
+href="https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/"
+class="uri">https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/</a>”
+on 12/06/2022.</p></li>
+<li><p>New York City Department of Health, Environment &amp; Health Data
+Portal. “Climate” data. Daytime summer surface temperature. Accessed at
+“<a
+href="https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/"
+class="uri">https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/</a>”
+on 12/06/2022.</p></li>
+</ol>
+</div>
+</div>
+<div id="asthma-in-nyc" class="section level2">
+<h2>Asthma in NYC</h2>
+<p>The dataset provides data of the number and rate of asthma
+hospitalizations and emergency department (ED) visits in New York State.
+These data are presented by age groups, sex, month of year, and total
+population for 3 selected year intervals (ex. 2000-2002, 2001-2003,
+etc…). These data show only a small proportion of people who have
+asthma, those whose condition is serious enough to require an emergency
+department (ED) visit or hospital stay. Data show the number of asthma
+ED visits and hospitalizations rather than the number of patients who
+were admitted or seen for asthma related illness. For example, if a
+person was hospitalized twice they would be counted twice.</p>
+<div id="asthma-age-adjusted-hospitalization-rates"
+class="section level4">
+<h4>Asthma Age-Adjusted Hospitalization Rates</h4>
+<p>Rates are calculated as the number of asthma hospitalizations per
+10,000 residents in 5-year age groups using age-specific weights based
+on the estimated 2008-2010 population. The maps show average asthma
+age-adjusted hospitalization rates for the selected three year period.
+Users can compare asthma hospitalizations across counties in the
+following regions: New York State (whole state), New York City, New York
+State Excluding New York City. Users can see more clearly the
+differences in asthma hospitalization rates between the remaining New
+York State counties when New York City counties are removed from the
+display.</p>
+</div>
+<div id="asthma-age-adjusted-emergency-department-visit-rates"
+class="section level4">
+<h4>Asthma Age-Adjusted Emergency Department Visit Rates</h4>
+<p>Rates are calculated as the number of asthma ED visits per 10,000
+residents in 5-year age groups using age-specific weights based on the
+estimated 2008-2010 population. The maps show average asthma
+age-adjusted ED visit rates for the selected three year period. Users
+can compare asthma ED visits across counties in the following regions:
+New York State (whole state), New York City, New York State Excluding
+New York City. Users can see more clearly the differences in asthma ED
+visits rates between the remaining New York State counties when New York
+City counties are removed from the display.</p>
+</div>
+<div id="critical-variables" class="section level4">
+<h4>Critical Variables</h4>
+<p>The following variables are present in the wrangeles and tidied
+<code>asthma_df</code> (and <code>asthma2_df</code>) dataframes:</p>
+<ul>
+<li><code>borough</code> = New York City boroughs</li>
+<li><code>indicator</code> = shows what metric <code>aa_rate10ky</code>
+stands for: either age adjusted ED Visits (see explanation above), age
+adjusted Hospitalizations (see explanation above), or a self-created
+Severity Metric (ED visits divded by Hospitalizations, only present in
+<code>asthma2_df</code>)</li>
+<li><code>year</code> = year the measure was recorded</li>
+<li><code>aa_rate10kpy</code> = value of indicator per 10k inhabitants
+per year within a given borough</li>
+<li><code>count</code> = absolute value of indicator per year within a
+given borough</li>
+<li><code>daily_average</code> = absolute value of indicator per day
+within a given borough and year</li>
+</ul>
+</div>
+</div>
+<div id="income-tax-credits-in-nyc" class="section level2">
+<h2>Income Tax Credits in NYC</h2>
+<p>The data used for this project comes from two different data
+sources:</p>
+<p>The first is the <a
+href="https://data.ny.gov/Government-Finance/Earned-Income-Tax-Credit-EITC-Claims-by-Credit-Typ/6q7b-8vuf">EITC
+Data</a>, provided by New York State Open Data.</p>
+<p>The second is <a
+href="https://www.nyc.gov/site/planning/planning-level/nyc-population/nyc-population-current-estimates.page">Population
+Estimates</a>, provided by the U.S. Census Bureau.</p>
+<p>Once cleaned and optimized for use in this project, the variables of
+interest are as follows:</p>
+<p><code>tax_year</code> (numeric): The tax year, from 1994 - 2020
+<code>credit_type</code> (character): The type of credit received,
+either <code>City EITC</code>, <code>State EITC</code> or
+<code>Noncust. EITC</code> <code>borough</code>(character): Borough of
+New York City, either <code>Bronx</code>, <code>Brooklyn</code>,
+<code>Manhattan</code>, <code>Queens</code>, or
+<code>Staten Island</code> <code>number_of_claims</code>(numeric): The
+number of claims filed <code>boro_credit_total</code>(numeric): The
+total amount, in dollars, received in EITC credit
+<code>average_credit</code>(numeric): The average dollar amount of the
+EITC credit <code>popestimate</code> (numeric): The population estimate
+for each borough, from 2016-2018</p>
 </div>
 
 

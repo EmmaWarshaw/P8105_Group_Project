@@ -86,7 +86,7 @@ eitc_data = tax_data %>%
     borough = as_factor(borough),
     borough = fct_relevel(borough , "Manhattan"))
 
-write.csv(eitc_data, "/Users/emmawarshaw/Desktop/Data Science 1/eitc_data.csv", row.names = FALSE)
+write.csv(eitc_data, "./data/eitc_data.csv", row.names = FALSE)
 ```
 
 ## Overall Trends
@@ -345,8 +345,6 @@ subplot(style(ggplot_greenspace, showlegend = FALSE),
         titleY = TRUE, 
         shareX = TRUE) %>% 
   layout(title = 'Side By Side: Cummulative Greenspace and Average EITC by Borough, 2006-2018')
-
-##Niklas: Include this code chunk and plot in the Dashboard please
 ```
 
 The visualization shows what we initially thought: Manhattan rooftop greenspace cumulative area has rapidly increased in the time frame while their average EITC credit amount has stayed the lowest of all the boroughs.  Meanwhile, the Bronx has consistently had the highest EITC credit amount while having a very low rate of increase in rooftop greenspace.  

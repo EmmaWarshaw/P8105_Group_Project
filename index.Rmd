@@ -6,53 +6,54 @@ output:
     toc_float: true
 ---
 
-## Welcome to our Final Project
+# Welcome to our Final Project
 
-This website is constructed as the final deliverable for the P8105 final project. 
+This website is constructed as the final deliverable for the ***P8105 final project***. Before jumping into the actual analysis, three main topics need to be explained.
 
-Before jumping into the actual analysis, three main topics need to be explained. First, we want to present your team to you. Second, the data that is used throughout the project. Third, three main themes that will show the intention behind and significance of this work. 
+1.  **Our Team** and how we each contribute
+2.  Three **Key Themes** that will show the intention behind this project
+3.  Third, **The Data** that is used throughout the project
 
-The outcome of our work is something we are very excited about and hope will be the starting point of more research. Additionally, like every good public health professional, it is our goal to support positive change - the findings of this project provide initial insights that individuals, organizations, and governments can directly act upon. 
+The outcome of our work is something we are very excited about and hope will be the starting point of more research. Additionally, like every good public health professional, it is our goal to support positive change - the findings of this project provide initial insights that individuals, organizations, and governments can directly act upon.
 
-## Our Team
+## [Our Team](about.html)
 
-The beauty of a final project within this format is the ability to present important information beyond the data outputs. Since a groups work is based on individuals and their own lived experiences, we want to take this opportunity to present our team to you. With 5 members and 5 unique perspectives on this project, please feel free to click *HERE* to find out more.
+The beauty of a final project within this format is the ability to present important information beyond the data outputs. Since a groups work is based on individuals and their own lived experiences, we want to take this opportunity to present our team to you. With 5 members and 5 unique perspectives on this project, please feel free to click [**HERE**](about.html) to find out more.
 
-## Key Analysis Themes
+## Key Themes
 
-1.    Location Matters: Anyone active in Public Health will know that location is one of the most important determinants of health. One of the key examples of this is redlining - referring to a discriminatory US practice that saw predominantly black neighborhoods being disadvantaged by withholding loans, public spending, and more. 
-While redlining as a "known" practice might be an atrocity of the past, the underlying importance of ones living location continues to matter A LOT. Just think about implicit biases, access to education, environmental factors, and density of healthcare providers. 
-As such, it was very clear to this group that our project needed to incorporate some type of location factor.
+1.  **Location Matters:** Anyone active in Public Health will know that location is one of the most important determinants of health. One of the key examples of this is redlining - referring to a discriminatory US practice that saw predominantly black neighborhoods being disadvantaged by withholding loans, public spending, and more. While redlining as a "known" practice might be an atrocity of the past, the underlying importance of ones living location continues to matter A LOT. Just think about implicit biases, access to education, environmental factors, and density of healthcare providers. As such, it was very clear to this group that our project needed to incorporate some type of location factor.
 
-2.    Public Health is EVERYTHING: One of the most influential lectures for this group at Mailman was with Professor Merlin. He started by describing what Public Health really meant. Just healthcare? Gun violence? Income distribution? Access to work? Clean water?
+2.  **Public Health is EVERYTHING:** One of the most influential lectures for this group at Mailman was with Professor Merlin. He started by describing what Public Health really meant. Just healthcare? Gun violence? Income distribution? Access to work? Clean water? The correct answer was: [*ALL OF THE ABOVE*]{.underline}
 
-The correct answer was: "ALL OF THE ABOVE"
+    Public Health is a unique field, as it is broad beyond most peoples imagination - everything ones sees in ones daily life is connected to Public Health in one way or another. As such, it was important to this group to touch upon a number of different factors while working on this project. To us, only by considering a number of factors, could we do justice to Professor Merlin and the education we have received at Mailman.
 
-Public Health is a unique field, as it is broad beyond most peoples imagination - everything ones sees in ones daily life is connected to Public Health in one way or another. As such, it was important to this group to touch upon a number of different factors while working on this project. To us, only by considering a number of factors, could we do justice to Professor Merlin and the education we have received at Mailman.
+3.  **Systems Thinking:** Of course, when considering a number of different Public Health factors, some key challenges arise. Most importantly, "how do those factors interact with one another?"
 
-3.    Systems Thinking: Of course, when considering a number of different Public Health factors, some key challenges arise. Most importantly, "how do those factors interact with one another?" 
+    Within Public Health, this question is tackled by systems thinking. Simply put, your access to education influences your access to work, which in turn influences your income and investments within your community, which ultimately influence your neighborhoods access to education.
 
-Within Public Health, this question is tackled by systems thinking. Simply put, your access to education influences your access to work, which in turn influences your income and investments within your community, which ultimately influence your neighborhoods access to education. 
+    For this group, applying systems thinking meant looking beyond individual analysis, but combining all data-sets to understand how green spaces, income, health, and temperature could all influence one another. The findings are fascinating and can be found *here*.
 
-For this group, applying systems thinking meant looking beyond individual analysis, but combining all datasets to understand how green spaces, income, health, and temperature could all influence one another. The findings are fascinating and can be found *here*.
+## The Data
 
+The project at its core is based on four main data-sets. Each of them is geographically based in New York City, and we managed to combine all of them through a location variable that specifies the NYC neighborhood. To understand how exactly they interact with one another, let's jump into each:
 
-## Our Analysis - High-Level Explanation
+#### [Urban Greenspace](UGS.html)
 
-The project at its core is based on four main datasets. Each of them is geographically based in New York City, and we managed to combine all of them through a location variable that specifies the NYC neighborhood. To understand how eactly they interact with one another, let's jump into each:
+-   The *Greenspace Analysis* is ABC
 
-#### Greenspace
--   The *Greenspace Dataset* is ABC
+#### [Tax Credits](tax_data.html)
 
-#### Income
--   The *Income Dataset* is ABC
+-   The *Tax Credit Analyis* is ABC
 
-#### Temperature
--   The *Temperature Dataset* is ABC
+#### [Temperature](temp.html)
 
-#### Health
--   The *Health Dataset* is ABC
+-   The *Temperature Analysis* is ABC
 
-#### Joint Analysis
+#### [Asthma](asthma.html)
+
+-   The *Asthma Analysis* is ABC
+
+#### [Joint Analysis Dashboard](analysis.html)
+
 -   ABC
-

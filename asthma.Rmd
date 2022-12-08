@@ -239,7 +239,7 @@ asthma_df %>%
     title = "Number of ED Visits / 10k inhabitants per borough in 2018",
     x = "Time (year)",
     y = "ED Visits (absolute)") +
-  theme(legend.position="none")
+  theme(legend.position = "none")
 ```
 
 A very similar pattern is observed for hospitalizations rates / 10k inhabitants by borough in 2018. The unequal burden is even more accentuated, as the Bronx tops the list by a wide margin. The Bronx not only seems to be affected more by higher asthma rates, the asthma cases also seem to be more severe (relatively) to the other boroughs.
@@ -254,7 +254,7 @@ asthma_df %>%
     title = "Number of ED Visits / 10k inhabitants per borough in 2018",
     x = "Time (year)",
     y = "ED Visits (absolute)") +
-  theme(legend.position="none")
+  theme(legend.position = "none")
 ```
 
 Lastly, before we move to to visualizations over time, we wanted to take a look at absolute burden across the different boroughs. The following table show a the total number of ED Visits and Hospitalizations per borough (i.e., not adjusted per 10k inhabitants) in 2018. Still Bronx tops the list with 95k ED visits, followed by Brooklyn with 82k - compared to the total number in NYC of 279k this means that those two boroughs make up roughly two thirds of all asthma related ED visits. The same holds true for hospitalizations, where Bronx recorded 14k and Brooklyn 10k in 2018 (compared to 37k across NYC). 
@@ -284,7 +284,7 @@ asthma_df %>%
     title = "Absolute Number of ED Visits per borough in 2018",
     x = "Time (year)",
     y = "ED Visits (absolute)") +
-  theme(legend.position="none")
+  theme(legend.position = "none")
 ```
 
 ## Analysis over time by borough

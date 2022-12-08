@@ -1,21 +1,22 @@
 ---
 title: "Codebook"
-author: "mm5951"
-date: "`r Sys.Date()`"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 This page contains information on the four datasets analyzed within this group project. Details on its primary source, as well as variables definitions and units, are specified for each of them.
 
 ## Urban Green Spaces in NYC
 
-### Acknowledgment of Ownership
+#### Acknowledgment of Ownership
 
 *The primary dataset was developed by The Nature Conservancy's New York City Program (Mike Treglia and Emily Maxwell) with contributions (data aggregation and additional support) from Timon McPhearson of The Urban Systems Lab at The New School, Eric Sanderson of The Wildlife Conservation Society, and Greg Yetman of CIESIN at Columbia University.*
 
 Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxwell, Emily Nobel. (2018). Green Roofs Footprints for New York City, Assembled from Available Data and Remote Sensing (Version 1.0.0) [Available here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/CurrentDatasets). Zenodo. http://doi.org/10.5281/zenodo.1469674
 
-### Primary Dataset: Variables codebook
+#### Primary Dataset: Variables codebook
 
 **ID and location data**
 
@@ -42,9 +43,9 @@ Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxw
 * `bbl` - Boro Block and Lot number as a single string. This field is a tax lot identifier for NYC, which can be tied to the Digital Tax Map and PLUTO/MapPLUTO. Metadata for fields pulled from PLUTO/MapPLUTO can be found in the PLUTO Data Dictionary. All joins to this bbl were based on MapPLUTO version 18v1.
 
 
-### Aggregated Dataset : Variables codebook
+#### Aggregated Dataset : Variables codebook
 
-The same authors provide an additional dataset aggregated at the City Council District, which is used for regtression purposes.
+The same authors provide an additional dataset aggregated at the City Council District, which is used for regression purposes.
 
 * `coun_dist` - Unique Identifier for each City Council District
 * `borough` -  Name of the borough containing the respective City Council District
@@ -60,7 +61,7 @@ The same authors provide an additional dataset aggregated at the City Council Di
 The datasets to analyze the s
 (NYC.gov)[https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/]. The full dataset came be found (Github)[https://github.com/nychealth/EHDP-data/tree/production/indicators]. 
 
-## Heat Vulnerability Index (NTA)
+#### Heat Vulnerability Index (NTA)
 
 The heat vulnerability index dataset shows the community-level heat impacts due to extreme heat events. The data were collected from 188 neighborhoods across the 5 boroughs of NYC. 
 
@@ -72,7 +73,7 @@ The dataset used is a collection of data sources:
  - U.S. Geological Survey LandSat (2018)
  - United States Census Housing and Vacancy Survey (2017)
 
-## Daytime Summer Surface Temperature
+#### Daytime Summer Surface Temperature
 
 The daytime summer surface temperature dataset shows the surface temperatures of 188 neighborhood tabulation areas (NTAs) in New York City. NTAs  are neighborhoods that were created by the NYC Department of Planning by aggregating census tracts into 195 neighborhood-like areas. Some neighborhoods were combined to reach the minimum population of 15,000 per NTA.
 
@@ -105,19 +106,19 @@ References
 2. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Daytime summer surface temperature. Accessed at "https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/" on 12/06/2022.
 
 
-## Asthma NYS Dataset
+## Asthma in NYC
 
 The dataset provides data of the number and rate of asthma hospitalizations and emergency department (ED) visits in New York State. These data are presented by age groups, sex, month of year, and total population for 3 selected year intervals (ex. 2000-2002, 2001-2003, etc...). These data show only a small proportion of people who have asthma, those whose condition is serious enough to require an emergency department (ED) visit or hospital stay. Data show the number of asthma ED visits and hospitalizations rather than the number of patients who were admitted or seen for asthma related illness. For example, if a person was hospitalized twice they would be counted twice.
 
-### Asthma Age-Adjusted Hospitalization Rates
+#### Asthma Age-Adjusted Hospitalization Rates
 
 Rates are calculated as the number of asthma hospitalizations per 10,000 residents in 5-year age groups using age-specific weights based on the estimated 2008-2010 population. The maps show average asthma age-adjusted hospitalization rates for the selected three year period. Users can compare asthma hospitalizations across counties in the following regions: New York State (whole state), New York City, New York State Excluding New York City. Users can see more clearly the differences in asthma hospitalization rates between the remaining New York State counties when New York City counties are removed from the display.
 
-### Asthma Age-Adjusted Emergency Department Visit Rates
+#### Asthma Age-Adjusted Emergency Department Visit Rates
 
 Rates are calculated as the number of asthma ED visits per 10,000 residents in 5-year age groups using age-specific weights based on the estimated 2008-2010 population. The maps show average asthma age-adjusted ED visit rates for the selected three year period. Users can compare asthma ED visits across counties in the following regions: New York State (whole state), New York City, New York State Excluding New York City. Users can see more clearly the differences in asthma ED visits rates between the remaining New York State counties when New York City counties are removed from the display.
 
-### Critical Variables
+#### Critical Variables
 
 The following variables are present in the wrangeles and tidied `asthma_df` (and `asthma2_df`) dataframes:
 
@@ -128,4 +129,22 @@ The following variables are present in the wrangeles and tidied `asthma_df` (and
 * `count` = absolute value of indicator per year within a given borough 
 * `daily_average` = absolute value of indicator per day within a given borough and year
 
+
+## Income Tax Credits in NYC
+
+The data used for this project comes from two different data sources: 
+
+The first is the [EITC Data](https://data.ny.gov/Government-Finance/Earned-Income-Tax-Credit-EITC-Claims-by-Credit-Typ/6q7b-8vuf), provided by New York State Open Data. 
+
+The second is [Population Estimates](https://www.nyc.gov/site/planning/planning-level/nyc-population/nyc-population-current-estimates.page), provided by the U.S. Census Bureau.
+
+Once cleaned and optimized for use in this project, the variables of interest are as follows: 
+
+`tax_year` (numeric): The tax year, from 1994 - 2020
+`credit_type` (character): The type of credit received, either `City EITC`, `State EITC` or `Noncust. EITC`
+`borough`(character): Borough of New York City, either `Bronx`, `Brooklyn`, `Manhattan`, `Queens`, or `Staten Island`
+`number_of_claims`(numeric): The number of claims filed 
+`boro_credit_total`(numeric): The total amount, in dollars, received in EITC credit
+`average_credit`(numeric): The average dollar amount of the EITC credit
+`popestimate` (numeric): The population estimate for each borough, from 2016-2018
 
