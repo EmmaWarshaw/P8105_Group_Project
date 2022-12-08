@@ -60,7 +60,7 @@ The project at its core is based on four main data-sets. Each of them is geograp
 
 ##### [Temperature](temp.html)
 
--   The *Temperature Analysis* is ABC
+-   The *Temperature Analysis* explores the daytime surface temperature and heat vulnerability index scores of the 5 boroughs in NYC. Neighborhoods with higher surface temperatures tend to have more heat-exacerbated deaths associated with extreme heat events. The daytime surface temperature shows which neighborhood is more at-risk due to higher surface temperatures. The heat vulnerability index further expands on the notion that hotter neighborhoods are more at-risk of heat illness and death. Based on a number of social and environmental factors, the heat vulnerability index is scored on a 5-point scale (1 being lowest at-risk and 5 being highest at-risk). Both the daytime surface temperature and heat vulnerability index provide a better understanding of which neighborhood is most at-risk of heat illness and heat-exacerbated deaths. 
 
 ##### [Asthma](asthma.html)
 
