@@ -4,15 +4,18 @@ navbar:
   right:
     - text: "Our Team"
       href: about.html
-    - text: "Urban Greenspaces"
-      href: UGS.html
-    - text: "Tax Credits"
-      href: tax_data.html
-    - text: "Asthma"
-      href: asthma.html
-    - text: "Temperature"
-      href: temp.html
-    - text: "Joint Analysis Dashboard"
+    - text: "Exploratory Analysis"
+      icon: fa-box
+      menu:
+        - text: "Tax Credits"
+          href: tax_data.html
+        - text: "Asthma"
+          href: asthma.html
+        - text: "Temperature"
+          href: temp.html
+        - text: "Urban Greenspaces"
+          href: UGS.html
+    - text: "Joint Analysis"
       href: analysis.html
     - text: "Codebook"
       href: Codebook.html

@@ -333,20 +333,31 @@ div.tocify {
         <li>
   <a href="about.html">Our Team</a>
 </li>
-<li>
-  <a href="UGS.html">Urban Greenspaces</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-box"></span>
+     
+    Exploratory Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="tax_data.html">Tax Credits</a>
+    </li>
+    <li>
+      <a href="asthma.html">Asthma</a>
+    </li>
+    <li>
+      <a href="temp.html">Temperature</a>
+    </li>
+    <li>
+      <a href="UGS.html">Urban Greenspaces</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="tax_data.html">Tax Credits</a>
-</li>
-<li>
-  <a href="asthma.html">Asthma</a>
-</li>
-<li>
-  <a href="temp.html">Temperature</a>
-</li>
-<li>
-  <a href="analysis.html">Joint Analysis Dashboard</a>
+  <a href="analysis.html">Joint Analysis</a>
 </li>
 <li>
   <a href="Codebook.html">Codebook</a>
@@ -544,8 +555,8 @@ and merging it with the average of daytime surface temperature and
 average heat vulnerability index (calculated using the
 <code>envo_health</code> dataset).</p>
 <p><em><code>borough</code> = New York City boroughs
-</em><code>avg_total_ green_area</code> = average total area of the
-footprint of the green roof per Borough, in square meter
+</em><code>total_ green_area</code> = total area of the footprint of the
+green roof per Borough, in square meter
 <em><code>avg_daytime_temp</code> = average daytime surface temperature,
 Farenheits </em><code>avg_heat_index</code> = average heat vulnerability
 index score</p>

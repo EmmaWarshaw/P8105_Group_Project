@@ -25,7 +25,6 @@ options(
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
-We're interested in understanding the financial status of residents in each borough, ideally to understand differences in relation to rooftop greenspace in each borough.  
 
 One way to get a general understanding of socioeconomic status in each borough is to look at Earned Income Tax Credit (EITC) data. EITC is designed to give a tax credit to low-to-moderate income workers and families.  Specific qualifications and income thresholds can be found [here](https://www1.nyc.gov/assets/dca/downloads/pdf/consumers/Tax-Credit-Fast-Facts.pdf).   
 
@@ -37,7 +36,17 @@ The Noncustodial Parent EITC is offered exclusively by the state and claimants c
 
 The qualification criteria do not overlap but the underlying economic considerations are the same.  
 
-## Import the EITC Data Using an API
+## Goals of the analysis
+
+The primary goal of this analysis is to understand the financial status of residents in each borough. To that end, we will first create a data-set upon which regression analysis can be conducted with potentially associated dimensions (urban greenspaces, temperature, and health outcomes).
+
+Secondly, this analysis aims to provide:
+
+* a descriptive analysis of the NYC EITC primary dataset, as well as stratified analysis at the Borough levels;
+* relevant data visualizations of the above;
+* an attempt to fit the dataset into a linear regression model to elucidate differences in the distribution of EITC data at the Borough levels.
+
+## Data load & wrangling
 
 This data was provided by [New York State Data.Ny.Gov](https://data.ny.gov/Government-Finance/Earned-Income-Tax-Credit-EITC-Claims-by-Credit-Typ/6q7b-8vuf).  The original data set includes information for all counties in New York State.  For purposes of this project, we're only interested in New York City, and the five counties that correspond to each borough.   
 
@@ -48,8 +57,6 @@ tax_data =
   jsonlite::fromJSON() %>% 
   as_tibble()
 ```
-
-## Tidy the data 
 
 There are several columns that we won't need for this analysis.  The `notes`, `place_of_residence`, and `place_of_residence_sort_order` will be dropped because they either don't contain any data (i.e. notes) or they're redundant of other columns.  
 
@@ -89,7 +96,9 @@ eitc_data = tax_data %>%
 write.csv(eitc_data, "./data/eitc_data.csv", row.names = FALSE)
 ```
 
-## Overall Trends
+## Descriptive Analysis & Visualization
+
+#### Overall `EITC_df` Datset
 
 First, we'll create a graph to show the number of claims in each borough from 2006 onward.  Although the data goes back as far as 1994, the City EITC wasn't introduced until 2004 and the Noncustodial Parent EITC wasn't introduced until 2006.  For consistency, we'll look at 2006 onward for an idea of the overall number of claims made each year in each borough.      
 
@@ -119,7 +128,7 @@ overall_point = overall_trend %>%
 ggplotly(overall_point)
 ```
 
-## Proportion of Each Borough Filing a Claim
+#### Stratified Analysis by Borough
 
 The graph above shows the overall trend in the number of claims filed per borough, but this relationship scales with population of each borough.  For instance, Brooklyn is the most populace borough, so it logically follows that the most claims were filed in that borough.  
 
@@ -172,7 +181,9 @@ nyc_trend %>%
   layout(xaxis = list(title = 'Borough'), yaxis = list(title = 'Proportion Filing Claim'), title = "Average Proportion Filing EITC Claim by Borough, 2016-2018")
 ```
 
-## Hypothesis Testing: Proportion of Claimants
+## Regression Analyses
+
+#### Proportion of Claimants
 
 Graphically, we can see that there is a difference in the proportion of claimants in each borough.  Statistically, we have to establish the significance of this finding. 
 
@@ -192,7 +203,7 @@ The F-test gives a p-value far less than our accepted significance level of 0.05
 
 When we analyze against a reference group, we see that Bronx, Brooklyn and Queens are all statistically different from Manhattan.  Using our visualizations, we see that the proportion of claimants is higher in these boroughs.  
 
-## Average Claim Amount 
+#### Average Claim Amount 
 
 Next, we'll look at the average claim amount 2016-2018 for each borough, stratifying by credit type.  Since our primary `Greenspace` data set only includes data from 2016-2018, we're going to limit our analysis to these years.  Since the qualification criteria is the same for City and State EITC, we're going to add the amounts to create a single category called `EITC`.   
 
@@ -226,7 +237,7 @@ noncust_eitc_distribution
 
 ```
 
-## Hypothesis Testing: Average Credit Amount
+#### Average Credit Amount
 
 Similar to the population proportions, we need to test if these difference are significant. 
 

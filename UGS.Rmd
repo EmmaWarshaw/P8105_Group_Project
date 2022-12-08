@@ -90,7 +90,7 @@ UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) 
 Notably, the same authors provide an aggregated dataset at the City Council District which is loaded as a **secondary UGS dataset** under the **`UG_agg_df`** name. A similar procedure as described above is used.
 
 ```{r, message = FALSE, warning = FALSE}
-UG_agg_df= read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na = c("","Unknown")) %>% 
+UG_agg_df = read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na = c("","Unknown")) %>% 
   janitor::clean_names() %>% 
   select(coun_dist:prop_greenroofarea_of_bldgarea) %>% 
   rename(
@@ -109,11 +109,11 @@ UG_agg_df= read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na =
 
 Note that all variable names are available in the [project's codebook](codebook.html).
 
-## Descriptive analysis
+## Descriptive Analysis & Visualization
 
 Next, we perform a descriptive analysis of the NYC Urban Green Spaces (UGS) primary dataset, as well as stratified analysis at the City Council District and Borough levels.
 
-### Overall `UG_df` Datset Descriptive Analysis
+#### Overall `UG_df` Datset Descriptive Analysis
 
 Overall, the "UG_df" contains contains `r ncol(UG_df)` variables related to `r nrow(UG_df)` urban green spaces in NYC. The total UGS area in NYC sums to `r sum(UG_df$green_area)` square meter. The following table summarizes the average UGS in NYC, including its size (in square meter), height (in meter) and percentage of green coverage (that is, the proportion of green space within the total building area). Key variables are summarized in the table below using `knitr:kable()`.
 
@@ -132,7 +132,7 @@ UG_df %>%
 
 Overall, within New York City, UGS have an **mean size of 334.52 sqm (range 0.94-25,763.66 sqm)**. The broad range of values, as well as the median situated at 109.06 sqm (way below the mean), it suggests this variable's **right-skewed distribution**. We will explore this more in the "data visualization" section below. On average, UGS in NYC are situated at **43.47 m of height**, and **cover 19.63% of the total building's surface**.
 
-### Stratified Analysis by Borough
+#### Stratified Analysis by Borough
 
 When stratified by borough, differences in the number and dimensions of UGS become apparent. Following a similar procedure as above, we generate a summary table below, arranged according to the amount of UGS present in each borough.
 
@@ -157,7 +157,7 @@ UG_df %>%
 **Manhattan** contains over 63% of all NYC's UGS (n=465), situated at a considerably higher altitude (mean height 54.24 m). Nevertheless, its UGS are also the smallest in percentual terms when asessing the proportion of building coverage (15.24%). Conversely, **Queens** and **Staten Island** have the lowest amoung of UGS (n=50 and n=4, respectively), but their UGS area the biggest on average (mean sizes of 468.55 and 456.72 sqm, respectively). These results could be linked to the property prices in each areas (further analysis would be needed to assess so).
 
 
-### Stratified Analysis by City Council District 
+#### Stratified Analysis by City Council District 
 
 Although NYC city council districts typically correspond to borough sub-divisions, the equivalence is not perfect (note council district #8 belongs to both Manhattan and Bronx, more info [here](https://council.nyc.gov/districts/)). In that sense, the same authors provide a similar dataset aggregated at the City Council District level, which we have loaded with the `UG_agg_df` name. A similar descriptive analysis as above is performed. Notably, in this dataset the total number of buildings per district is available, and therefore we compute the percentage of buildings with an UGS.
 
@@ -178,10 +178,7 @@ UG_agg_df %>%
 As a result, we observe that **3 City Council Districts in Manhattan concentrate over half of the borough's UGS (n=318)**, with over 1% of its buildings covered by green spaces. Conversely, **8 districts within Bronx, Queens, Brooklyn and Staten Island have no UGS at all**. These results suggest the existence of distribution differences, which will be addressed in the last section of this analysis.
 
 
-
-## Data visualization
-
-### Mapping UGS in NYC
+#### Mapping UGS in NYC
 Using the `leaflet` package, we plot each UGS on a NYC map. A `pal()` function is generated to establish a color according to the size of the UGS.
 
 ```{r}
@@ -205,7 +202,7 @@ UG_map
 As described above, we observe a concentration of UGS in southern Manhattan. Scarce green spaces are present in southern Brooklyn, Staten Island, Queens or the Bronx.
 
 
-### Distribution of UGS surface by borough
+#### Distribution of UGS surface by borough
 
 Next, the distribution of UGS surface by borough is investigated. The `UG_df` is first plotted on a boxplot to have a better understanding of outliers (as we have indication of a right-skewed disribution according to the descriptive analysis above). 
 
@@ -239,14 +236,14 @@ UG_violin
 
 Overall, these visualizations confirm the sparse distribution of UGS surface area (sqm) accross boroughs, as well as suggest differences according to its location (see map above). We will investigate this further through regression in the upcoming section.
 
-### UGS development overtime in NYC
+#### UGS development overtime in NYC
 
 Finally, the construction of UGS trends is investigated overtime. To do so, the `cumsum()` function is used over a generated dummy variable that allocates the value "1" to all UGS. Note that the observations with an invalid or missing construction year are omited.
 
 ```{r}
 UG_overtime = UG_df %>%
   drop_na(cons_year) %>% 
-  filter(cons_year !=0) %>% 
+  filter(cons_year != 0) %>% 
   arrange(cons_year) %>% 
   mutate(
     cumsum_dummy = 1,
@@ -265,7 +262,7 @@ UG_overtime %>%
 
 We observe a progressive construction of UGS overtime, with a rampant trend as of early 2000s (potentially linked to urban planning regulations and greater interest in climate change mitigation strategies).
 
-## Regression analyses
+## Regression Analyses
 
 In this section, we perform different regression analyses to understand whether the location within NYC (x: predictor variables, both "borough" and "city council district") influences either the size or number of UGS (y: outcome variable, both "green_area" and "num_greenroofs").
 
