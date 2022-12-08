@@ -95,7 +95,7 @@ NTAs were used because we were able to match the neighborhoods across the two da
 The `envo_greenroof` dataset shows the average green area, average daytime surface temperature, and average heat vulnerability index for each of the 5 boroughs in NYC. This dataset was created by taking the average of green area (calculated using the primary dataset) and merging it with the average of daytime surface temperature and average heat vulnerability index (calculated using the `envo_health` dataset). 
 
 *`borough` = New York City boroughs
-*`total_ green_area` = average total area of the footprint of the green roof per Borough, in square meter
+*`total_ green_area` = total area of the footprint of the green roof per Borough, in square meter
 *`avg_daytime_temp` = average daytime surface temperature, Farenheits
 *`avg_heat_index` = average heat vulnerability index score 
 
