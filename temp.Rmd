@@ -34,7 +34,7 @@ This analysis includes datasets that were retrieved from the number of  [Climate
 
 ## Why Temperature?
 
-It is hypothesized that urban green spaces are important in bringing down the air temperature in cities such as New York City. In this exploratory analysis, we will explore how high the temperatures are in New York City and if there is an association with the amount of green spaces in the area. 
+It is hypothesized that urban green spaces are important in bringing down the air temperature in cities such as New York City. In this exploratory analysis, we will explore daytime surface temperatures and heat vulnerability index scores in New York City and the effect urban green spaces has on temperature and index scores. 
 
 ```{r, echo = FALSE, include = FALSE}
 envo_health = read_csv("data/envo_health.csv") %>% 
@@ -215,6 +215,8 @@ envoroof_map
 
 The map above shows a large percentage of urban green spaces located in lower Manhattan, which also has one of the lowest daytime surface temperatures and heat vulnerability index. In neighborhoods with higher daytime surface temperatures and heat vulnerability index, there is little to no urban green spaces. The amount of urban green spaces present may affect the daytime surface temperatures and heat vulnerability index of neighborhoods in New York City. 
 
+### Univariate Models to Explore the Effect of Total Average Urban Green Spaces in NYC
+
 ```{r, echo = FALSE, include = FALSE}
 envo_greenroof = read_csv("data/envo_greenroof.csv") %>% 
   clean_names()
@@ -237,7 +239,7 @@ envo_greenroof_surfmodel =
   select(-std.error)
 
 envo_greenroof_surfmodel %>% 
-  knitr::kable(digits = 3, align = "lcccc", caption = "Table 6: Coefficient Estimates of Linear Model Assessing the Association Between Average Green Roof Surface Area and Average Daytime Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+  knitr::kable(digits = 8, align = "lcccc", caption = "Table 6: Coefficient Estimates of Linear Model Assessing the Association Between Average Green Roof Surface Area and Average Daytime Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
 There does not seem to be a relationship between the average area of green roof and average daytime surface temperature. 
 
@@ -252,7 +254,7 @@ envo_greenroof_heatmodel =
   select(-std.error)
 
 envo_greenroof_heatmodel %>% 
-  knitr::kable(digits = 3, align = "lcccc", caption = "Table 7: Coefficient Estimates of Linear Model Assessing the Association Between Average Green Roof Surface Area and Average Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+  knitr::kable(digits = 8, align = "lcccc", caption = "Table 7: Coefficient Estimates of Linear Model Assessing the Association Between Average Green Roof Surface Area and Average Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
 There does not seem to be a relationship between the average area of green roof and average heat vulnerability index. 
 
