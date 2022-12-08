@@ -1,7 +1,5 @@
 ---
 title: "Earned Income Tax Data (EITC) and Population"
-author: "Emma Warshaw"
-date: "2022-11-30"
 output: html_document
 ---
 
@@ -35,7 +33,7 @@ There are two different types of EITC in this data set, with one type having two
 
 EITC is offered by both the state and the city, although the state tends to give a higher credit: claimants can file for both of these.  
 
-The Noncustodial Parent EITC is offered exclusively by the state and claimants can only file for this credit alone.  If they claim Noncustodial Parent EITC, it disqualifies them from regular EITC eligibility.  
+The Noncustodial Parent EITC is offered exclusively by the state and claimants can only file for this credit alone.  It's designed for low-to-moderate income paretns who do not have primary custody of their child.  If they claim Noncustodial Parent EITC, it disqualifies them from regular EITC eligibility.  
 
 The qualification criteria do not overlap but the underlying economic considerations are the same.  
 
@@ -59,7 +57,7 @@ Next, we'll filter this data to only show the counties withing New York City: Br
 
 Next, we'll clean up the `credit_type` variable names for ease of use, then we'll coerce character columns to numeric as needed.
 
-Finally, the `credit_amount_claimed_in_thousands` needs to be multiplied by 1000 to get the actual dollar amount claimed in each borough.  I'm also going to rename `county` to `borough`for consistency across the project.   
+Finally, the `credit_amount_claimed_in_thousands` needs to be multiplied by 1000 to get the actual dollar amount claimed in each borough.  We'll also going to rename `county` to `borough`for consistency across the project.   
 
 ```{r, echo = FALSE}
 eitc_data = tax_data %>%
@@ -178,7 +176,7 @@ nyc_trend %>%
 
 Graphically, we can see that there is a difference in the proportion of claimants in each borough.  Statistically, we have to establish the significance of this finding. 
 
-First we'll run an F-test to determine if the group proportions are different between boroughs.  For purposes of this project, we're using Manhattan as our universal reference group, so we'll then see which proportions differ from Manhattan.     
+First we'll run an ANOVA F-test to determine if the group proportions are different between boroughs.  For purposes of this project, we're using Manhattan as our universal reference group, so we'll then see which proportions differ from Manhattan.     
 
 ```{r, echo = FALSE}
 lm.model = lm(prop_claims ~ borough, data = nyc_trend)
@@ -232,7 +230,7 @@ noncust_eitc_distribution
 
 Similar to the population proportions, we need to test if these difference are significant. 
 
-We'll start with the EITC data and run an F-test to determine if the amount claimed is different in between boroughs.  We'll then use Manhattan as our reference group to see which boroughs are paying a different amount. 
+We'll start with the EITC data and run an ANOVA F-test to determine if the amount claimed is different in between boroughs.  We'll then use Manhattan as our reference group to see which boroughs are paying a different amount. 
 
 ```{r, echo = FALSE}
 eitc.lm.model = lm(eitc ~ borough, data = average_claim)
@@ -260,13 +258,13 @@ noncust_model_output %>%
   knitr::kable()
 ```
 
-The F-test gives a p-value of 0.4237.  For Noncustodial EITC, there is no statistical difference in the average amount of credit received among the 5 boroughs.   
+The F-test gives a p-value of 0.4237.  For Noncustodial EITC, at the 5% level of significance, there is no statistical difference in the average amount of credit received among the 5 boroughs.   
 
 ## Conclusion
 
 Based on this tax data, we can see that the overall trend in the number of claims filed between 2006-2020 scales directly with the population of each borough.  When find the proportion of claimants in each borough, however, we see that there is a difference.  When compared to Manhattan, the Bronx, Brooklyn, and Queens all file a higher proportion of claims.  
 
-Moving on to average dollar amount of the credit in each borough, there's no statstical difference in Noncustodial EITC among the boroughs.  
+Moving on to average dollar amount of the credit in each borough, there's no statistical difference in Noncustodial EITC among the boroughs.  
 
 For EITC between 2016-2018, however, the Bronx, Brooklyn, Queens and Staten Island all claims a higher dollar amount in credit, on average.  
 
@@ -274,7 +272,7 @@ From our visualizations, we can see that Manhattan has the lowest proportion or 
 
 ## Relationship Between Tax Data and Greenspace
 
-When trying to find some association between greenspace data and average EITC tax credit amount, it's not possibly to draw statistical conclusions with the information we have.  That being said, we can create visualizations that give an overall idea of trends.  
+When trying to find some association between greenspace data and average EITC tax credit amount, it's not possible to draw statistical conclusions with the information we have.  The data were collected with different methods and it would be wrong to do statistical comparisons.  That being said, we can create visualizations that give an overall idea of trends.  
 
 Our hypothesis is that there will be more rooftop greenspaces present in boroughs where the average EITC credit amount is lower.  
 
@@ -287,6 +285,8 @@ We are going to assume that buildings constructed from 2006 onward were construc
 We're also going to eliminate Staten Island from this visualization.  Staten Island doesn't have enough data on Greenspace to make it reasonable to include in a visualization. 
 
 ```{r, echo = FALSE}
+test_df = read.csv("./data/test_df.csv")
+
 greenspace_df = test_df %>% 
   filter(indicator %in% ("ED Visits")) %>% 
   select(borough, year, green_area_cum) %>% 
@@ -345,4 +345,10 @@ subplot(style(ggplot_greenspace, showlegend = FALSE),
         titleY = TRUE, 
         shareX = TRUE) %>% 
   layout(title = 'Side By Side: Cummulative Greenspace and Average EITC by Borough, 2006-2018')
+
+##Niklas: Include this code chunk and plot in the Dashboard please
 ```
+
+The visualization shows what we initially thought: Manhattan rooftop greenspace cumulative area has rapidly increased in the time frame while their average EITC credit amount has stayed the lowest of all the boroughs.  Meanwhile, the Bronx has consistently had the highest EITC credit amount while having a very low rate of increase in rooftop greenspace.  
+
+Again, this is correlation, not causation but it does speak to the idea that rooftop greenspaces tend to appear in wealthier areas. 
