@@ -83,6 +83,7 @@ UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) 
   ) %>% 
   select(UG_id, cons_year, borough, zonedist1, address, ownertype, longitude, latitude, green_area:groundelev, everything()) %>% 
   drop_na(green_area) 
+
 ```
 
 Next, we load and wrangle the **secondary NY Asthma dataset** to generate a **asthma_df dataframe**. The original .csv dataset is available in the "data" folder within the project's repository. The following procedure is  applied: 
@@ -120,6 +121,8 @@ asthma_df = read_csv("./data/NYS_ASTHMA.csv", na = c("","Unknown")) %>%
                   "2015-2017" = 2016, 
                   "2016-2018" = 2017, 
                   "2017-2019" = 2018))
+
+write.csv(asthma_df, "./data/asthma_df.csv", row.names = FALSE)
 ```
 
 Next, I also create a second dataframe with the goal of creating a 'severity' measure, which is the nr of ED visits divided by Hospitalzations (both per 10k inhabitants), for each borough and year separately. This requires the use of `pivot_wider()`, `mutate()` and `pivot_longer()`
@@ -460,12 +463,15 @@ ug_queens = UG_df %>%
 ug_tidy = bind_rows(ug_bronx, ug_brook, ug_manh, ug_queens) %>% 
   rename(year = cons_year) %>% 
   select(-green_area_sum)
+
+write.csv(ug_tidy, "./data/ug_tidy.csv", row.names = FALSE)
 ```
 
 
 We first visualize the result and compare it to the graph created on ED visits (taking that as a proxy for asthma rates). One trend is clear: while asthma rates seem to have declined, there seems to have been an increase in UGS. The patterns are not consistent across borough, e.g., there has been only gradual improvement in UGS in the Bronx, while the decline in asthma was more drastic. In short, there must surely be many other factors at play that have caused asthma rates to decline, but potentially UGS did play an effect in reducing the numbers.
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+
 edvisits = asthma_df %>% 
   filter(indicator == "ED Visits") %>% 
   ggplot(aes(year, aa_rate10kpy, color = borough)) +
@@ -494,7 +500,7 @@ Let's run a couple of linear regression to see whether they produce any statisti
 First, we are creating a combined df consisting of both UGS and asthma datasets by using a (double) leftjoin based on borough and year. We are using na.locf() to replace missing UGS values with the value from the last year (i.e, if there was a year with no greenspaces added, then that year must have had the same total number of greenspaces as the last year). Due to the way the dataframe is structured this requires a manual insertion of a value at two points of the dataset.  
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-combined_df = left_join(asthma2_df, ug_tidy, by=c('year'='year', 'borough'='borough')) %>% 
+combined_df = left_join(asthma2_df, ug_tidy, by = c('year' = 'year', 'borough' = 'borough')) %>% 
   na.locf() %>% 
   filter(
     borough != "New York City",

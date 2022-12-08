@@ -1,0 +1,157 @@
+"indicator","borough","year","aa_rate10kpy","count","daily_mean"
+"ED Visits","Bronx",2006,260.218,107326,98.015
+"ED Visits","Bronx",2007,270.003,111264,101.518
+"ED Visits","Bronx",2008,265.241,109799,100.182
+"ED Visits","Bronx",2009,257.669,107356,97.953
+"ED Visits","Bronx",2010,251.486,105596,96.435
+"ED Visits","Bronx",2011,260.829,110362,100.695
+"ED Visits","Bronx",2012,277.866,118533,108.151
+"ED Visits","Bronx",2013,293.613,126122,115.075
+"ED Visits","Bronx",2014,292.93,126638,115.651
+"ED Visits","Bronx",2015,279.643,121368,110.737
+"ED Visits","Bronx",2016,258.5,112246,102.414
+"ED Visits","Bronx",2017,240.954,104146,95.024
+"ED Visits","Bronx",2018,220.84,94758,86.537
+"ED Visits","Brooklyn",2006,129.984,93835,85.694
+"ED Visits","Brooklyn",2007,131.012,94672,86.38
+"ED Visits","Brooklyn",2008,134.199,97653,89.099
+"ED Visits","Brooklyn",2009,139.21,102253,93.297
+"ED Visits","Brooklyn",2010,144.923,107743,98.395
+"ED Visits","Brooklyn",2011,151.179,113735,103.773
+"ED Visits","Brooklyn",2012,151.558,115266,105.17
+"ED Visits","Brooklyn",2013,149.636,114587,104.55
+"ED Visits","Brooklyn",2014,143.18,110044,100.497
+"ED Visits","Brooklyn",2015,136.893,105158,95.947
+"ED Visits","Brooklyn",2016,127.339,97520,88.978
+"ED Visits","Brooklyn",2017,119.63,90928,82.964
+"ED Visits","Brooklyn",2018,109.2,82412,75.262
+"ED Visits","Manhattan",2006,164.072,64910,59.279
+"ED Visits","Manhattan",2007,164.172,65535,59.795
+"ED Visits","Manhattan",2008,166.999,66713,60.87
+"ED Visits","Manhattan",2009,162.689,65102,59.4
+"ED Visits","Manhattan",2010,160.281,64167,58.6
+"ED Visits","Manhattan",2011,158.297,63966,58.363
+"ED Visits","Manhattan",2012,157.289,64156,58.536
+"ED Visits","Manhattan",2013,154.541,63691,58.112
+"ED Visits","Manhattan",2014,149.864,62335,56.927
+"ED Visits","Manhattan",2015,146.386,61095,55.744
+"ED Visits","Manhattan",2016,138.133,57804,52.741
+"ED Visits","Manhattan",2017,129.566,54091,49.353
+"ED Visits","Manhattan",2018,117.33,49141,44.878
+"ED Visits","Queens",2006,87.413,53247,48.627
+"ED Visits","Queens",2007,87.338,53162,48.505
+"ED Visits","Queens",2008,87.465,53525,48.837
+"ED Visits","Queens",2009,89.659,55494,50.633
+"ED Visits","Queens",2010,92.27,57715,52.708
+"ED Visits","Queens",2011,91.389,58035,52.952
+"ED Visits","Queens",2012,89.088,57381,52.355
+"ED Visits","Queens",2013,86.266,56172,51.252
+"ED Visits","Queens",2014,83.527,54694,49.949
+"ED Visits","Queens",2015,81.264,53080,48.431
+"ED Visits","Queens",2016,77.935,50553,46.125
+"ED Visits","Queens",2017,74.365,47621,43.45
+"ED Visits","Queens",2018,68.12,43355,39.594
+"ED Visits","Staten Island",2006,77.567,10378,9.478
+"ED Visits","Staten Island",2007,79.422,10691,9.755
+"ED Visits","Staten Island",2008,83.177,11299,10.309
+"ED Visits","Staten Island",2009,88.149,12042,10.987
+"ED Visits","Staten Island",2010,91.785,12563,11.473
+"ED Visits","Staten Island",2011,93.862,12856,11.73
+"ED Visits","Staten Island",2012,93.007,12717,11.603
+"ED Visits","Staten Island",2013,90.257,12294,11.217
+"ED Visits","Staten Island",2014,84.872,11498,10.5
+"ED Visits","Staten Island",2015,79.057,10652,9.719
+"ED Visits","Staten Island",2016,72.994,9809,8.95
+"ED Visits","Staten Island",2017,69.334,9303,8.488
+"ED Visits","Staten Island",2018,68.3,9172,8.376
+"ED Visits","New York City",2006,142.868,329696,301.092
+"ED Visits","New York City",2007,145.12,335324,305.953
+"ED Visits","New York City",2008,145.826,338989,309.297
+"ED Visits","New York City",2009,146.141,342247,312.269
+"ED Visits","New York City",2010,147.406,347784,317.611
+"ED Visits","New York City",2011,150.755,358954,327.513
+"ED Visits","New York City",2012,153.322,368053,335.815
+"ED Visits","New York City",2013,154.357,372866,340.206
+"ED Visits","New York City",2014,150.564,365209,333.524
+"ED Visits","New York City",2015,144.798,351353,320.578
+"ED Visits","New York City",2016,135.418,327932,299.208
+"ED Visits","New York City",2017,127.211,306089,279.278
+"ED Visits","New York City",2018,116.32,278838,254.647
+"Hospitalizations","Bronx",2006,64.854,25879,23.634
+"Hospitalizations","Bronx",2007,66.704,26647,24.313
+"Hospitalizations","Bronx",2008,68.86,27710,25.283
+"Hospitalizations","Bronx",2009,67.923,27544,25.131
+"Hospitalizations","Bronx",2010,65.011,26657,24.344
+"Hospitalizations","Bronx",2011,61.242,25373,23.151
+"Hospitalizations","Bronx",2012,58.831,24674,22.513
+"Hospitalizations","Bronx",2013,57.502,24361,22.227
+"Hospitalizations","Bronx",2014,53.975,23124,21.118
+"Hospitalizations","Bronx",2015,48.578,20964,19.128
+"Hospitalizations","Bronx",2016,41.37,17932,16.361
+"Hospitalizations","Bronx",2017,36.119,15597,14.231
+"Hospitalizations","Bronx",2018,33.54,14441,13.188
+"Hospitalizations","Brooklyn",2006,33.51,23932,21.856
+"Hospitalizations","Brooklyn",2007,33.067,23665,21.592
+"Hospitalizations","Brooklyn",2008,33.552,24182,22.064
+"Hospitalizations","Brooklyn",2009,33.424,24321,22.191
+"Hospitalizations","Brooklyn",2010,32.815,24189,22.09
+"Hospitalizations","Brooklyn",2011,30.912,23128,21.102
+"Hospitalizations","Brooklyn",2012,29.417,22347,20.39
+"Hospitalizations","Brooklyn",2013,27.766,21351,19.481
+"Hospitalizations","Brooklyn",2014,24.375,18907,17.267
+"Hospitalizations","Brooklyn",2015,19.941,15466,14.111
+"Hospitalizations","Brooklyn",2016,15.481,11925,10.88
+"Hospitalizations","Brooklyn",2017,13.239,10051,9.171
+"Hospitalizations","Brooklyn",2018,12.64,9547,8.719
+"Hospitalizations","Manhattan",2006,29.748,12409,11.332
+"Hospitalizations","Manhattan",2007,29.693,12571,11.47
+"Hospitalizations","Manhattan",2008,29.235,12482,11.389
+"Hospitalizations","Manhattan",2009,28.377,12240,11.168
+"Hospitalizations","Manhattan",2010,26.74,11600,10.594
+"Hospitalizations","Manhattan",2011,25.036,10960,10
+"Hospitalizations","Manhattan",2012,23.976,10582,9.655
+"Hospitalizations","Manhattan",2013,23.308,10300,9.398
+"Hospitalizations","Manhattan",2014,21.292,9377,8.563
+"Hospitalizations","Manhattan",2015,18.4,7862,7.173
+"Hospitalizations","Manhattan",2016,15.235,6293,5.742
+"Hospitalizations","Manhattan",2017,13.379,5304,4.839
+"Hospitalizations","Manhattan",2018,12.45,4980,4.548
+"Hospitalizations","Queens",2006,22.631,14105,12.881
+"Hospitalizations","Queens",2007,22.574,14085,12.851
+"Hospitalizations","Queens",2008,21.922,13780,12.573
+"Hospitalizations","Queens",2009,20.902,13328,12.161
+"Hospitalizations","Queens",2010,19.528,12699,11.597
+"Hospitalizations","Queens",2011,18.462,12242,11.17
+"Hospitalizations","Queens",2012,17.487,11793,10.76
+"Hospitalizations","Queens",2013,17.055,11599,10.583
+"Hospitalizations","Queens",2014,15.901,10917,9.97
+"Hospitalizations","Queens",2015,13.93,9525,8.691
+"Hospitalizations","Queens",2016,11.725,7975,7.276
+"Hospitalizations","Queens",2017,10.343,6873,6.271
+"Hospitalizations","Queens",2018,9.9,6546,5.978
+"Hospitalizations","Staten Island",2006,16.983,2315,2.114
+"Hospitalizations","Staten Island",2007,17.681,2443,2.229
+"Hospitalizations","Staten Island",2008,19.297,2707,2.47
+"Hospitalizations","Staten Island",2009,20.133,2865,2.614
+"Hospitalizations","Staten Island",2010,20.416,2945,2.689
+"Hospitalizations","Staten Island",2011,20.032,2924,2.668
+"Hospitalizations","Staten Island",2012,19.32,2828,2.58
+"Hospitalizations","Staten Island",2013,18.507,2694,2.458
+"Hospitalizations","Staten Island",2014,16.824,2433,2.222
+"Hospitalizations","Staten Island",2015,15.484,2216,2.022
+"Hospitalizations","Staten Island",2016,13.22,1862,1.699
+"Hospitalizations","Staten Island",2017,11.708,1605,1.464
+"Hospitalizations","Staten Island",2018,10.24,1404,1.282
+"Hospitalizations","New York City",2006,34.058,78640,71.817
+"Hospitalizations","New York City",2007,34.272,79411,72.455
+"Hospitalizations","New York City",2008,34.63,80861,73.778
+"Hospitalizations","New York City",2009,34.047,80298,73.265
+"Hospitalizations","New York City",2010,32.711,78090,71.315
+"Hospitalizations","New York City",2011,30.862,74627,68.09
+"Hospitalizations","New York City",2012,29.543,72224,65.898
+"Hospitalizations","New York City",2013,28.557,70305,64.147
+"Hospitalizations","New York City",2014,26.145,64758,59.14
+"Hospitalizations","New York City",2015,22.719,56033,51.125
+"Hospitalizations","New York City",2016,18.78,45987,41.959
+"Hospitalizations","New York City",2017,16.356,39430,35.976
+"Hospitalizations","New York City",2018,15.31,36918,33.715

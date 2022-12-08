@@ -11,12 +11,15 @@ output:
 library(tidyverse)
 library(flexdashboard)
 library(plotly)
+library(zoo)
+library(patchwork)
 ```
 
 ## Tax Credits & Urban Greenspace
 
 ```{r, echo = FALSE}
 test_df = read.csv("./data/test_df.csv")
+eitc_data = read.csv("./data/eitc_data.csv")
 
 greenspace_df = test_df %>% 
   filter(indicator %in% ("ED Visits")) %>% 
@@ -81,6 +84,9 @@ subplot(style(ggplot_greenspace, showlegend = FALSE),
 ## Asthma & Urban Greenspaces
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df = read.csv("./data/asthma_df.csv")
+ug_tidy = read.csv("./data/ug_tidy.csv")
+
 edvisits = asthma_df %>% 
   filter(indicator == "ED Visits") %>% 
   ggplot(aes(year, aa_rate10kpy, color = borough)) +
