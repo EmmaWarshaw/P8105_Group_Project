@@ -80,6 +80,8 @@ subplot(style(ggplot_greenspace, showlegend = FALSE),
         shareX = TRUE) %>% 
   layout(title = 'Side By Side: Cummulative Greenspace and Average EITC by Borough, 2006-2018')
 ```
+Column {data-width=650}
+-----------------------------------------------------------------------
 
 ## Asthma & Urban Greenspaces
 
@@ -109,4 +111,5 @@ ugstime = ug_tidy %>%
 
 edvisits + ugstime
 ```
-
+Column {data-width=650}
+-----------------------------------------------------------------------

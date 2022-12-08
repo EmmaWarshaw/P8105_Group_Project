@@ -5,7 +5,7 @@
 ::: {align="center"}
 # Our Team
 
-#### Meritxell, Mallafre Larrosa
+#### Meritxell Mallafre Larrosa
 
 <img src="images/MML_pic.jpeg" style="width:40%"/>
 

@@ -6,7 +6,7 @@ navbar:
       href: about.html
     - text: "Urban Greenspaces"
       href: UGS.html
-    - text: "Tax credits"
+    - text: "Tax Credits"
       href: tax_data.html
     - text: "Asthma"
       href: asthma.html
