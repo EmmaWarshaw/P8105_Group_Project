@@ -1,7 +1,10 @@
 ---
-title: "Urban Green Spaces in NYC"
 output: html_document
 ---
+
+::: {align="center"}
+# [Urban Green Spaces in NYC]{style="color: red;"}
+:::
 
 ```{r, include = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -49,8 +52,9 @@ The **primary Urban Green Spaces (UGS) dataset** is loaded and wrangled to gener
 * drop entries with now total green area available using `drop_na()` 
 * calculate percentage of green coverage of each building, as well as `recode()` borough names and ownership status, and convert sqm int sqm, using `mutate()`
 * note ownertypes are aggregated into "Public", "Private" and "Other" as per mapPLUTO definitions (refer to the codebook for more details). Given the presence of "na", the `replace_na()` function is employed.
+* coerce "borough" into a factor variable and apply `fct_relevel()` to set Manhattan first (then becoming the reference category for regression analyses below)
 
-```{r, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) %>% 
   janitor::clean_names() %>% 
   select(fid:notes, address:ycoord, -doitt_id, -qa, -feat_code, -spdist1, -bbl_fixed) %>% 
@@ -81,15 +85,17 @@ UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) 
     green_area = green_area*0.09290304,
     building_area = building_area*0.09290304,
     heightroof = heightroof*0.3048,
-    groundelev = groundelev*0.3048
-  ) %>% 
+    groundelev = groundelev*0.3048,
+    borough = as_factor(borough),
+    borough = fct_relevel(borough , "Manhattan")
+    ) %>% 
   select(UG_id, cons_year, borough, zonedist1, address, ownertype, longitude, latitude, green_area:groundelev, everything()) %>% 
   drop_na(green_area) 
 ```
 
 Notably, the same authors provide an aggregated dataset at the City Council District which is loaded as a **secondary UGS dataset** under the **`UG_agg_df`** name. A similar procedure as described above is used.
 
-```{r, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 UG_agg_df = read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na = c("","Unknown")) %>% 
   janitor::clean_names() %>% 
   select(coun_dist:prop_greenroofarea_of_bldgarea) %>% 
@@ -103,7 +109,9 @@ UG_agg_df = read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na 
     prop_gr = prop_gr*100,
     prop_gbuild = prop_gbuild*100,
     green_area = green_area*0.09290304,
-    building_area = building_area*0.09290304
+    building_area = building_area*0.09290304,
+    borough = as_factor(borough),
+    borough = fct_relevel(borough , "Manhattan")
   )
 ```
 
@@ -117,7 +125,7 @@ Next, we perform a descriptive analysis of the NYC Urban Green Spaces (UGS) prim
 
 Overall, the "UG_df" contains contains `r ncol(UG_df)` variables related to `r nrow(UG_df)` urban green spaces in NYC. The total UGS area in NYC sums to `r sum(UG_df$green_area)` square meter. The following table summarizes the average UGS in NYC, including its size (in square meter), height (in meter) and percentage of green coverage (that is, the proportion of green space within the total building area). Key variables are summarized in the table below using `knitr:kable()`.
 
-```{r}
+```{r, echo = FALSE}
 UG_df %>% 
   summarize(
     mean_green = mean(green_area, na.rm = TRUE),
@@ -136,7 +144,7 @@ Overall, within New York City, UGS have an **mean size of 334.52 sqm (range 0.94
 
 When stratified by borough, differences in the number and dimensions of UGS become apparent. Following a similar procedure as above, we generate a summary table below, arranged according to the amount of UGS present in each borough.
 
-```{r}
+```{r, echo = FALSE}
 UG_df %>% 
   group_by(borough) %>% 
   summarize(
@@ -161,7 +169,7 @@ UG_df %>%
 
 Although NYC city council districts typically correspond to borough sub-divisions, the equivalence is not perfect (note council district #8 belongs to both Manhattan and Bronx, more info [here](https://council.nyc.gov/districts/)). In that sense, the same authors provide a similar dataset aggregated at the City Council District level, which we have loaded with the `UG_agg_df` name. A similar descriptive analysis as above is performed. Notably, in this dataset the total number of buildings per district is available, and therefore we compute the percentage of buildings with an UGS.
 
-```{r}
+```{r, echo = FALSE}
 UG_agg_df %>% 
   group_by(coun_dist) %>% 
   summarize(
@@ -177,11 +185,10 @@ UG_agg_df %>%
 
 As a result, we observe that **3 City Council Districts in Manhattan concentrate over half of the borough's UGS (n=318)**, with over 1% of its buildings covered by green spaces. Conversely, **8 districts within Bronx, Queens, Brooklyn and Staten Island have no UGS at all**. These results suggest the existence of distribution differences, which will be addressed in the last section of this analysis.
 
-
 #### Mapping UGS in NYC
 Using the `leaflet` package, we plot each UGS on a NYC map. A `pal()` function is generated to establish a color according to the size of the UGS.
 
-```{r}
+```{r, echo = FALSE}
 pal <- colorNumeric(
   palette = "viridis",
   domain = UG_df$green_area)
@@ -199,14 +206,14 @@ UG_map = UG_df %>%
 UG_map
 ```
 
-As described above, we observe a concentration of UGS in southern Manhattan. Scarce green spaces are present in southern Brooklyn, Staten Island, Queens or the Bronx.
+As described above, we observe a concentration of UGS in southern Manhattan. Scarce green spaces are present in southern Brooklyn, Staten Island, Queens or the Bronx. 
 
 
 #### Distribution of UGS surface by borough
 
 Next, the distribution of UGS surface by borough is investigated. The `UG_df` is first plotted on a boxplot to have a better understanding of outliers (as we have indication of a right-skewed disribution according to the descriptive analysis above). 
 
-```{r}
+```{r, echo = FALSE}
 UG_boxplot = UG_df %>% 
   ggplot(aes(x = green_area, y = borough)) + 
   geom_boxplot() +
@@ -220,9 +227,9 @@ UG_boxplot
 
 Given the presence of considerable outliers, the plotted green area surface is then limited to 10,000 sqm and visualized through a violin plot.
 
-```{r}
+```{r, echo = FALSE}
 UG_violin = UG_df %>% 
-  filter(green_area <10000) %>% 
+  filter(green_area < 10000) %>% 
   ggplot(aes(x = green_area, y = borough)) + 
   geom_violin(aes(fill = borough), color = "blue", alpha = .5) +
   theme(legend.position = "bottom") +
@@ -240,7 +247,7 @@ Overall, these visualizations confirm the sparse distribution of UGS surface are
 
 Finally, the construction of UGS trends is investigated overtime. To do so, the `cumsum()` function is used over a generated dummy variable that allocates the value "1" to all UGS. Note that the observations with an invalid or missing construction year are omited.
 
-```{r}
+```{r, echo = FALSE}
 UG_overtime = UG_df %>%
   drop_na(cons_year) %>% 
   filter(cons_year != 0) %>% 
@@ -264,12 +271,36 @@ We observe a progressive construction of UGS overtime, with a rampant trend as o
 
 ## Regression Analyses
 
-In this section, we perform different regression analyses to understand whether the location within NYC (x: predictor variables, both "borough" and "city council district") influences either the size or number of UGS (y: outcome variable, both "green_area" and "num_greenroofs").
+In this section, we investigate the geographical differences we have noted above graphically. We perform statistical tests and univariate regression analyses to understand whether the location within NYC (x: predictor variables, both "borough" and "city council district") influences either the size or number of UGS (y: outcome variable, both "green_area" and "num_greenroofs").
 
-### UGS number by borough and city council district
-We first investigate whether there are differences in the amount of UGS by borough and city council district (using the `UG_agg_df`). We run linear regression `lm()` models.
+#### UGS number by borough and city council district
+We first investigate whether there are differences in the amount of UGS by borough and city council district (using the `UG_agg_df`). Given that we are testing significance of differences for multiple groups and independent samples, the appropriate test is ANOVA (Analysis of Variance).
 
-```{r}
+```{r, echo = FALSE}
+NumberUG_borough_ANOVA = aov(num_greenroofs ~ borough, data = UG_agg_df) %>% 
+  tidy() %>% 
+  select(df, statistic, p.value)
+
+NumberUG_borough_ANOVA %>% 
+  knitr::kable(digits = 5, align = "lcc", caption = "Table 4: ANOVA Assessing the Differences on the Number of Green Roof Spaces by Borough in NYC", col.names = c("DF", "Statistic", "p-value"))
+```
+
+Next, we run a similar ANOVA analysis at the city council district level.
+
+```{r, echo = FALSE}
+NumberUG_district_ANOVA = aov(num_greenroofs ~ coun_dist, data = UG_agg_df) %>% 
+  tidy() %>% 
+  select(df, statistic, p.value)
+
+NumberUG_district_ANOVA %>% 
+  knitr::kable(digits = 5, align = "lcc", caption = "Table 5: ANOVA Assessing the Differences on the Number of Green Roof Spaces by City Council District in NYC", col.names = c("DF", "Statistic", "p-value"))
+```
+
+Both at the borough and city council district levels, resulting p-values from the ANOVA tests are far below our accepted significance level of 0.05, so we know there is at least one proportion that is different among the 5 boroughs and 51 city council districts of NYC. 
+
+To better understand the distribution of UGS at the borough level, we run a linear regression `lm()` model. For the purposes of this project, we are using Manhattan as our universal reference group, so we will then see which proportions differ from Manhattan. 
+
+```{r, echo = FALSE}
 NumberUG_borough_model = 
   lm(num_greenroofs ~ borough, data = UG_agg_df) %>% 
   tidy() %>% 
@@ -280,29 +311,36 @@ NumberUG_borough_model =
   select(-std.error)
 
 NumberUG_borough_model %>% 
-  knitr::kable(digits = 3, align = "lcccc", caption = "Table 4: Coefficient Estimates of Linear Model Assessing the Association Between Number of Green Roof Spaces and Borough in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+  knitr::kable(digits = 5, align = "lcccc", caption = "Table 6: Coefficient Estimates of Linear Model Assessing the Association Between Number of Green Roof Spaces and Borough in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
 
-```{r}
-NumberUG_CounDist_model = 
-  lm(num_greenroofs ~ coun_dist, data = UG_agg_df) %>% 
-  tidy() %>% 
-  select(-statistic) %>% 
+Again, the model yields a p-value which is far under our accepted significance level of 0.05, indicating that when comparing NYC boroughs to Manhattan, the number of UGS are significantly different. To be noted is the entry marked as "Manhattan/Bronx" borough, which is not significant. That corresponds to district 8 in NYC, which includes southern Bronx and northern Manhattan. 
+
+To be noted is the fact that we do not run a similar linear model at the city council district given the presence of n=51 groups which would yield results of difficult and questionable interpretation. From now onwards, our team will focus on assessing differences at the NYC borough level.
+
+#### UGS surface by borough 
+Next, we investigate differences on the total UGS surface area by borough using a similar approach as above. We first run a ANOVA test to understand whether there are differences in the mean UGS surface. To do so, we generate a `UG_sum_df` that includes a "agg_surface" variable at the borough level. Next, we run the ANOVA test.
+
+```{r, echo = FALSE}
+UG_sum_df = UG_df %>% 
+  group_by(borough) %>% 
   mutate(
-    low_conf = estimate - 1.96*std.error,
-    upper_conf = estimate + 1.96*std.error) %>%  
-  select(-std.error)
+    agg_surface = sum(green_area)
+  )
 
-NumberUG_CounDist_model %>% 
-  knitr::kable(digits = 3, align = "lcccc", caption = "Table 5: Coefficient Estimates of Linear Model Assessing the Association Between Number of Green Roof Spaces and City Concil District in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+SurfaceUG_borough_ANOVA = aov(agg_surface ~ borough, data = UG_sum_df) %>% 
+  tidy() %>% 
+  select(df, statistic, p.value)
+
+SurfaceUG_borough_ANOVA %>% 
+  knitr::kable(digits = 70, align = "lcc", caption = "Table 7: ANOVA Assessing the Differences on the Mean Surface of Urban Green Roof Spaces by Borough in NYC", col.names = c("DF", "Statistic", "p-value"))
 ```
 
-### UGS surface by borough 
-Next, we investigate differences on the UGS surface area by borough. Given the presence of outliers and a right-skewed distribution observed in the descriptive analysis above, we apply a Kruskal-Wallis test.
+The results are far above our accepted significance level of 0.05. In fact, the p-value is rounded to zero despite indicating to show up to 70 digits, indicating a very significant finding (that is, differences in the total surface of UGS by borough). The same results are depicted in the model below investigating borough as a predictor of the aggregated borough surface.
 
-```{r}
+```{r, echo = FALSE}
 UGarea_borough_model = 
-  lm(green_area ~ borough, data = UG_df) %>% 
+  lm(agg_surface ~ borough, data = UG_sum_df) %>% 
   tidy() %>% 
   select(-statistic) %>% 
   mutate(
@@ -311,14 +349,20 @@ UGarea_borough_model =
   select(-std.error)
 
 UGarea_borough_model %>% 
-  knitr::kable(digits = 3, align = "lcccc", caption = "Table 6: Coefficient Estimates of Linear Model Assessing the Association Between Green Area of Green Roof Spaces and Borough in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 8: Coefficient Estimates of Linear Model Assessing the Association Between  Green Area Surface of Urban Green Roof Spaces and Borough in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
 
-```{r}
-fit3 = kruskal.test(green_area ~ borough, data = UG_df)
 
-fit3 %>% 
-  broom::tidy()
-```
+## Conclusions
+In conclusion, throughout this exploratory analysis, plotting and regression modelling attempts of n=736 Urban Green Spaces (UGS) present in NYC as of 2018, we conclude:
 
-**Interpretations of the lm models pending**
+* Overall, within New York City, UGS have an **mean size of 334.52 sqm (range 0.94-25,763.66 sqm)**. On average, UGS in NYC are situated at **43.47 m of height**, and **cover 19.63% of the total building's surface**.
+* **Manhattan** contains over 63% of all NYC's UGS (n=465), situated at a considerably higher altitude (mean height 54.24 m). Nevertheless, its UGS are also the smallest in percentual terms when asessing the proportion of building coverage (15.24%). Conversely, **Queens** and **Staten Island** have the lowest amoung of UGS (n=50 and n=4, respectively), but their UGS area the biggest on average (mean sizes of 468.55 and 456.72 sqm, respectively). 
+* Such uneven distribution of UGS becomes apparent when visualizing it, as well as running statistical test (that is, we observe significant differences in terms of the number of green spaces as well as its surface at the borough level). 
+
+
+## Acknowledgement
+
+*The primary dataset was developed by The Nature Conservancy's New York City Program (Mike Treglia and Emily Maxwell) with contributions (data aggregation and additional support) from Timon McPhearson of The Urban Systems Lab at The New School, Eric Sanderson of The Wildlife Conservation Society, and Greg Yetman of CIESIN at Columbia University.*
+
+Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxwell, Emily Nobel. (2018). Green Roofs Footprints for New York City, Assembled from Available Data and Remote Sensing (Version 1.0.0) [Available here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/CurrentDatasets). Zenodo. http://doi.org/10.5281/zenodo.1469674
