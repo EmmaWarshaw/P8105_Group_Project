@@ -108,7 +108,7 @@ References
 
 ## Asthma in NYC
 
-The dataset provides data of the number and rate of asthma hospitalizations and emergency department (ED) visits in New York State. These data are presented by age groups, sex, month of year, and total population for 3 selected year intervals (ex. 2000-2002, 2001-2003, etc...). These data show only a small proportion of people who have asthma, those whose condition is serious enough to require an emergency department (ED) visit or hospital stay. Data show the number of asthma ED visits and hospitalizations rather than the number of patients who were admitted or seen for asthma related illness. For example, if a person was hospitalized twice they would be counted twice.
+The dataset provides data on the number and rate of asthma hospitalizations and emergency department (ED) visits in New York State. These data are presented by age groups, sex, month of year, and total population for 3 selected year intervals (ex. 2000-2002, 2001-2003, etc...). These data show only a small proportion of people who have asthma, those whose condition is serious enough to require an emergency department (ED) visit or hospital stay. Data show the number of asthma ED visits and hospitalizations rather than the number of patients who were admitted or seen for asthma related illness. For example, if a person was hospitalized twice they would be counted twice.
 
 #### Asthma Age-Adjusted Hospitalization Rates
 

@@ -28,11 +28,11 @@ scale_fill_discrete = scale_fill_viridis_d
 
 Asthma is a disease that causes breathing problems. It inflames and narrows the airways that carry oxygen in and out of the lungs. People with asthma can have recurring periods of wheezing, chest tightness, shortness of breath and coughing. These breathing problems are called asthma attacks or episodes. Asthma is a chronic disease. In other words, people with asthma live with it every day. Asthma is triggered by an allergic reaction between the lungs and allergens in the environment including air pollution, diesel exhaust particles, tobacco smoke, cockroach particles, dander, and mold (Columbia Center for Children’s Environmental Health, 2022). Heightened asthma rates are one of the negative health outcomes resulting from high population density of cities (and resulting high density of environmental toxins being released into the atmosphere). 
 
-Asthma is a serious public health problem in New York State and the nation. It affects about 10.0 percent (more than 400,000) of children and 9.9 percent (more than 1.5 million) of adults in New York State. Asthma takes its toll in many ways. It can result in lost nights of sleep and disruption of activities for the individual, as well as for his or her family. Asthma is the leading cause of school absenteeism in children, and parents frequently miss days from work as a result of their child's asthma. The burden of asthma falls disproportionately on the most disadvantaged residents of New York City. A study has reported that children in East Harlem are 13 times more likely to go to the emergency room for asthma-related incidents compared to children in the nearby affluent Upper East side. The inequality is reflected by the 31% of East Harlem residents living in poverty compared to 7% in the Upper East Side. Racial demographics mirror this pattern, with East Harlem being half Latino and one third Black compared to the 78% White Upper East Side (LóPez et al., 2015).
+Asthma is a serious public health problem in New York State and the nation. It affects about 10.0 percent (more than 400,000) of children and 9.9 percent (more than 1.5 million) of adults in New York State. Asthma takes its' toll in many ways. It can result in lost nights of sleep and disruption of activities for the individual, as well as for his or her family. Asthma is the leading cause of school absenteeism in children, and parents frequently miss days from work as a result of their child's asthma. The burden of asthma falls disproportionately on the most disadvantaged residents of New York City. A study has reported that children in East Harlem are 13 times more likely to go to the emergency room for asthma-related incidents compared to children in the nearby affluent Upper East side. The inequality is reflected by the 31% of East Harlem residents living in poverty compared to 7% in the Upper East Side. Racial demographics mirror this pattern, with East Harlem being half Latino and one third Black compared to the 78% White Upper East Side (LóPez et al., 2015).
 
-Could roofs planted with vegetation, aka. **Urban Green Spaces (UGS)**, help reduce the burden of asthma? At least in theory, plants absorb gaseous pollutants that are  in the air. By absorbing  harmful gases, plants release oxygen into the atmosphere which could help to combat the harmful effects of air pollution. Our hypothesis is that by having green spaces in urbanised areas, such as rooftop vegetation, a higher quality of the air within the surrounding area could be achieved.
+Could roofs planted with vegetation, aka. **Urban Green Spaces (UGS)**, help reduce the burden of asthma? At least in theory, plants absorb gaseous pollutants that are  in the air. By absorbing  harmful gases, plants release oxygen into the atmosphere which could help to combat the harmful effects of air pollution. Our hypothesis is that by having green spaces in urbanized areas, such as rooftop vegetation, a higher quality of the air within the surrounding area could be achieved.
 
-In the following analysis, we will be drawing on a dataset of asthma hopsitalizations and ED visits between 2000 and 2019 in New York State, broken down by regions. Asthma ED visits and hospitalization rates tell us about the effect of asthma in a community due to environmental and household triggers, access to medical care, and the quality of disease management for asthma. ED visits and hospitalization shows us only the most severe cases of asthma; most people with asthma suffer the health effects without needing to go to hospital. 
+In the following analysis, we will be drawing on a dataset of asthma hospitalizations and ED visits between 2000 and 2019 in New York State, broken down by regions. Asthma ED visits and hospitalization rates tell us about the effect of asthma in a community due to environmental and household triggers, access to medical care, and the quality of disease management for asthma. ED visits and hospitalization shows us only the most severe cases of asthma; most people with asthma suffer the health effects without needing to go to hospital. 
 
 
 ## Goals of the analysis
@@ -44,11 +44,10 @@ The primary goal of this analysis is to provide an overview of asthma rates acro
 
 We load and wrangle the **secondary NY Asthma dataset** to generate a **asthma_df dataframe**. The original .csv dataset is available in the "data" folder within the project's repository. The following procedure is  applied: 
 
-* filter out relevant observations (aka the boroughs of New York City from years 2006-2018) using `filter()`
+* filter for relevant observations (aka the boroughs of New York City from years 2006-2018) using `filter()`
 * select relevant variables using `select()`
 * rename certain variables for comprehension using `remame()`, as well as certain borough names and years using `mutate()`and `recode`()`
 * re-order the variables using `arrange()`
-* calculate percentage of green coverage of each building, as well as `recode()` borough names and ownership status, and convert sqm int sqm, using `mutate()`
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 asthma_df = read_csv("./data/NYS_ASTHMA.csv", na = c("","Unknown")) %>% 
@@ -80,7 +79,7 @@ asthma_df = read_csv("./data/NYS_ASTHMA.csv", na = c("","Unknown")) %>%
 write.csv(asthma_df, "./data/asthma_df.csv", row.names = FALSE)
 ```
 
-Lastly, I create a second asthma dataframe with the goal of having **severity measure**, which we defined as the number of ED visits divided by the number of Hospitalizations (both per 10k inhabitants), for each borough and year separately. We achieved this by leveraging the use of `pivot_wider()`, `mutate()` (i.e., calculating the new measure) and `pivot_longer()`.
+Lastly, we created a second asthma dataframe with the goal of having **severity measure**, which we defined as the number of ED visits divided by the number of Hospitalizations (both per 10k inhabitants), for each borough and year separately. We achieved this by leveraging the use of `pivot_wider()`, `mutate()` (i.e., calculating the new measure) and `pivot_longer()`.
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 asthma2_df = asthma_df %>% 
