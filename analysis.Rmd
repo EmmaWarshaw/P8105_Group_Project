@@ -1,23 +1,40 @@
 ---
-title: "Joint Analysis Dashboard"
-output: 
-  flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
-    source_code: embed
+output: html_document
 ---
+
+::: {align="center"}
+# [Joint Analysis Dashboard]{style="color: red;"}
+:::
+
+
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-library(flexdashboard)
 library(plotly)
 library(zoo)
 library(patchwork)
+library(rvest)
+library(httr)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+  fig.width = 7,
+  fig.asp = .6,
+  out.width = "110%"
+)
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
 ```
 
-## Tax Credits & Urban Greenspace
+### Cummulative Greenspace and Average EITC by Borough, 2006-2018
 
-```{r, echo = FALSE}
+```{r, warning = FALSE, message = FALSE, echo = FALSE}
 test_df = read.csv("./data/test_df.csv")
 eitc_data = read.csv("./data/eitc_data.csv")
 
@@ -56,9 +73,9 @@ greenspace_time = greenspace_tax_comp %>%
   ggplot(aes(x = tax_year, y = green_area_cum, color = borough)) + 
   geom_point() + geom_line() +
   labs(
-    x = "Tax year", 
+    x = "Year", 
     y = "Cummulative Greenspace (m^2)"
-  ) 
+  )
 
 ggplot_greenspace = ggplotly(greenspace_time) %>% 
   add_lines(name = "greenspace", legendgroup = "greenspace")
@@ -67,9 +84,9 @@ average_tax_time = greenspace_tax_comp %>%
   ggplot(aes(x = tax_year, y = eitc, color = borough)) + 
   geom_point() + geom_line() + 
   labs(
-    x = "Tax year", 
+    x = "Year", 
     y = "Average EITC (dollars)", 
-  )
+  ) 
 
 ggplot_tax = ggplotly(average_tax_time) %>% 
   add_lines(name = "tax", legendgroup = "tax")
@@ -77,37 +94,119 @@ ggplot_tax = ggplotly(average_tax_time) %>%
 subplot(style(ggplot_greenspace, showlegend = FALSE), 
         style(ggplot_tax, showlegend = TRUE), 
         titleY = TRUE, 
-        shareX = TRUE) %>% 
-  layout(title = 'Side By Side: Cummulative Greenspace and Average EITC by Borough, 2006-2018')
+        shareX = TRUE)
 ```
-Column {data-width=650}
------------------------------------------------------------------------
 
-## Asthma & Urban Greenspaces
+### Cummulative Greenspace and Average ED visits by Borough, 2006-2018
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 asthma_df = read.csv("./data/asthma_df.csv")
-ug_tidy = read.csv("./data/ug_tidy.csv")
 
 edvisits = asthma_df %>% 
-  filter(indicator == "ED Visits") %>% 
+  filter(indicator == "ED Visits", 
+         borough != "Staten Island", 
+         borough != "New York City") %>% 
   ggplot(aes(year, aa_rate10kpy, color = borough)) +
-  geom_point(alpha = .5) +
-  geom_smooth(se = FALSE) +
+  geom_point() + geom_line() +
   labs(
-    title = "ED Visits per 10k inhabitants over time",
-    x = "Time (year)",
-    y = "Average number per year per 10k inhabitants") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+    x = "Year",
+    y = "Avg. ED visits per 10k inhabitants")
 
-ugstime = ug_tidy %>% 
-  ggplot(aes(year, green_area_cum, color = borough)) +
-  geom_point(alpha = .5) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Total UGS surface per borough over time",
-    x = "Time (year)",
-    y = "Total surface area of (vertical) UGS in square meter")
-
-edvisits + ugstime
+subplot(style(ggplot_greenspace, showlegend = FALSE),
+        style(edvisits, showlegend = TRUE), 
+        titleY = TRUE, 
+        shareX = TRUE)
 ```
+
+
+# Full Regression Model
+
+```{r, echo = FALSE}
+tax_data = 
+  GET("https://data.ny.gov/resource/6q7b-8vuf.json", query = list("$limit" = 5000)) %>% 
+  content("text") %>% 
+  jsonlite::fromJSON() %>% 
+  as_tibble()
+
+eitc_data = tax_data %>%
+  select(-c(notes, place_of_residence, place_of_residence_sort_order)) %>% 
+  filter(county %in% c("Bronx", "Kings", "Manhattan", "Queens", "Richmond")) %>% 
+  mutate(county = case_when(
+    county == 'Kings' ~ 'Brooklyn', 
+    county == 'Richmond' ~ 'Staten Island', 
+    county == 'Bronx' ~ 'Bronx',
+    county == 'Manhattan' ~ 'Manhattan',
+    county == 'Queens' ~ 'Queens'
+  )) %>% 
+  mutate(credit_type = case_when(
+    credit_type == 'NYC EITC' ~ 'City EITC',
+    credit_type == 'NYS EITC' ~ 'State EITC',
+    credit_type == 'NYS Noncustodial Parent EITC' ~ 'Noncust. EITC'
+  )) %>% 
+  mutate(
+    credit_amount_claimed_in_thousands = as.numeric(credit_amount_claimed_in_thousands), 
+    number_of_claims = as.numeric(number_of_claims),
+    average_credit = as.numeric(average_credit)) %>% 
+  mutate(credit_amount_claimed_in_thousands = credit_amount_claimed_in_thousands * 1000) %>% 
+  rename(boro_credit_total = credit_amount_claimed_in_thousands, 
+         borough = county) %>% 
+  mutate(
+    borough = as_factor(borough),
+    borough = fct_relevel(borough , "Manhattan"))
+
+write.csv(eitc_data, "./data/eitc_data.csv", row.names = FALSE)
+```
+
+
+## Full Model: Regression
+```{r, echo = FALSE}
+test_df = read.csv("./data/test_df.csv")
+eitc_data = read.csv("./data/eitc_data.csv")
+
+greenspace_df = test_df %>% 
+  filter(indicator %in% ("ED Visits")) %>% 
+  filter(borough %in% c("Bronx", "Brooklyn", "Queens", "Manhattan")) %>% 
+  rename(tax_year = year) %>% 
+  mutate(
+    borough = as.factor(borough)
+  )
+
+tax_comp_df = eitc_data %>%
+  filter(tax_year %in% (2006:2018)) %>%
+  select(-boro_credit_total, -number_of_claims) %>% 
+  arrange(borough, tax_year) %>%
+  pivot_wider(
+    names_from = credit_type,
+    values_from = average_credit
+  ) %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    eitc = city_eitc + state_eitc
+  ) %>% 
+  select(tax_year, borough, noncust_eitc, eitc) %>%
+  group_by(tax_year, borough) %>% 
+  filter(borough %in% c("Bronx", "Brooklyn", "Queens", "Manhattan")) %>% 
+  mutate(
+    tax_year = as.numeric(tax_year)
+  )
+
+greenspace_tax_comp = nyc_trend = left_join(tax_comp_df, greenspace_df, by = c("borough" = "borough", "tax_year" = "tax_year")) %>% 
+  select(-c(noncust_eitc)) %>% 
+  rename(ed_visits = aa_rate10kpy) %>% 
+  select(-c(indicator), -c(count), -c(daily_mean))
+
+final_reg_df = greenspace_tax_comp
+
+full_model = lm(ed_visits ~ eitc + borough + green_area_cum + tax_year, data = final_reg_df)
+
+full_model %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Regression Analysis of Tax, Cummulative Greenspace and Borough on Asthma in New York City")
+  
+```
+
+The full regression model above uses ETIC, borough and cumulative green area as predictors of ED visits per 10,000 inhabitants.  The model shows statistically significant results for two boroughs: Bronx and Queens.  This is an effect we have already observed in univariate analysis of the asthma data set.  Unsurprisingly, the model did not yield statistically significant results for the effects of cumulative green space and tax on asthma rates.  However, the direction of the effect is as expected: the model does show lower asthma rates for higher cumulative greenspace. This effect was not statistically significant, however, the p value of 0.098 is moderately strong.  What is unexpected is the effect of tax on asthma rates: asthma rates decreases as EITC increases in this model.  We would have expected the opposite relationship, however the effect in this model was not statistically significant, with a p-value of 0.91. 
+
+As already discussed, this was a hypothetical public health model that could have been applied in the real world.  Because of the limitations of our data (we had to make do with what we could source online) as well as the fact that asthma is a multifactorial diseases (meaning many factors contribute to it's development), this isn't a perfect representation of the real world.  
+
+This project, however, has given us the opportunity to apply the tools and theories that we've learned this semester and that are very relevant to cutting-edge research within the public health world.  

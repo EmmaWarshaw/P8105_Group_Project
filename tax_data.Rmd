@@ -1,7 +1,10 @@
 ---
-title: "Earned Income Tax Data (EITC) and Population"
 output: html_document
 ---
+::: {align="center"}
+# [Earned Income Tax Data (EITC)]{style="color: red;"}
+:::
+
 
 ```{r, include = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)

@@ -1,5 +1,7 @@
 ---
 title: "Asthma Rates & Urban Green Spaces in NYC"
+author: "th2899"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
@@ -24,27 +26,377 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
-Asthma is a disease that causes breathing problems. It inflames and narrows the airways that carry oxygen in and out of the lungs. People with asthma can have recurring periods of wheezing, chest tightness, shortness of breath and coughing. These breathing problems are called asthma attacks or episodes. Asthma is a chronic disease. In other words, people with asthma live with it every day. Asthma is triggered by an allergic reaction between the lungs and allergens in the environment including air pollution, diesel exhaust particles, tobacco smoke, cockroach particles, dander, and mold (Columbia Center for Children’s Environmental Health, 2022).
+Asthma is a disease that causes breathing problems. It inflames and narrows the airways that carry oxygen in and out of the lungs. People with asthma can have recurring periods of wheezing, chest tightness, shortness of breath and coughing. These breathing problems are called asthma attacks or episodes. Asthma is a chronic disease. In other words, people with asthma live with it every day. Asthma is triggered by an allergic reaction between the lungs and allergens in the environment including air pollution, diesel exhaust particles, tobacco smoke, cockroach particles, dander, and mold (Columbia Center for Children’s Environmental Health, 2022). Heightened asthma rates are one of the negative health outcomes resulting from high population density of cities (and resulting high density of environmental toxins being released into the atmosphere). 
 
-Asthma is a serious public health problem in New York State and the nation. It affects about 10.0 percent (more than 400,000) of children and 9.9 percent (more than 1.5 million) of adults in New York State. Asthma takes its toll in many ways. It can result in lost nights of sleep and disruption of activities for the individual, as well as for his or her family. Asthma is the leading cause of school absenteeism in children, and parents frequently miss days from work as a result of their child's asthma.
-
-Each year, nearly half a million people in the United States are hospitalized for asthma. Asthma ED visits and hospitalization rates tell us about the effect of asthma in a community due to environmental and household triggers, access to medical care, and the quality of disease management for asthma. ED visits and hospitalization shows us only the most severe cases of asthma; most people with asthma suffer the health effects without needing to go to hospital.
-
-Heightened asthma rates are one of the negative health outcomes resulting from high population density of cities (and resulting high density of environmental toxins being released into the atmosphere). The burden of asthma falls disproportionately on the most disadvantaged residents of New York City. A study has reported that children in East Harlem are 13 times more likely to go to the emergency room for asthma-related incidents compared to children in the nearby affluent Upper East side. The inequality is reflected by the 31% of East Harlem residents living in poverty compared to 7% in the Upper East Side. Racial demographics mirror this pattern, with East Harlem being half Latino and one third Black compared to the 78% White Upper East Side (LóPez et al., 2015).
+Asthma is a serious public health problem in New York State and the nation. It affects about 10.0 percent (more than 400,000) of children and 9.9 percent (more than 1.5 million) of adults in New York State. Asthma takes its toll in many ways. It can result in lost nights of sleep and disruption of activities for the individual, as well as for his or her family. Asthma is the leading cause of school absenteeism in children, and parents frequently miss days from work as a result of their child's asthma. The burden of asthma falls disproportionately on the most disadvantaged residents of New York City. A study has reported that children in East Harlem are 13 times more likely to go to the emergency room for asthma-related incidents compared to children in the nearby affluent Upper East side. The inequality is reflected by the 31% of East Harlem residents living in poverty compared to 7% in the Upper East Side. Racial demographics mirror this pattern, with East Harlem being half Latino and one third Black compared to the 78% White Upper East Side (LóPez et al., 2015).
 
 Could roofs planted with vegetation, aka. **Urban Green Spaces (UGS)**, help reduce the burden of asthma? At least in theory, plants absorb gaseous pollutants that are  in the air. By absorbing  harmful gases, plants release oxygen into the atmosphere which could help to combat the harmful effects of air pollution. Our hypothesis is that by having green spaces in urbanised areas, such as rooftop vegetation, a higher quality of the air within the surrounding area could be achieved.
 
-In the following analysis, we will be drawing on a dataset of asthma hopsitalizations and ED visits between 2000 and 2019 in New York State, broken down by regions. A total of 3870 observations are recorded in the original dataset, but data cleaning and wrangling will reduce total observations to a smaller, more relevant number.
+In the following analysis, we will be drawing on a dataset of asthma hopsitalizations and ED visits between 2000 and 2019 in New York State, broken down by regions. Asthma ED visits and hospitalization rates tell us about the effect of asthma in a community due to environmental and household triggers, access to medical care, and the quality of disease management for asthma. ED visits and hospitalization shows us only the most severe cases of asthma; most people with asthma suffer the health effects without needing to go to hospital. 
 
 
 ## Goals of the analysis
 
-The primary goal of this analysis is to provide an overview of asthma rates across the different boroughs of NYC. We would like to understand how the asthma burden of asthma is distributed across the different borough, as well as analyse whether there have been any changes over time. Secondly, we would like to understand whether there might be any links between the UGS dataset and the asthma dataset. For example, did increases in the primary dataset on NYC Urban Green Spaces also correlate with a simultaneous decrease in asthma rates? 
+The primary goal of this analysis is to provide an overview of asthma rates across the different boroughs of NYC. We would like to understand how the asthma burden of asthma is distributed across the different borough, as well as analyse whether there have been any changes over time. 
 
 
 ## Data load & wrangling
 
-We load and wrangle the **two primary Urban Green Spaces (UGS) dataset** as described in the page dedicated to the UGS dataset to generate a **`UG_df` dataframe** and an  **`UG_agg_df` dataframe**.
+We load and wrangle the **secondary NY Asthma dataset** to generate a **asthma_df dataframe**. The original .csv dataset is available in the "data" folder within the project's repository. The following procedure is  applied: 
+
+* filter out relevant observations (aka the boroughs of New York City from years 2006-2018) using `filter()`
+* select relevant variables using `select()`
+* rename certain variables for comprehension using `remame()`, as well as certain borough names and years using `mutate()`and `recode`()`
+* re-order the variables using `arrange()`
+* calculate percentage of green coverage of each building, as well as `recode()` borough names and ownership status, and convert sqm int sqm, using `mutate()`
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df = read_csv("./data/NYS_ASTHMA.csv", na = c("","Unknown")) %>% 
+  janitor::clean_names() %>% 
+  filter(county %in% c("Bronx", "Kings", "Queens", "New York County", "New York City", "Richmond")) %>%
+  filter(year  %in% c("2005-2007", "2006-2008", "2007-2009", "2008-2010", "2009-2011", "2010-2012", "2011-2013", "2012-2014", "2013-2015", "2014-2016", "2015-2017", "2016-2018", "2017-2019")) %>% 
+  select(-subgroup1, -subgroup_cat1:-subgroup_cat2, -c_rate10k:-c_rate10kpy, -aa_rate10k) %>% 
+  rename(borough = county) %>% 
+  mutate(
+    borough = recode(borough,
+                     "Kings" = "Brooklyn",
+                     "New York County" = "Manhattan",
+                     "Richmond" = "Staten Island"),
+    year = recode(year,
+                  "2005-2007" = 2006,
+                  "2006-2008" = 2007, 
+                  "2007-2009" = 2008, 
+                  "2008-2010" = 2009, 
+                  "2009-2011" = 2010, 
+                  "2010-2012" = 2011, 
+                  "2011-2013" = 2012, 
+                  "2012-2014" = 2013, 
+                  "2013-2015" = 2014, 
+                  "2014-2016" = 2015, 
+                  "2015-2017" = 2016, 
+                  "2016-2018" = 2017, 
+                  "2017-2019" = 2018))
+```
+
+Lastly, I create a second asthma dataframe with the goal of having **severity measure**, which we defined as the number of ED visits divided by the number of Hospitalizations (both per 10k inhabitants), for each borough and year separately. We achieved this by leveraging the use of `pivot_wider()`, `mutate()` (i.e., calculating the new measure) and `pivot_longer()`.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma2_df = asthma_df %>% 
+  select(-count, -daily_mean) %>% 
+  pivot_wider(
+    names_from = "indicator", 
+    values_from = "aa_rate10kpy") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    severity =  hospitalizations / ed_visits
+  ) %>% 
+  pivot_longer(
+    ed_visits:severity,
+    names_to = 'indicator',
+    values_to = 'aa_rate10kpy') %>% 
+  arrange(indicator)
+```
+
+Note that all variable names are available in the **Project's code book** section.
+
+
+## Descriptive Analyses & Visualizations
+
+Next, we perform a descriptive analysis of the NY Asthma secondary dataset, as well as stratified analysis at the borough level. Overall, the ***asthma_df** contains contains `r ncol(asthma_df)` variables related to `r nrow(asthma_df)` measures of asthma in NYC.
+
+### Developments on New York City Level
+
+Below graph shows the development of ED visits per 10k inhabitants between 2006-2018 across all of New York City. Rates increased until 2013 to a peak of close to 160 recorded ED visits per 10k inhabitants, after which a stark drop has been recorded, a trend that seems to continue to this day. In 2018 recorded ED visits per 10k inhabitants were down to close to 110 per 10k inhabitants.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>% 
+  filter(indicator == "ED Visits") %>% 
+  filter(borough == "New York City") %>% 
+  ggplot(aes(year, aa_rate10kpy)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "loess", se = FALSE, color = "red") +
+  labs(
+    title = "ED Visits per 10k inhabitants over time across New York City",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+Next, we look a graph that shows the development of Hospitalizations per 10k inhabitants between 2006 and 2018 across all of New York City. After remaining stable at approx. 35 per 10k inhabitants, the rate started to drop continuously and has reached less than half of that value of approx. 15 per 10k inhabitants. On first glance, it seems as if hospitalizations have decreased more than ED visits, indicating that while both rates and severity of asthma have dropped, severity has declined more.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>% 
+  filter(indicator == "Hospitalizations") %>% 
+  filter(borough == "New York City") %>% 
+  ggplot(aes(year, aa_rate10kpy)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "loess", se = FALSE, color = "red") +
+  labs(
+    title = "Hospitalizations per 10k inhabitants over time across New York City",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+To test this we next plotted the severity measure we calculated manually in the previous section: the rate of Hospitalizations per 10k inhabitants divided by the rate of ED Visits per 10k inhabitants. We conclude that our above hypothesis seemed to have been correct: in 2006 roughly every fourth (or approx. 24%) of ED visits resulted in Hospitalizations, that number has gradually decreased to every seventh-eight (or approx 13%). We hereby assumed that every Hospitalizations had a prior ED visit. 
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma2_df %>% 
+  filter(indicator == "severity") %>% 
+  filter(borough == "New York City") %>% 
+  ggplot(aes(year, aa_rate10kpy)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "loess", se = FALSE, color = "red") +
+  labs(
+    title = "Severity of Asthma, measured by dividing Hospitalization rates by ED visit rates",
+    x = "Time (year)",
+    y = "Rate of ED visits that led to hospitalizations per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+### Developments on Borough Level - Static
+
+Below table shows ED visits and Hospitalizations per 10k inhabitants for each borough, and for New York City overall as averages across 2006-2018. The Bronx is a clear outlier, with 264 / 10k ED visits and 56 /10k Hospitalizations, compared to the city average of 143 / 10k ED visits and 28 / 10k ED visits. Manhattan is slightly above the average, while Brooklyn is slightly below. Queens and Staten Island are  below the average. In summary, the burden of asthma historically clearly does not seem  to be distributed evenly across the different borough of New York City.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>%
+  group_by(indicator, borough) %>% 
+  summarize(
+    mean_values = mean(aa_rate10kpy)) %>% 
+  pivot_wider(
+    names_from = "indicator",
+    values_from = "mean_values") %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 1: Average ED visits and Hospitalizations per 10k inhabitants by borough from 2006-2008")
+```
+
+Let's look at whether these inequalities persisted in the most recent measurement. Below table shows ED visits and Hospitalizations per 10k inhabitants for each borough, and for New York City overall in 2018. Asthma rates across all boroughs have decreased. While Bronx rates went down to 221 / 10k and 34 / 10k ED visits resp. Hospitalizations, the New York City average lowered to 116 / 10k and 15 / 10k ED visits resp. Hospitalizations. In conclusion, the inequities observed across the different boroughs seem to have persisted.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>%
+  filter(year == 2018) %>% 
+  group_by(indicator, borough) %>% 
+  summarize(
+    current_values = aa_rate10kpy) %>% 
+  pivot_wider(
+    names_from = "indicator",
+    values_from = "current_values") %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 2: ED visits and Hospitalizations per 10k inhabitants by borough in 2018")
+```
+
+The following graph visualizes above: ED visits / 10k inhabitants by borough in 2018. the Bronx is particularly hit with high asthma rates, even as of today.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>%
+  filter(year == 2018) %>% 
+  filter(indicator == "ED Visits") %>% 
+  ggplot(aes(x = borough, y = aa_rate10kpy, fill = borough)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Number of ED Visits / 10k inhabitants per borough in 2018",
+    x = "Time (year)",
+    y = "ED Visits (absolute)") +
+  theme(legend.position="none")
+```
+
+A very similar pattern is observed for hospitalizations rates / 10k inhabitants by borough in 2018. The unequal burden is even more accentuated, as the Bronx tops the list by a wide margin. The Bronx not only seems to be affected more by higher asthma rates, the asthma cases also seem to be more severe (relatively) to the other boroughs.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>%
+  filter(year == 2018) %>% 
+  filter(indicator == "Hospitalizations") %>% 
+  ggplot(aes(x = borough, y = aa_rate10kpy, fill = borough)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Number of ED Visits / 10k inhabitants per borough in 2018",
+    x = "Time (year)",
+    y = "ED Visits (absolute)") +
+  theme(legend.position="none")
+```
+
+Before we move to to visualizations over time, we wanted to take a look at absolute burden across the different boroughs. The following table shows the total number of ED Visits and Hospitalizations per borough (i.e., not adjusted per 10k inhabitants) in 2018. The Bronx tops the list with 95k ED visits, followed by Brooklyn with 82k - compared to the total number in NYC of 279k this means that those two boroughs make up roughly two thirds of all asthma related ED visits. The same holds true for hospitalizations, where Bronx recorded 14k and Brooklyn 10k in 2018 (compared to 37k across NYC). 
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>%
+  filter(year == 2018) %>% 
+  group_by(indicator, borough) %>% 
+  summarize(
+    current_values = count) %>% 
+  pivot_wider(
+    names_from = "indicator",
+    values_from = "current_values") %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 3: Absolute Number of ED visits and Hospitalizations by borough in 2018")
+```
+
+The following graphic visualized what was discussed above, at the example of absolute number of ED Visits in 2018. The Bronx and Brooklyn are clearly carrying the largest burden of asthma ED visits in New York City.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>%
+  filter(borough != "New York City") %>% 
+  filter(year == 2018) %>% 
+  filter(indicator == "ED Visits") %>% 
+  ggplot(aes(x = borough, y = count, fill = borough)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Absolute Number of ED Visits per borough in 2018",
+    x = "Time (year)",
+    y = "ED Visits (absolute)") +
+  theme(legend.position="none")
+```
+
+
+### Developments on Borough Level - Over Time
+
+This section is the most critical one, as we analyze how rates have changed over time. 
+
+Below graph visualizes ED visits / 10k inhabitants per borough from 2006 to 2018. The patterns over time are relatively consistent: the Bronx has always been the most affected borough, and Queens / Staten Island always the least, while Manhattan and Brooklyn were always close to the city average. The Bronx experienced much more fluctuation in rates, a decrease from 2006-2010 was followed by an increase until 2014 and a subsequent stark decline until 2018. All borough seem to experience sinking ED visit rates over between 2014-2018.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>% 
+  filter(indicator == "ED Visits") %>% 
+  ggplot(aes(year, aa_rate10kpy, color = borough)) +
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "ED Visits per 10k inhabitants over time",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+Below graph visualizes Hospitalizations / 10k inhabitants per borough from 2006 to 2018. The general pattern is different to ED visits, as nearly all boroughs experienced a consistent decline in Hospitalization rates since 2006. The Bronx tops the list across all years, while all other borough have gotten pretty close to the city average.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df %>% 
+  filter(indicator == "Hospitalizations") %>% 
+  ggplot(aes(year, aa_rate10kpy, color = borough)) +
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Hospitalizations per 10k inhabitants over time",
+    x = "Time (year)",
+    y = "Average number per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+Lastly, we look at severity of asthma in the boroughs across time by using our measure of hospitalizations divided by ED visits. Interestingly, this is the one measure where the Bronx (while still remaining among the highest on the list) has managed to close the gap to the other borough. Still, in the Bronx about 15% of ED visits lead to hospitalizations, while that number only 10% in Manhattan.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma2_df %>% 
+  filter(indicator == "severity") %>% 
+  ggplot(aes(year, aa_rate10kpy, color = borough)) +
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Severity of Asthma, measured by dividing Hospitalization rates by ED visit rates",
+    x = "Time (year)",
+    y = "Rate of ED visits that led to hospitalizations per year per 10k inhabitants") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+
+## Univariate Regression
+
+Next, we will be analyzing whether linear models can provide further insights into asthma rates across NYC's boroughs.
+
+First step is to create three dataframes (one for each indicator) that do not include New York City overall and set Manhattan as the comparator borough.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+asthma_df_ed_lm = asthma2_df %>% 
+  filter(borough != "New York City") %>% 
+  filter(indicator == "ed_visits") %>% 
+  mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island")))
+
+asthma_df_hosp_lm = asthma2_df %>% 
+  filter(borough != "New York City") %>% 
+  filter(indicator == "hospitalizations") %>% 
+  mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island")))
+
+asthma_df_sev_lm = asthma2_df %>% 
+  filter(borough != "New York City") %>% 
+  filter(indicator == "severity") %>% 
+  mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island")))
+```
+
+Running a linear regression for ED visits, all values are significant: the Bronx is predicted to have 112 / 10k ED visits more vs. Manhattan, while Brooklyn, Queens, and Staten island are predicted to have 16 / 10k,  67 / 10k resp. 69 / 10k less than Manhattan.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+fit1 = lm(aa_rate10kpy ~ borough, data = asthma_df_ed_lm)
+
+fit1 %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 4: Regression of boroughs on ED Visits per 10k inhabitants")
+```
+
+Running a linear regression for Hospitalizations, all values except for Brooklyn and Queens are significant: the Bronx and Brooklyn are predicted to have 33 / 10k resp.3 / 10k hospitalizations more vs. Manhattan, while Queens and Staten Island are predicted to have approx 6 / 10k each less than Manhattan.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+fit2 = lm(aa_rate10kpy ~ borough, data = asthma_df_hosp_lm)
+
+fit2 %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 5: Regression of boroughs on Hospitalizations per 10k inhabitants")
+```
+
+Also the severity measures are all significant. The actual values are a bit difficult to interpret, but all boroughs seem to experience higher severity vs. Manhattan.
+
+```{r,  echo = FALSE, message=FALSE, warning = FALSE}
+fit3 = lm(aa_rate10kpy ~ borough, data = asthma_df_sev_lm)
+
+fit3 %>% 
+  broom::tidy() %>% 
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 6: Regression of boroughs on Severity measure")
+```
+
+
+## Conclusion
+
+This exploratory analysis has made evident the inequalities that continue to persist across NYC's boroughs in terms of asthma rates. It has shown that asthma rates in generally are improving, but that still a lot of work needs to be done, especially in the Bronx, who continues to carry the largest asthma burden. These results were confirmed to be statistically significant, with regression models being run on a per borough level for ED Visist / 10k inhabitants, Hospitalizations / 10k inhabitants, as well as a manually calculated severity measure. Secondly, we would like to understand whether there might be any links between the UGS dataset and the asthma dataset. For example, did increases in the primary dataset on NYC Urban Green Spaces also correlate with a simultaneous decrease in asthma rates? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+# NIKLAS: ALLES BIS HIER GEHÖRT IN DEN EXPLORATORY TEIL
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Comparison of Asthma Rates with UGS
+
+Next we will compare the UGS dataset with the asthma dataset, first visually and then also based on linear models.
+
+We load and wrangle the **two primary Urban Green Spaces (UGS) dataset** to generate a **`UG_df` dataframe**, as well as the **asthma dataset** to generate a **asthma_df** dataframe, as described in the respective pages dedicated to the exploratory analysis of the datasets.
 
 ```{r, echo = FALSE, message=FALSE, warning = FALSE}
 UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) %>% 
@@ -81,17 +433,7 @@ UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) 
   ) %>% 
   select(UG_id, cons_year, borough, zonedist1, address, ownertype, longitude, latitude, green_area:groundelev, everything()) %>% 
   drop_na(green_area) 
-
 ```
-
-Next, we load and wrangle the **secondary NY Asthma dataset** to generate a **asthma_df dataframe**. The original .csv dataset is available in the "data" folder within the project's repository. The following procedure is  applied: 
-
-* filter out relevant observations (aka the boroughs of New York City from years 2006-2018) using `filter()`
-* select relevant variables using `select()`
-* rename certain variables for comprehension using `remame()`, as well as certain borough names and years using `mutate()`and `recode`()`
-* re-order the variables using `arrange()`
-* calculate percentage of green coverage of each building, as well as `recode()` borough names and ownership status, and convert sqm int sqm, using `mutate()`
-* note ownertypes are aggregated into "Public", "Private" and "Other" as per mapPLUTO definitions (refer to the codebook for more details). Given the presence of "na", the `replace_na()` function is employed.
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 asthma_df = read_csv("./data/NYS_ASTHMA.csv", na = c("","Unknown")) %>% 
@@ -120,12 +462,6 @@ asthma_df = read_csv("./data/NYS_ASTHMA.csv", na = c("","Unknown")) %>%
                   "2016-2018" = 2017, 
                   "2017-2019" = 2018))
 
-write.csv(asthma_df, "./data/asthma_df.csv", row.names = FALSE)
-```
-
-Next, I also create a second dataframe with the goal of creating a 'severity' measure, which is the nr of ED visits divided by Hospitalzations (both per 10k inhabitants), for each borough and year separately. This requires the use of `pivot_wider()`, `mutate()` and `pivot_longer()`
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 asthma2_df = asthma_df %>% 
   select(-count, -daily_mean) %>% 
   pivot_wider(
@@ -142,261 +478,7 @@ asthma2_df = asthma_df %>%
   arrange(indicator)
 ```
 
-Note that all variable names are available in the **Project's codebook** section.
-
-
-## Descriptive analysis
-
-Next, we perform a descriptive analysis of the NY Asthma secondary dataset, as well as stratified analysis at the borough level.
-
-Overall, the ***asthma_df** contains contains `r ncol(asthma_df)` variables related to `r nrow(asthma_df)` measures of asthma in NYC.
-
-Below graph shows the development of ED visits per 10k inhabitants between 2006-2018 across all of New York City. Rates increased until 2013 to a peak of close to 160 recorded ED visits per 10k inhabitants, after which a stark drop has been recorded, a trend that seems to coninue to this day. In 2018 recorded ED visits per 10k inhabitants were down to close to 110 per 10k inhabitants.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>% 
-  filter(indicator == "ED Visits") %>% 
-  filter(borough == "New York City") %>% 
-  ggplot(aes(year, aa_rate10kpy)) +
-  geom_point(alpha = .5) +
-  geom_smooth(method = "loess", se = FALSE, color = "red") +
-  labs(
-    title = "ED Visits per 10k inhabitants over time across New York City",
-    x = "Time (year)",
-    y = "Average number per year per 10k inhabitants") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-```
-
-Next, we look a graph that shows the development of Hospitalizations per 10k inhabitants between 2006 and 2018 across all of New York City. After remaining stable at approx. 35 per 10k inhabitants, the rate started to drop continosly and has reached less than half of that value of appox. 15 per 10k inhabitants. On first glance, it seems as if hospitalizations have decreased more than ED visits, indicating that while both rates and severity of asthma have dropped, severity as declined more.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>% 
-  filter(indicator == "Hospitalizations") %>% 
-  filter(borough == "New York City") %>% 
-  ggplot(aes(year, aa_rate10kpy)) +
-  geom_point(alpha = .5) +
-  geom_smooth(method = "loess", se = FALSE, color = "red") +
-  labs(
-    title = "Hospitalizations per 10k inhabitants over time across New York City",
-    x = "Time (year)",
-    y = "Average number per year per 10k inhabitants") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-```
-
-To test this we next plotted the severity measure we calculated manually: the rate of Hospitalizations per 10k inhabitants divided by the rate of ED Visits per 10k inhabitants. We conclude that our above hypothesis seemed to have been correct: in 2006 roughly ever fourth (or approx. 24%) of ED visits resulted in Hospitalizations, that number has gradually decreased to every seventh-eight (or approx 13%). Ee hereby assume that every Hospitalizations resulted in a prior ED visit. 
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma2_df %>% 
-  filter(indicator == "severity") %>% 
-  filter(borough == "New York City") %>% 
-  ggplot(aes(year, aa_rate10kpy)) +
-  geom_point(alpha = .5) +
-  geom_smooth(method = "loess", se = FALSE, color = "red") +
-  labs(
-    title = "Severity of Asthma, measured by dividing Hospitalization rates by ED visit rates",
-    x = "Time (year)",
-    y = "Rate of ED visits that led to hospitalizations per year per 10k inhabitants") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-```
-
-## Static Analysis by Boroughs
-
-Below table shows ED visits and Hospitalizations per 10k inhabitants for each borough, and for New York City overall as averages across 2006-2018. The Bronx is a clear outlier, with 264 / 10k ED visits and 56 /10k Hospitalizations, compared to the city average of 143 / 10k ED visits and 28 / 10k ED visits. Manhattan is slightly above the average, while Brooklyn is slightly below. Queens and Staten Island are clearly below the average. In summary, the burden of asthma historically clearly does not seem  to be distributed evenly across the different borough of New York City.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>%
-  group_by(indicator, borough) %>% 
-  summarize(
-    mean_values = mean(aa_rate10kpy)) %>% 
-  pivot_wider(
-    names_from = "indicator",
-    values_from = "mean_values") %>% 
-  knitr::kable(digits = 2)
-```
-
-Let's look at whether these inequlities still persisted in the most recent measurement Below table shows ED visits and Hospitalizations per 10k inhabitants for each borough, and for New York City overall as averages across 2006-2018. Asthma rates across all boroughs have decreased. While Bronx rates went down to 221 / 10k and 34 / 10k ED visits resp. Hospitalizations, the New York City average lowered to 116 / 10k and 15 / 10k ED visits resp. Hospitalizations. As a result, the inequities observed across the different boroughs seem to have persisted.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>%
-  filter(year == 2018) %>% 
-  group_by(indicator, borough) %>% 
-  summarize(
-    current_values = aa_rate10kpy) %>% 
-  pivot_wider(
-    names_from = "indicator",
-    values_from = "current_values") %>% 
-  knitr::kable(digits = 2)
-```
-
-The following graph visualizes above: ED visits / 10k inhabitants by borough in 2018. the Bronx is particularly hit with high asthma rates, even as of today.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>%
-  filter(year == 2018) %>% 
-  filter(indicator == "ED Visits") %>% 
-  ggplot(aes(x = borough, y = aa_rate10kpy, fill = borough)) +
-  geom_bar(stat = "identity") +
-  labs(
-    title = "Number of ED Visits / 10k inhabitants per borough in 2018",
-    x = "Time (year)",
-    y = "ED Visits (absolute)") +
-  theme(legend.position = "none")
-```
-
-A very similar pattern is observed for hospitalizations rates / 10k inhabitants by borough in 2018. The unequal burden is even more accentuated, as the Bronx tops the list by a wide margin. The Bronx not only seems to be affected more by higher asthma rates, the asthma cases also seem to be more severe (relatively) to the other boroughs.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>%
-  filter(year == 2018) %>% 
-  filter(indicator == "Hospitalizations") %>% 
-  ggplot(aes(x = borough, y = aa_rate10kpy, fill = borough)) +
-  geom_bar(stat = "identity") +
-  labs(
-    title = "Number of ED Visits / 10k inhabitants per borough in 2018",
-    x = "Time (year)",
-    y = "ED Visits (absolute)") +
-  theme(legend.position = "none")
-```
-
-Lastly, before we move to to visualizations over time, we wanted to take a look at absolute burden across the different boroughs. The following table show a the total number of ED Visits and Hospitalizations per borough (i.e., not adjusted per 10k inhabitants) in 2018. Still Bronx tops the list with 95k ED visits, followed by Brooklyn with 82k - compared to the total number in NYC of 279k this means that those two boroughs make up roughly two thirds of all asthma related ED visits. The same holds true for hospitalizations, where Bronx recorded 14k and Brooklyn 10k in 2018 (compared to 37k across NYC). 
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>%
-  filter(year == 2018) %>% 
-  group_by(indicator, borough) %>% 
-  summarize(
-    current_values = count) %>% 
-  pivot_wider(
-    names_from = "indicator",
-    values_from = "current_values") %>% 
-  knitr::kable(digits = 2)
-```
-
-The following graphic visualized what was discussed above, at the example of ED absolute nr of visits in 2018. The Bronx and Brooklyn are clearly carrying the largest burden of asthma ED visits.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>%
-  filter(borough != "New York City") %>% 
-  filter(year == 2018) %>% 
-  filter(indicator == "ED Visits") %>% 
-  ggplot(aes(x = borough, y = count, fill = borough)) +
-  geom_bar(stat = "identity") +
-  labs(
-    title = "Absolute Number of ED Visits per borough in 2018",
-    x = "Time (year)",
-    y = "ED Visits (absolute)") +
-  theme(legend.position = "none")
-```
-
-## Analysis over time by borough
-
-This section is the most critical one, as we analyze how rates have changed over time. 
-
-Below graph visualizes ED visits / 10k inhabitants per borough from 2006 to 2018. The patterns over time are relatively consistent: the Bronx has always been the most affected borough, and QUeens / Staten Island always the least, while Manhattan and Brooklyn were always close to the city average. The Bronx experienced much more fluctuation in rates, a decrease from 2006-2010 was followed by an increase until 2014 and a subsequent stark decline until 2018. All borough seem to experience sinking ED visit rates over between 2014-2018.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>% 
-  filter(indicator == "ED Visits") %>% 
-  ggplot(aes(year, aa_rate10kpy, color = borough)) +
-  geom_point(alpha = .5) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "ED Visits per 10k inhabitants over time",
-    x = "Time (year)",
-    y = "Average number per year per 10k inhabitants") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-```
-
-Below graph visualizes Hospitalizations / 10k inhabitants per borough from 2006 to 2018. The general pattern is different to ED visits, as nearly all boroughs experienced a consitent decline in Hospitalization rates since 2006. The bronx tops the list across all years, while all other borough have gotten very close to the city average.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df %>% 
-  filter(indicator == "Hospitalizations") %>% 
-  ggplot(aes(year, aa_rate10kpy, color = borough)) +
-  geom_point(alpha = .5) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Hospitalizations per 10k inhabitants over time",
-    x = "Time (year)",
-    y = "Average number per year per 10k inhabitants") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-```
-
-Lastly, we look at severity of asthma in the boroughs across time by using our measure of hospitalizations divided by ED visits. Interestingly, this is the one measure where the Bronx (while still remaining among the highest on the list) has managed to close the gap to the other borough a bit. Still, in the Bronx about 15% of ED visits lead to hospitalizations, while that number only 10% in Manhattan.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma2_df %>% 
-  filter(indicator == "severity") %>% 
-  ggplot(aes(year, aa_rate10kpy, color = borough)) +
-  geom_point(alpha = .5) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Severity of Asthma, measured by dividing Hospitalization rates by ED visit rates",
-    x = "Time (year)",
-    y = "Rate of ED visits that led to hospitalizations per year per 10k inhabitants") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-```
-
-
-## Linear Models
-
-Next, we will be analyzing whether linear models can provide further insights.
-
-First step is to create three dataframes (one for each indicator) that do not include New York City overall and set Manhattan as the comparator borough.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-asthma_df_ed_lm = asthma2_df %>% 
-  filter(borough != "New York City") %>% 
-  filter(indicator == "ed_visits") %>% 
-  mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island")))
-
-asthma_df_hosp_lm = asthma2_df %>% 
-  filter(borough != "New York City") %>% 
-  filter(indicator == "hospitalizations") %>% 
-  mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island")))
-
-asthma_df_sev_lm = asthma2_df %>% 
-  filter(borough != "New York City") %>% 
-  filter(indicator == "severity") %>% 
-  mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens", "Staten Island")))
-```
-
-Running a linear regression for ED visits, all values are significant: the Bronx is predicted to have 112 / 10k ED visits more vs. Manhattan, while Brooklyn, Queens, and Staten island are predicted to have 16 / 10k,  67 / 10k resp. 69 / 10k less than Manhattan.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-fit1 = lm(aa_rate10kpy ~ borough, data = asthma_df_ed_lm)
-
-fit1 %>% 
-  broom::tidy() %>% 
-  knitr::kable(digits = 2)
-```
-
-Running a linear regression for Hospitalizations, all values except for Brooklyn and Queens are significant: the Bronx and Brooklyn are predicted to have 33 / 10k resp.3 / 10k hospitalizations more vs. Manhattan, while Queens and Staten Island are predicted to have approx 6 / 10k each less than Manhattan.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-fit2 = lm(aa_rate10kpy ~ borough, data = asthma_df_hosp_lm)
-
-fit2 %>% 
-  broom::tidy() %>% 
-  knitr::kable(digits = 2)
-```
-
-Also the severity measures are all significant. The actual values are a bit difficult to interpret, but all boroughs seem to experience higher severity vs. Manhattan.
-
-```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-fit3 = lm(aa_rate10kpy ~ borough, data = asthma_df_sev_lm)
-
-fit3 %>% 
-  broom::tidy() %>% 
-  knitr::kable(digits = 2)
-```
-
-
-## Comparison with UGS
-
-Next we will do a comparison with the UGS dataset, first visually and then also based on linear models.
-
-First, we create a value of green spaces that we can compare to asthma rates, namely the cumulative surface area of vertical greenspace that has been constructed between 2006-2018 in each borough.
+Next, we create a value of green spaces that we can compare to asthma rates, namely the cumulative surface area of vertical greenspace that has been constructed between 2006-2018 in each borough.
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 UG_df %>%
@@ -461,17 +543,17 @@ ug_queens = UG_df %>%
 ug_tidy = bind_rows(ug_bronx, ug_brook, ug_manh, ug_queens) %>% 
   rename(year = cons_year) %>% 
   select(-green_area_sum)
-
-write.csv(ug_tidy, "./data/ug_tidy.csv", row.names = FALSE)
 ```
 
+### Visualizations on UGS & Asthma Rates
 
 We first visualize the result and compare it to the graph created on ED visits (taking that as a proxy for asthma rates). One trend is clear: while asthma rates seem to have declined, there seems to have been an increase in UGS. The patterns are not consistent across borough, e.g., there has been only gradual improvement in UGS in the Bronx, while the decline in asthma was more drastic. In short, there must surely be many other factors at play that have caused asthma rates to decline, but potentially UGS did play an effect in reducing the numbers.
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
-
 edvisits = asthma_df %>% 
   filter(indicator == "ED Visits") %>% 
+  filter(borough != "New York City",
+         borough != "Staten Island") %>% 
   ggplot(aes(year, aa_rate10kpy, color = borough)) +
   geom_point(alpha = .5) +
   geom_smooth(se = FALSE) +
@@ -488,10 +570,15 @@ ugstime = ug_tidy %>%
   labs(
     title = "Total UGS surface per borough over time",
     x = "Time (year)",
-    y = "Total surface area of (vertical) UGS in square meter")
+    y = "Total surface area of (vertical) UGS in square meter") +
+  theme(legend.position="none")
 
 edvisits + ugstime
+
+## NIKLAS: THIS CAN BE DELETED
 ```
+
+### Regression Analysis of UGS and Asthma Rates
 
 Let's run a couple of linear regression to see whether they produce any statistically significant results.
 
@@ -525,36 +612,30 @@ combined_df_sev_lm = combined_df %>%
   mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens")))
 ```
 
-Below tables show the results of linear regression of the indicator (either ED visit rate, hospitalization rate or severity measure) on a combination of borough and total UGS surface area.
-
-ED visit rate vs. borough and cumulative UGS surface area:
+Below tables show the results of linear regression of the indicator (either ED visit rate, Hospitalization rate or severity measure) on a combination of borough and total UGS surface area.
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 fit4 = lm(aa_rate10kpy ~ green_area_cum + borough, data = combined_df_ed_lm)
 
 fit4 %>% 
   broom::tidy() %>% 
-  knitr::kable(digits = 3)
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 1: ED visit rate vs. borough and cumulative UGS surface area")
 ```
-
-Hospitalization rate vs. borough and cumulative UGS surface area:
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 fit5 = lm(aa_rate10kpy ~ green_area_cum + borough, data = combined_df_hosp_lm)
 
 fit5 %>% 
   broom::tidy() %>% 
-  knitr::kable(digits = 3)
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 2: Hospitalization rate vs. borough and cumulative UGS surface area")
 ```
-
-Severity vs. borough and cumulative UGS surface area:
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 fit6 = lm(aa_rate10kpy ~ green_area_cum + borough, data = combined_df_sev_lm)
 
 fit6 %>% 
   broom::tidy() %>% 
-  knitr::kable(digits = 6)
+  knitr::kable(digits = 3, align = "lcccc", caption = "Table 3: Severity vs. borough and cumulative UGS surface area")
 ```
 
-To our surprise, all three models return statistically significant values for the effect of cumulative UGS surface area on the studied indicators, while accounting for borough differences. The direction of the effect is how we would expect: increase in cumlulative UGS surface area leads to a reduction in ED visit rate, hospitalization rate, and our severity measure! We conclude that uban green spaces might indeed have played a role in reducing asthma rates across New York City.
+To our surprise, all three models return statistically significant values for the effect of cumulative UGS surface area on the studied indicators, while accounting for borough differences. The direction of the effect is how we would expect: increase in cumulative UGS surface area leads to a reduction in ED visit rate, hospitalization rate, and our severity measure! We conclude that urban green spaces might indeed have played a role in reducing asthma rates across New York City.
