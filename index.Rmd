@@ -52,7 +52,8 @@ The project at its core is based on four main data-sets. Each of them is geograp
 
 ##### [Urban Greenspace](UGS.html)
 
--   The *Greenspace Analysis* is ABC
+-   Roofs planted with vegetation — **Urban Green Spaces (UGS)** — can help cities adapt to a changing climate by absorbing storm water, lowering local temperatures, and providing insulation that cuts indoor heating and cooling costs.
+Using **a publicly available dataset**, which includes data from n=736 UGS as of 2016, we conduct a secondary analysis to draw links to economical, clinical and environmental factors that could potentially be associated with the distribution of UGS within New York City (NYC).
 
 ##### [Tax Credits](tax_data.html)
 
