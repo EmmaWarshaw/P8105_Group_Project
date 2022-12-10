@@ -43,8 +43,6 @@ The following sections explore relationships of Asthma, Temperature, Boroughs, D
 
 We ultimately end with the Results, Discussion, and Conclusion of this Project's **Full Model**.
 
-
-
 <p>&nbsp;</p>
 # Comparison of Daytime Surface Temperature and Heat Vulnerability Index with UGS
 
