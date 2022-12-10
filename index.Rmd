@@ -1,17 +1,18 @@
 ---
 output: html_document
 ---
-
+<p>&nbsp;</p>
 ::: {align="center"}
 # [Welcome to our Final Project]{style="color: red;"}
 :::
 
 <p>&nbsp;</p>
-This website is constructed as the final deliverable for the ***P8105 final project***. Before jumping into the actual analysis, three main topics need to be explained.
+This website is constructed as the final deliverable for the ***P8105 final project***. Before jumping into the actual analysis, four main topics need to be explained.
 
-1.  **Our Team** and how we each contribute
-2.  Three **Key Motivations** that will show the intention behind this project
-3.  Third, **The Data** that is used throughout the project
+1.    **Our Team** and how we each contribute
+2.    **Key Motivations** and **Related Work** that will show the intention behind this project
+3.    **Research Questions** of this projects
+4.    **The Data** that is used throughout the project
 
 The outcome of our work is something we are very excited about and hope will be the starting point of more research. Additionally, like every good public health professional, it is our goal to support positive change - the findings of this project provide initial insights that individuals, organizations, and governments can directly act upon.
 
@@ -60,7 +61,7 @@ Our initial goal was to understand how rooftop urban green space correlated with
 However, as we progressed through the project, we began to rethink our outcome variable for the overall model. Since we’re interested in public health outcomes, we decided to use asthma as the outcome variable in a full regression model. Because of data limitations and a univariate comparison between our temperature data and greenspace proved to not be significant, we excluded temperature from the overall model.
 
 ::: {align="center"}
-<img src="data/UGS_diagram" style="width:40%"/>
+<img src="images/UGS_diagram.jpg" style="width:100%"/>
 :::
 
 Manipulating these data sets taught some valuable lessons, namely how much effort goes into data collection and wrangling. It also showed us that studying the social determinants of health is extremely challenging. We were able to piece together data sets that showed us the individual elements we wanted to model, but the reality is that it would be better if all of these factors were coming from a single unified, health-systems informed study. That being said, we were still able to find meaningful insight with what we had to work with.

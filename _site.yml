@@ -2,6 +2,8 @@ output_dir: "."
 navbar:
   title: "Group Project"
   right:
+    - text: "Report"
+      href: Report.html
     - text: "Our Team"
       href: about.html
     - text: "Exploratory Analysis"

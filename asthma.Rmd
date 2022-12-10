@@ -1,6 +1,8 @@
 ---
 output: html_document
 ---
+
+<p>&nbsp;</p>
 ::: {align="center"}
 # [Asthma Rates]{style="color: red;"}
 :::

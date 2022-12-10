@@ -1,9 +1,9 @@
 ---
 output: html_document
 ---
-
+<p>&nbsp;</p>
 ::: {align="center"}
-# [Joint Analysis Dashboard]{style="color: red;"}
+# [Joint Analysis]{style="color: red;"}
 :::
 
 <p>&nbsp;</p>
@@ -36,17 +36,18 @@ options(
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
+<p>&nbsp;</p>
 
 After having explored the four data sets separately, honoring our interest in systems thinking, we decided to also conduct a **joint analysis of all data sets**. Importantly, before throwing all variables into a single large regression model, we started with individual bi-variable analyses (visualization and regression).
 
 The following sections explore relationships of Asthma, Temperature, Boroughs, Dates, and EITC with UGS. The results provide very interesting insights and ultimately inform the construction of our final model. 
 
-We ultimately end with the Results, Discussion, and Conclusion of this Project's **Full Model**.
-
 <p>&nbsp;</p>
 # Comparison of Daytime Surface Temperature and Heat Vulnerability Index with UGS
 
 #### Visualizations on UGS & Temperature
+
+Using the leaflet package, we combined the UGS and daytime surface temperature/heat vulnerability index on a NYC map. A pal() function is generated to establish a color according to the daytime surface temperature of each neighborhood. A addMarkers() function was used to generate Christmas trees, which represent the urban green space. 
 
 ```{r, echo = FALSE, include = FALSE}
 envo_health = read_csv("./data/envo_health.csv") %>% 
@@ -124,7 +125,7 @@ The map above shows a large percentage of urban green spaces located in lower Ma
 
 #### Regression Analysis of UGS and Temperature
 
-In this section, we investigated if there is an association with urban green space and daytime surface temperature/heat vulnerability index. We performed univariate regression analyses to understand whether the total number of urban green space influences either the average daytime surface temperature or the average heat vulnerability index score.
+In this section, we investigated if there is an association with urban green space and daytime surface temperature/heat vulnerability index. We performed univariate regression analyses to understand whether the total number of urban green space (x: predictor variable, “total_green_area”) influences either the average daytime surface temperature or the average heat vulnerability index score (y: outcome variables, “avg_daytime_temp” or “avg_heat_index).
 
 ```{r, echo = FALSE, include = FALSE}
 envo_greenroof = read_csv("data/envo_greenroof.csv") %>% 
@@ -138,7 +139,7 @@ envo_greenroof =
 ```
 
 
-In the first univariate model, we investigated the influence total urban green space has on the average daytime surface temperature in NYC.
+In the first model, we investigated the influence total urban green space has on the average daytime surface temperature in NYC.
 ```{r, echo = FALSE}
 envo_greenroof_surfmodel = 
   lm(avg_daytime_temp ~ total_green_area, data = envo_greenroof) %>% 
@@ -152,9 +153,9 @@ envo_greenroof_surfmodel =
 envo_greenroof_surfmodel %>% 
   knitr::kable(digits = 8, align = "lcccc", caption = "Table 1: Coefficient Estimates of Linear Model Assessing the Association Between Total Green Roof Surface Area and Average Daytime Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
-There does not seem to be a relationship between the total area of green roof and average daytime summer surface temperature.
+We found that there is no significant association (p-value<0.05) between average daytime surface temperature and total urban green space.
 
-In the second univariate model, we investigated the influence total urban green space has on the average heat vulnerability index in NYC.
+In the second model, we investigated the influence total urban green space has on the average heat vulnerability index in NYC.
 
 ```{r, echo = FALSE}
 envo_greenroof_heatmodel = 
@@ -169,15 +170,9 @@ envo_greenroof_heatmodel =
 envo_greenroof_heatmodel %>% 
   knitr::kable(digits = 8, align = "lcccc", caption = "Table 2: Coefficient Estimates of Linear Model Assessing the Association Between Total Green Roof Surface Area and Average Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
-There does not seem to be a relationship between the total area of green roof and average heat vulnerability index.
+We found that there is no significant association (p-value<0.05) between average heat vulnerability index and total urban green space.
 
-While this analysis did not find an association between the amount of urban green spaces present and daytime surface temperature or the amount of urban green spaces present and heat vulnerability index, we believe this can be caused by weaknesses in the data available to us. More specifically:
-
-1.    The temperature dataset and the primary dataset are not collected from the same location. It may be interesting to explore the association of green space are and temperature predictors from data that were collected at the same coordinate. This may give a better understanding of the impact of green space area and at risk neighborhoods. 
-
-2.    The datasets vary in the date of collection. Unlike the UGS data, the daytime surface temperature data was collected on a single day and the heat vulnerability index data was collected across a few years. 
-
-Ultimately, we believe it is important to keep exploring the impact on urban green spaces, especially as a means to fight climate change!
+We have decided to move forward without temperature and heat vulnerability index in the joint analyses investigating the influence of urban green spaces due to the insignificant findings in models 1 and 2.
 
 <p>&nbsp;</p>
 # Comparison of Asthma Rates with UGS
@@ -185,6 +180,7 @@ Ultimately, we believe it is important to keep exploring the impact on urban gre
 Next we will compare the UGS dataset with the asthma dataset, first visually and then also based on linear models.
 
 We load and wrangle the **two primary Urban Green Spaces (UGS) dataset** to generate a **`UG_df` dataframe**, as well as the **asthma dataset** to generate a **asthma_df** dataframe, as described in the respective pages dedicated to the exploratory analysis of the datasets.
+
 
 ```{r, echo = FALSE, message=FALSE, warning = FALSE}
 UG_df = read_csv("./data/GreenRoofData2016_20180917.csv", na = c("","Unknown")) %>% 
@@ -266,7 +262,8 @@ asthma2_df = asthma_df %>%
   arrange(indicator)
 ```
 
-Next, we create a value of green spaces that we can compare to asthma rates, namely the cumulative surface area of vertical greenspace that has been constructed between 2006-2018 in each borough.
+Next, we create a value of green spaces that we can compare to asthma rates, namely the cumulative surface area of vertical greenspace constructed between 2006-2018 in each borough.
+
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 UG_df %>%
@@ -418,6 +415,7 @@ Let's run a couple of linear regression to see whether they produce any statisti
 
 First, we are creating a combined df consisting of both UGS and asthma datasets by using a (double) leftjoin based on borough and year. We are using na.locf() to replace missing UGS values with the value from the last year (i.e, if there was a year with no greenspaces added, then that year must have had the same total number of greenspaces as the last year). Due to the way the dataframe is structured this requires a manual insertion of a value at two points of the dataset.  
 
+
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 combined_df = left_join(asthma2_df, ug_tidy, by = c('year' = 'year', 'borough' = 'borough')) %>% 
   na.locf() %>% 
@@ -430,7 +428,7 @@ combined_df$green_area_cum[66] = 6843.786
 combined_df$green_area_cum[118] = 6843.786  
 ```
 
-Let's run some regression! First I am creating separate dataframes for each indicator and set Manhattan as the comparator.
+First we are creating separate dataframes for each indicator and set Manhattan as the comparator.
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 combined_df_ed_lm = combined_df %>% 
@@ -446,7 +444,7 @@ combined_df_sev_lm = combined_df %>%
   mutate(borough = forcats::fct_relevel(borough, c("Manhattan", "Bronx", "Brooklyn", "Queens")))
 ```
 
-Below tables show the results of linear regression of the indicator (either ED visit rate, Hospitalization rate or severity measure) on a combination of borough and total UGS surface area.
+The table below show the results of linear regression of the indicator (either ED visit rate, Hospitalization rate or severity measure) on a combination of borough and total UGS surface area.
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 fit4 = lm(aa_rate10kpy ~ green_area_cum + borough, data = combined_df_ed_lm)
@@ -472,12 +470,12 @@ fit6 %>%
   knitr::kable(digits = 3, align = "lcccc", caption = "Table 3: Severity vs. borough and cumulative UGS surface area")
 ```
 
-To our surprise, all three models return statistically significant values for the effect of cumulative UGS surface area on the studied indicators, while accounting for borough differences. The direction of the effect is how we would expect: increase in cumulative UGS surface area leads to a reduction in ED visit rate, hospitalization rate, and our severity measure! We conclude that urban green spaces might indeed have played a role in reducing asthma rates across New York City.
+To our surprise, all three models return statistically significant values for the effect of cumulative UGS surface area on the studied indicators, while accounting for borough differences. The direction of the effect is what we would expect: increase in cumulative UGS surface area leads to a reduction in ED visit rate, hospitalization rate, and our severity measure. We conclude that urban green spaces might indeed have played a role in reducing asthma rates across New York City.
 
 <p>&nbsp;</p>
 # Comparison of Earned Income Tax Credit (EITC) with UGS
 
-When trying to find some association between greenspace data and average EITC tax credit amount, we will first look at the outcomes over time visually to get an understanding of the overall trend.  
+When trying to find some association between greenspace data and average EITC tax credit amount, we will first look at the outcomes over time visually to get an understanding of the overall trend.
 Our hypothesis is that there will be more rooftop greenspaces present in boroughs where the average EITC credit amount is lower.
 
 To create this visualization, we have to make a few assumptions.
@@ -498,9 +496,9 @@ subplot(style(ggplot_greenspace, showlegend = FALSE),
         shareX = TRUE)
 ```
 
-The visualization shows what we initially thought: Manhattan rooftop greenspace cumulative area has rapidly increased in the time frame while their average EITC credit amount has stayed the lowest of all the boroughs.  Meanwhile, the Bronx has consistently had the highest EITC credit amount while having a very low rate of increase in rooftop greenspace.  
+The visualization shows what we initially thought: Manhattan rooftop greenspace cumulative area has rapidly increased in the time frame while their average EITC credit amount has stayed the lowest of all the boroughs. Meanwhile, the Bronx has consistently had the highest EITC credit amount while having a very low rate of increase in rooftop greenspace.  
 
-Again, this is correlation, not causation but it does speak to the idea that rooftop greenspaces tend to appear in wealthier areas. 
+Again, this is correlation, not causation but it does speak to the idea that rooftop greenspaces tend to appear in wealthier areas.
 
 #### Regression Analysis of UGS and EITC
 
@@ -584,7 +582,7 @@ eitc_model %>%
   knitr::kable(digits = 3, align = "lcccc", caption = "Regression Analysis of Tax and Borough on Cummulative Greenspace in New York City")
 ```
 
-Although making a regression model with UGS as the outcome and EITC as a predictor requires several assumptions, we see generally that our hypothesis holds true: as EITC increases, the amount of UGS present in a borough trends downward.  
+Although making a regression model with UGS as the outcome and EITC as a predictor requires several assumptions, we see generally that our hypothesis holds true: as EITC increases, the amount of UGS present in a borough trends downward. 
 
 <p>&nbsp;</p>
 # Full Model: Regression
@@ -598,8 +596,28 @@ full_model %>%
   
 ```
 
-The full regression model above uses ETIC, borough and cumulative green area as predictors of ED visits per 10,000 inhabitants.  The model shows statistically significant results for two boroughs: Bronx and Queens.  This is an effect we have already observed in univariate analysis of the asthma data set.  Unsurprisingly, the model did not yield statistically significant results for the effects of cumulative green space and tax on asthma rates.  However, the direction of the effect is as expected: the model does show lower asthma rates for higher cumulative greenspace. This effect was not statistically significant, however, the p value of 0.098 is moderately strong.  What is unexpected is the effect of tax on asthma rates: asthma rates decreases as EITC increases in this model.  We would have expected the opposite relationship, however the effect in this model was not statistically significant, with a p-value of 0.91. 
+#### Discussion
 
-As already discussed, this was a hypothetical public health model that could have been applied in the real world.  Because of the limitations of our data (we had to make do with what we could source online) as well as the fact that asthma is a multifactorial diseases (meaning many factors contribute to it's development), this isn't a perfect representation of the real world.  
+The full regression model uses ETIC, borough and cumulative green area as predictors of ED visits per 10,000 inhabitants. The model shows statistically significant results for two boroughs, using Manhattan as a reference group: the Bronx and Queens. This is an effect we have already observed in univariate analysis of the asthma data set. Unsurprisingly, the model did not yield statistically significant results for the effects of cumulative green space and tax on asthma rates. However, the direction of the effect is as expected: the model does show lower asthma rates for higher cumulative greenspace. This effect was not statistically significant, however, the p value of 0.098 is moderately strong. What is unexpected is the effect of tax on asthma rates: asthma rates decrease as EITC increases in this model. We would have expected the opposite relationship, however the effect in this model was not statistically significant, with a p-value of 0.91. 
 
-This project, however, has given us the opportunity to apply the tools and theories that we've learned this semester and that are very relevant to cutting-edge research within the public health world.  
+#### Discussion
+
+As already discussed, this was a hypothetical public health model that could have been applied in the real world. Because of the limitations of our data (we had to make do with what we could source online) as well as the fact that asthma is a multifactorial disease (meaning many factors contribute to its development), this isn't a perfect representation of the real world.
+
+We have to also acknowledge that these data sets were collected from different studies using different methods. Ideally, for a social determinants of health model like we were trying to build, the data would have been collected in one unified study. We didn’t have that luxury, so we did the best we could with what was available.
+
+The timeline of the various data sets also varied. EITC Tax data was incredibly consistent, as one would expect for tax information. It spanned from 1994-2020, with each element of the EITC system included as they were introduced (i.e. City EITC’s introduction in 2004). Asthma data was similarly consistent. It measured ED visits and Hospitalizations between 2006-2018.
+
+The temperature data was relatively consistent and thorough, but we were only able to access records from 2018. This is what ultimately led us to not include temperature as a predictor in our model.
+
+The greenspace data timeline was also tricky to work with. As noted in the study, the greenspace area was calculated via satellite imaging taken between 2016-2018. The researchers were able to match the greenspace to coordinates and to building addresses, but they were not able to provide information on when the greenspace was constructed. For instance, there were buildings in lower Manhattan that were constructed in 1893 and had greenspace, but we were making an educated guess that the greenspace was not constructed at the time of the building. With the data provided, we had no way of knowing this for sure. For our analysis, and based on our group member’s expertise in real estate development, we decided to assume that buildings constructed from 2006 onward were likely built with greenspace in their original plan, which allowed us to calculate cumulative space in each borough from that point onward and compare it with our other predictors.
+
+Ideally, we would have also liked more granularity in the Greenspace data. The study was very Manhattan-centric, which is why we used Manhattan as our universal reference group throughout the project. As students in Manhattan, we know that there are deep disparities from neighborhood to neighborhood within the borough. When looking at the leaflet of greenspace, it’s evident that most are concentrated below 14th street which also corresponds to some of the wealthiest neighborhoods in the city. It would have been interesting to break Manhattan down further into zip code across all predictors to be able to make deeper comparisons.
+
+#### Conclusion
+
+This project has given us the opportunity to apply the tools and theories that we've learned this semester and that are very relevant to cutting-edge research within the public health world. It also showed us that good, consistent data is difficult to collect and even more difficult to manage.
+
+Ultimately, our project showed the need for more studies that take a health systems-related approach to their data collection and methodology. While we were able to establish some significance surrounding greenspace and EITC credits effects on asthma rates, we had to make several assumptions with this data.
+
+As we referenced in our introduction, this group was fascinated by Dr. Merlin’s lecture about how public health is truly everything. We know that decisions like redlining created the city that we’re familiar with today, but modeling the lingering effects of these technically defunct policies is difficult when individual studies examine one predictor at a time. Health, and the maintenance of it, is a complex outcome with numerous predictors. We tried to show that train of thought in this project, and although not perfect, we did begin to tell that story.
