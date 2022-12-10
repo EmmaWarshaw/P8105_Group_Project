@@ -471,19 +471,18 @@ To our surprise, all three models return statistically significant values for th
 <p>&nbsp;</p>
 # Comparison of Earned Income Tax Credit (EITC) with UGS
 
-When trying to find some association between greenspace data and average EITC tax credit amount, it's not possible to draw statistical conclusions with the information we have.  The data were collected with different methods and it would be wrong to do statistical comparisons.  That being said, we can create visualizations that give an overall idea of trends.  
+When trying to find some association between greenspace data and average EITC tax credit amount, we will first look at the outcomes over time visually to get an understanding of the overall trend.  
+Our hypothesis is that there will be more rooftop greenspaces present in boroughs where the average EITC credit amount is lower.
 
-Our hypothesis is that there will be more rooftop greenspaces present in boroughs where the average EITC credit amount is lower.  
+To create this visualization, we have to make a few assumptions.
 
-To create this visualizations, we have to make a few assumptions. 
+The Greenspace data does not specify when rooftop greenspaces were constructed. We know that the data was collected between 2016-2018 and have information on when the building was constructed but that’s all the detail we’re given. Meanwhile, EITC tax data for all EITC categories is accounted for from 2006 onward.
 
-The `Greenspace` data does not specify when rooftop greenspaces were constructed.  We know that the data was collected between 2016-2018 and have information on when the building was constructed but that's all the detail we're given.  Meanwhile, EITC tax data for all EITC categories is accounted for from 2006 onward.  
+We are going to assume that buildings constructed from 2006 onward were constructed initially with their rooftop greenspace. Given the cost of construction and the logistics involved with residential building in New York City, we’re assuming that developers did not retroactively add greenspace after initial construction of these modern buildings.
 
-We are going to assume that buildings constructed from 2006 onward were constructed initially with their rooftop greenspace.  Given the cost of construction and the logistics involved with residential building in New York City, we're assuming that developers did not retroactively add greenspace after initial construction of these modern buildings.  
+We’re also going to eliminate Staten Island from this visualization. Staten Island doesn’t have enough data on Greenspace to make it reasonable to include in a visualization.
 
-We're also going to eliminate Staten Island from this visualization.  Staten Island doesn't have enough data on Greenspace to make it reasonable to include in a visualization. 
-
-#### Visualizations on UGS & Asthma Rates
+#### Visualizations on UGS & EITC
 
 ```{r, warning = FALSE, message = FALSE, echo = FALSE}
 
@@ -497,9 +496,7 @@ The visualization shows what we initially thought: Manhattan rooftop greenspace 
 
 Again, this is correlation, not causation but it does speak to the idea that rooftop greenspaces tend to appear in wealthier areas. 
 
-
 #### Regression Analysis of UGS and EITC
-
 
 ```{r,  echo = FALSE, message=FALSE, warning = FALSE}
 test_df = read.csv("./data/test_df.csv")
@@ -580,6 +577,8 @@ eitc_model %>%
   broom::tidy() %>% 
   knitr::kable(digits = 3, align = "lcccc", caption = "Regression Analysis of Tax and Borough on Cummulative Greenspace in New York City")
 ```
+
+Although making a regression model with UGS as the outcome and EITC as a predictor requires several assumptions, we see generally that our hypothesis holds true: as EITC increases, the amount of UGS present in a borough trends downward.  
 
 <p>&nbsp;</p>
 # Full Model: Regression
