@@ -6,6 +6,7 @@ output: html_document
 # [Welcome to our Final Project]{style="color: red;"}
 :::
 
+<p>&nbsp;</p>
 This website is constructed as the final deliverable for the ***P8105 final project***. Before jumping into the actual analysis, three main topics need to be explained.
 
 1.  **Our Team** and how we each contribute
@@ -14,6 +15,7 @@ This website is constructed as the final deliverable for the ***P8105 final proj
 
 The outcome of our work is something we are very excited about and hope will be the starting point of more research. Additionally, like every good public health professional, it is our goal to support positive change - the findings of this project provide initial insights that individuals, organizations, and governments can directly act upon.
 
+<p>&nbsp;</p>
 ::: {align="center"}
 ## Our Team
 :::
@@ -23,7 +25,7 @@ The beauty of a final project within this format is the ability to present impor
     
     
     
-
+<p>&nbsp;</p>
 ::: {align="center"}
 ## Key Themes
 :::
@@ -43,7 +45,7 @@ The beauty of a final project within this format is the ability to present impor
     
     
     
-
+<p>&nbsp;</p>
 ::: {align="center"}
 ## The Data
 :::
@@ -52,12 +54,11 @@ The project at its core is based on four main data-sets. Each of them is geograp
 
 ##### [Urban Greenspace](UGS.html)
 
--   Roofs planted with vegetation — **Urban Green Spaces (UGS)** — can help cities adapt to a changing climate by absorbing storm water, lowering local temperatures, and providing insulation that cuts indoor heating and cooling costs.
-Using **a publicly available dataset**, which includes data from n=736 UGS as of 2016, we conduct a secondary analysis to draw links to economical, clinical and environmental factors that could potentially be associated with the distribution of UGS within New York City (NYC).
+-   Roofs planted with vegetation — **Urban Green Spaces (UGS)** — can help cities adapt to a changing climate by absorbing storm water, lowering local temperatures, and providing insulation that cuts indoor heating and cooling costs. Using **a publicly available dataset**, which includes data from n=736 UGS as of 2016, we conduct a secondary analysis to draw links to economical, clinical and environmental factors that could potentially be associated with the distribution of UGS within New York City (NYC).
 
 ##### [Tax Credits](tax_data.html)
 
--   The *Tax Credit Analyis* is ABC
+-   One way to get a general understanding of socioeconomic status of a geographic area is to look at Earned Income Tax Credit (EITC) data, as it is designed to give a tax credit to low-to-moderate income workers and families. Using this data, we aim to understand the financial status of residents in each borough and explore its relationship with urban design, clinical and environmental factors.
 
 ##### [Temperature](temp.html)
 
@@ -65,8 +66,8 @@ Using **a publicly available dataset**, which includes data from n=736 UGS as of
 
 ##### [Asthma](asthma.html)
 
--   The *Asthma Analysis* is ABC
+-   Heightened asthma rates are one of the negative health outcomes resulting from high population density of cities (and resulting high density of environmental toxins being released into the atmosphere). We sourced data from the New York State Department of Health website, showing the number and rate of asthma hospitalizations and emergency department (ED) visits in New York State by age groups, sex, year, and total population. Through the data, we aim to understand how the asthma burden of asthma is distributed across the different borough, as well as analyse whether there have been any changes over time. 
 
 ##### [Joint Analysis Dashboard](analysis.html)
 
--   ABC
+-   Most importantly, we aim to explore the relationship between the four aforementioned data-sets, applying systems thinking to our analysis. In doing so, we first establish individual relationships (greenspace and temperature, asthma and greenspaces, etc.) and ultimately construct one large regression model with all significant factors included. It is important to note that the final model faces several limitations, which will be explored in detail.

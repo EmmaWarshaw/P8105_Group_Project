@@ -14,7 +14,7 @@ This page contains information on the four datasets analyzed within this group p
 
 *The primary dataset was developed by The Nature Conservancy's New York City Program (Mike Treglia and Emily Maxwell) with contributions (data aggregation and additional support) from Timon McPhearson of The Urban Systems Lab at The New School, Eric Sanderson of The Wildlife Conservation Society, and Greg Yetman of CIESIN at Columbia University.*
 
-Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxwell, Emily Nobel. (2018). Green Roofs Footprints for New York City, Assembled from Available Data and Remote Sensing (Version 1.0.0) [Available here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/CurrentDatasets). Zenodo. http://doi.org/10.5281/zenodo.1469674
+Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxwell, Emily Nobel. (2018). Green Roofs Footprints for New York City, Assembled from Available Data and Remote Sensing (Version 1.0.0) Available [here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/CurrentDatasets). Zenodo. http://doi.org/10.5281/zenodo.1469674
 
 #### Primary Dataset: Variables codebook
 
@@ -39,7 +39,7 @@ Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxw
 
 **NYC building identifier**
 
-* `bin` - NYC Building ID Number based on overlap between green roof areas and a building footprint dataset for NYC from August, 2017. (Newer building footprint datasets do not have linkages to the tax lot identifier (bbl), thus this older dataset was used). The most current building footprint dataset should be available at: https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh. Associated metadata for fields from that dataset are available at https://github.com/CityOfNewYork/nyc-geo-metadata/blob/master/Metadata/Metadata_BuildingFootprints.md.
+* `bin` - NYC Building ID Number based on overlap between green roof areas and a building footprint dataset for NYC from August, 2017. (Newer building footprint datasets do not have linkages to the tax lot identifier (bbl), thus this older dataset was used). The most current building footprint dataset is available [here](https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh). Associated metadata for fields from that dataset are available [here](https://github.com/CityOfNewYork/nyc-geo-metadata/blob/master/Metadata/Metadata_BuildingFootprints.md).
 * `bbl` - Boro Block and Lot number as a single string. This field is a tax lot identifier for NYC, which can be tied to the Digital Tax Map and PLUTO/MapPLUTO. Metadata for fields pulled from PLUTO/MapPLUTO can be found in the PLUTO Data Dictionary. All joins to this bbl were based on MapPLUTO version 18v1.
 
 
@@ -59,7 +59,7 @@ The same authors provide an additional dataset aggregated at the City Council Di
 ## Temperature in NYC
 
 The datasets to analyze the s
-(NYC.gov)[https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/]. The full dataset came be found (Github)[https://github.com/nychealth/EHDP-data/tree/production/indicators]. 
+(NYC.gov)[https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/]. The full dataset came be found on [Github][https://github.com/nychealth/EHDP-data/tree/production/indicators]. 
 
 #### Heat Vulnerability Index (NTA)
 
@@ -101,14 +101,14 @@ The `envo_greenroof` dataset shows the average green area, average daytime surfa
 
 References
 
-1. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Heat vulnerability index (NTA). Accessed at "https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/" on 12/06/2022.
+1. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Heat vulnerability index (NTA). Accessed [here](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/) on 12/06/2022.
 
-2. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Daytime summer surface temperature. Accessed at "https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/" on 12/06/2022.
+2. New York City Department of Health, Environment & Health Data Portal. "Climate" data. Daytime summer surface temperature. Accessed [here](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/) on 12/06/2022.
 
 
 ## Asthma in NYC
 
-The dataset provides data on the number and rate of asthma hospitalizations and emergency department (ED) visits in New York State. These data are presented by age groups, sex, month of year, and total population for 3 selected year intervals (ex. 2000-2002, 2001-2003, etc...). These data show only a small proportion of people who have asthma, those whose condition is serious enough to require an emergency department (ED) visit or hospital stay. Data show the number of asthma ED visits and hospitalizations rather than the number of patients who were admitted or seen for asthma related illness. For example, if a person was hospitalized twice they would be counted twice.
+The asthma data set was sourced from the New York State Department of Health [website](https://www.health.ny.gov/statistics/environmental/public_health_tracking/about_pages/asthma/export). We downloaded the publicly-available CSV file then read it into R. The dataset provides data on the number and rate of asthma hospitalizations and emergency department (ED) visits in New York State. These data are presented by age groups, sex, month of year, and total population for 3 selected year intervals (ex. 2000-2002, 2001-2003, etc...). These data show only a small proportion of people who have asthma, those whose condition is serious enough to require an emergency department (ED) visit or hospital stay. Data show the number of asthma ED visits and hospitalizations rather than the number of patients who were admitted or seen for asthma related illness. For example, if a person was hospitalized twice they would be counted twice.
 
 #### Asthma Age-Adjusted Hospitalization Rates
 

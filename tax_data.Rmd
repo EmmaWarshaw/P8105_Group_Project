@@ -5,7 +5,7 @@ output: html_document
 # [Earned Income Tax Data (EITC)]{style="color: red;"}
 :::
 
-
+<p>&nbsp;</p>
 ```{r, include = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(rvest)
@@ -39,6 +39,7 @@ The Noncustodial Parent EITC is offered exclusively by the state and claimants c
 
 The qualification criteria do not overlap but the underlying economic considerations are the same.  
 
+<p>&nbsp;</p>
 ## Goals of the analysis
 
 The primary goal of this analysis is to understand the financial status of residents in each borough. To that end, we will first create a data-set upon which regression analysis can be conducted with potentially associated dimensions (urban greenspaces, temperature, and health outcomes).
@@ -49,6 +50,7 @@ Secondly, this analysis aims to provide:
 * relevant data visualizations of the above;
 * an attempt to fit the dataset into a linear regression model to elucidate differences in the distribution of EITC data at the Borough levels.
 
+<p>&nbsp;</p>
 ## Data load & wrangling
 
 This data was provided by [New York State Data.Ny.Gov](https://data.ny.gov/Government-Finance/Earned-Income-Tax-Credit-EITC-Claims-by-Credit-Typ/6q7b-8vuf).  The original data set includes information for all counties in New York State.  For purposes of this project, we're only interested in New York City, and the five counties that correspond to each borough.   
@@ -99,6 +101,7 @@ eitc_data = tax_data %>%
 write.csv(eitc_data, "./data/eitc_data.csv", row.names = FALSE)
 ```
 
+<p>&nbsp;</p>
 ## Descriptive Analysis & Visualization
 
 #### Overall `EITC_df` Datset
@@ -184,6 +187,7 @@ nyc_trend %>%
   layout(xaxis = list(title = 'Borough'), yaxis = list(title = 'Proportion Filing Claim'), title = "Average Proportion Filing EITC Claim by Borough, 2016-2018")
 ```
 
+<p>&nbsp;</p>
 ## Regression Analyses
 
 #### Proportion of Claimants
@@ -274,6 +278,7 @@ noncust_model_output %>%
 
 The F-test gives a p-value of 0.4237.  For Noncustodial EITC, at the 5% level of significance, there is no statistical difference in the average amount of credit received among the 5 boroughs.   
 
+<p>&nbsp;</p>
 ## Conclusion
 
 Based on this tax data, we can see that the overall trend in the number of claims filed between 2006-2020 scales directly with the population of each borough.  When find the proportion of claimants in each borough, however, we see that there is a difference.  When compared to Manhattan, the Bronx, Brooklyn, and Queens all file a higher proportion of claims.  

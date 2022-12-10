@@ -5,6 +5,8 @@ output: html_document
 # [Asthma Rates]{style="color: red;"}
 :::
 
+<p>&nbsp;</p>
+
 ```{r, include = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(zoo)
@@ -34,12 +36,12 @@ Could roofs planted with vegetation, aka. **Urban Green Spaces (UGS)**, help red
 
 In the following analysis, we will be drawing on a dataset of asthma hospitalizations and ED visits between 2000 and 2019 in New York State, broken down by regions. Asthma ED visits and hospitalization rates tell us about the effect of asthma in a community due to environmental and household triggers, access to medical care, and the quality of disease management for asthma. ED visits and hospitalization shows us only the most severe cases of asthma; most people with asthma suffer the health effects without needing to go to hospital. 
 
-
+<p>&nbsp;</p>
 ## Goals of the analysis
 
 The primary goal of this analysis is to provide an overview of asthma rates across the different boroughs of NYC. We would like to understand how the asthma burden of asthma is distributed across the different borough, as well as analyse whether there have been any changes over time. 
 
-
+<p>&nbsp;</p>
 ## Data load & wrangling
 
 We load and wrangle the **secondary NY Asthma dataset** to generate a **asthma_df dataframe**. The original .csv dataset is available in the "data" folder within the project's repository. The following procedure is  applied: 
@@ -100,7 +102,7 @@ asthma2_df = asthma_df %>%
 
 Note that all variable names are available in the **Project's code book** section.
 
-
+<p>&nbsp;</p>
 ## Descriptive Analysis & Visualization
 
 Next, we perform a descriptive analysis of the NY Asthma secondary dataset, as well as stratified analysis at the borough level. Overall, the ***asthma_df** contains contains `r ncol(asthma_df)` variables related to `r nrow(asthma_df)` measures of asthma in NYC.
@@ -197,7 +199,7 @@ asthma_df %>%
     title = "Number of ED Visits / 10k inhabitants per borough in 2018",
     x = "Time (year)",
     y = "ED Visits (absolute)") +
-  theme(legend.position ="none")
+  theme(legend.position = "none")
 ```
 
 A very similar pattern is observed for hospitalizations rates / 10k inhabitants by borough in 2018. The unequal burden is even more accentuated, as the Bronx tops the list by a wide margin. The Bronx not only seems to be affected more by higher asthma rates, the asthma cases also seem to be more severe (relatively) to the other boroughs.
@@ -242,7 +244,7 @@ asthma_df %>%
     title = "Absolute Number of ED Visits per borough in 2018",
     x = "Time (year)",
     y = "ED Visits (absolute)") +
-  theme(legend.position ="none")
+  theme(legend.position = "none")
 ```
 
 
@@ -295,7 +297,7 @@ asthma2_df %>%
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
 ```
 
-
+<p>&nbsp;</p>
 ## Regression Analyses
 
 Next, we will be analyzing whether linear models can provide further insights into asthma rates across NYC's boroughs.
@@ -349,7 +351,7 @@ fit3 %>%
   knitr::kable(digits = 3, align = "lcccc", caption = "Table 6: Regression of boroughs on Severity measure")
 ```
 
-
+<p>&nbsp;</p>
 ## Conclusion
 
 This exploratory analysis has made evident the inequalities that continue to persist across NYC's boroughs in terms of asthma rates. It has shown that asthma rates in generally are improving, but that still a lot of work needs to be done, especially in the Bronx, who continues to carry the largest asthma burden. These results were confirmed to be statistically significant, with regression models being run on a per borough level for ED Visist / 10k inhabitants, Hospitalizations / 10k inhabitants, as well as a manually calculated severity measure. Secondly, we would like to understand whether there might be any links between the UGS dataset and the asthma dataset. For example, did increases in the primary dataset on NYC Urban Green Spaces also correlate with a simultaneous decrease in asthma rates? 

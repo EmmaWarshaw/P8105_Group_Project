@@ -314,6 +314,9 @@ $(document).ready(function () {
 <div id="asthma-rates" class="section level1" align="center">
 <h1><span style="color: red;">Asthma Rates</span></h1>
 </div>
+<p>
+ 
+</p>
 <p>Asthma is a disease that causes breathing problems. It inflames and
 narrows the airways that carry oxygen in and out of the lungs. People
 with asthma can have recurring periods of wheezing, chest tightness,
@@ -330,7 +333,7 @@ released into the atmosphere).</p>
 <p>Asthma is a serious public health problem in New York State and the
 nation. It affects about 10.0 percent (more than 400,000) of children
 and 9.9 percent (more than 1.5 million) of adults in New York State.
-Asthma takes its toll in many ways. It can result in lost nights of
+Asthma takes its’ toll in many ways. It can result in lost nights of
 sleep and disruption of activities for the individual, as well as for
 his or her family. Asthma is the leading cause of school absenteeism in
 children, and parents frequently miss days from work as a result of
@@ -348,17 +351,20 @@ East Side (LóPez et al., 2015).</p>
 plants absorb gaseous pollutants that are in the air. By absorbing
 harmful gases, plants release oxygen into the atmosphere which could
 help to combat the harmful effects of air pollution. Our hypothesis is
-that by having green spaces in urbanised areas, such as rooftop
+that by having green spaces in urbanized areas, such as rooftop
 vegetation, a higher quality of the air within the surrounding area
 could be achieved.</p>
 <p>In the following analysis, we will be drawing on a dataset of asthma
-hopsitalizations and ED visits between 2000 and 2019 in New York State,
+hospitalizations and ED visits between 2000 and 2019 in New York State,
 broken down by regions. Asthma ED visits and hospitalization rates tell
 us about the effect of asthma in a community due to environmental and
 household triggers, access to medical care, and the quality of disease
 management for asthma. ED visits and hospitalization shows us only the
 most severe cases of asthma; most people with asthma suffer the health
 effects without needing to go to hospital.</p>
+<p>
+ 
+</p>
 <div id="goals-of-the-analysis" class="section level2">
 <h2>Goals of the analysis</h2>
 <p>The primary goal of this analysis is to provide an overview of asthma
@@ -366,6 +372,9 @@ rates across the different boroughs of NYC. We would like to understand
 how the asthma burden of asthma is distributed across the different
 borough, as well as analyse whether there have been any changes over
 time.</p>
+<p>
+ 
+</p>
 </div>
 <div id="data-load-wrangling" class="section level2">
 <h2>Data load &amp; wrangling</h2>
@@ -374,18 +383,15 @@ to generate a <strong>asthma_df dataframe</strong>. The original .csv
 dataset is available in the “data” folder within the project’s
 repository. The following procedure is applied:</p>
 <ul>
-<li>filter out relevant observations (aka the boroughs of New York City
+<li>filter for relevant observations (aka the boroughs of New York City
 from years 2006-2018) using <code>filter()</code></li>
 <li>select relevant variables using <code>select()</code></li>
 <li>rename certain variables for comprehension using
 <code>remame()</code>, as well as certain borough names and years using
 <code>mutate()</code>and <code>recode</code>()`</li>
 <li>re-order the variables using <code>arrange()</code></li>
-<li>calculate percentage of green coverage of each building, as well as
-<code>recode()</code> borough names and ownership status, and convert
-sqm int sqm, using <code>mutate()</code></li>
 </ul>
-<p>Lastly, I create a second asthma dataframe with the goal of having
+<p>Lastly, we created a second asthma dataframe with the goal of having
 <strong>severity measure</strong>, which we defined as the number of ED
 visits divided by the number of Hospitalizations (both per 10k
 inhabitants), for each borough and year separately. We achieved this by
@@ -393,6 +399,9 @@ leveraging the use of <code>pivot_wider()</code>, <code>mutate()</code>
 (i.e., calculating the new measure) and <code>pivot_longer()</code>.</p>
 <p>Note that all variable names are available in the <strong>Project’s
 code book</strong> section.</p>
+<p>
+ 
+</p>
 </div>
 <div id="descriptive-analysis-visualization" class="section level2">
 <h2>Descriptive Analysis &amp; Visualization</h2>
@@ -628,6 +637,9 @@ remaining among the highest on the list) has managed to close the gap to
 the other borough. Still, in the Bronx about 15% of ED visits lead to
 hospitalizations, while that number only 10% in Manhattan.</p>
 <p><img src="asthma_files/figure-html/unnamed-chunk-15-1.png" width="90%" /></p>
+<p>
+ 
+</p>
 </div>
 </div>
 <div id="regression-analyses" class="section level2">
@@ -798,6 +810,9 @@ severity vs. Manhattan.</p>
 </tr>
 </tbody>
 </table>
+<p>
+ 
+</p>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>

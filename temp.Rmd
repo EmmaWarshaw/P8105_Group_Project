@@ -1,7 +1,11 @@
 ---
-title: "Temperature"
 output: html_document
 ---
+::: {align="center"}
+# [Temperature]{style="color: red;"}
+:::
+
+<p>&nbsp;</p>
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -11,13 +15,6 @@ library(stringr)
 library(leaflet)
 library(leaflet.extras)
 
-knitr::opts_chunk$set(
-	echo = TRUE,
-	warning = FALSE,
-  fig.width = 6,
-  fig.asp = .6,
-  out.width = "90%"
-)
 theme_set(theme_minimal() + theme(legend.position = "bottom"))
 options(
   ggplot2.continuous.colour = "viridis",
@@ -28,17 +25,27 @@ scale_fill_discrete = scale_fill_viridis_d
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## About the Dataset
+Temperature varies by borough in NYC due to the amount of green space and buildings present in each borough. Boroughs with less green space are more likely to have higher temperatures than boroughs with more green space. Asphalt pavements absorb and store more heat than natural surfaces, such as those covered by green spaces. Neighborhoods with higher temperatures also have more heat-exacerbated deaths associated with extreme heat events.
 
-This analysis includes datasets that were retrieved from the number of  [Climate Datasets](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/?id=2141#display=summary) publicly available by NYC.gov. The datasets used are "Daytime Summer Surface Temperatures (°F)" and "Heat Vulnerability Index (NTA)". The NTA codes were used to merge the two datasets.
+This analysis includes datasets that were retrieved from [Climate Datasets](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/data-explorer/climate/?id=2141#display=summary). This dataset is publicly available by NYC.gov. The datasets used are "Daytime Summer Surface Temperatures (°F)" and "Heat Vulnerability Index (NTA)". Neighborhood tabulation areas (NTA) codes were used to merge the two datasets for 188 neighborhoods in New York City. NTAs are neighborhoods that were created by the NYC Department of Planning by aggregating census tracts into 195 neighborhood-like areas. Some neighborhoods were combined to reach the minimum population of 15,000 per NTA.
 
-## Why Temperature?
+<p>&nbsp;</p>
 
-It is hypothesized that urban green spaces are important in bringing down the air temperature in cities such as New York City. In this exploratory analysis, we will explore daytime surface temperatures and heat vulnerability index scores in New York City and the effect urban green spaces has on temperature and index scores. 
+## Goals of the analysis
 
-```{r, echo = FALSE, include = FALSE}
+The primary goal of this analysis is to explore the daytime summer surface temperature and heat vulnerability index scores of neighborhoods across New York City. A dataset that contains both daytime summer surface temperature and heat vulnerability index scores (“envo_health”) was used. 
+
+Secondly, this analysis aims to provide:
+
+- a descriptive analysis of the daytime summer surface temperature and heat vulnerability index scores in New York, as well as stratified analysis at the Borough levels
+- relevant data visualization of the above (notably a map using the leaflet package)
+- an attempt to fit the dataset into a linear regression model to elucidate differences in the daytime summer surface temperatures and heat vulnerability index scores at the  Borough levels
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE}
 envo_health = read_csv("data/envo_health.csv") %>% 
-  clean_names()
+  clean_names() %>% 
+  select(-geo_id) %>% 
+  select(borough, neighborhood, daytime_surface_temp, heat_vulnerability_index, everything())
 
 envo_health = 
   envo_health %>% 
@@ -46,38 +53,51 @@ envo_health =
     daytime_surface_temp = (daytime_surface_temp - 32)*.5556 
   )
 ```
+<p>&nbsp;</p>
 
-# Summary Statistics
+## Data load & wrangling
 
-## Mean Surface Daytime Temperature by Borough
-```{r, echo = FALSE}
+To create the `envo_health` dataset, we merged the daytime summer surface temperature dataset and heat vulnerability index dataset by NTA codes. The longitude and latitude coordinates for each neighborhood was manually added to the dataset. Some of the coordinates did not match exactly with the neighborhoods because multiple neighborhoods were combined when the NTA codes were created. The borough for each neighborhood was also manually matched to create the variable, `borough`.
+
+The heat vulnerability index data were collected from 188 neighborhoods across the 5 boroughs of NYC and represent the community-level heat impacts due to extreme heat events. A statistical model using social and environmental factors, such as surface temperature, green space, air conditioning access, poverty, and Black population, was used to estimate the risk of heat-related death and develop the 5-point index score scale, with 1 being the lowest risk and 5 being the highest risk. The Black population was specifically included in the model because it identified as the most excluded from heat resources. Residents who are at highest heat risk also did not have or use air conditioning, were older or had chronic health conditions or serious mental illnesses.
+
+The daytime summer surface temperature data were collected in Fahrenheit and varied based on vegetative covering and materials that retain heat, such as paved roads, sidewalks, and buildings. In this analysis, the daytime summer surface temperature was re-coded to represent temperature in Celsius. The neighborhoods were identified by NTA codes to match the neighborhoods captured in the heat vulnerability index dataset. 
+
+The `envo_greenroof` dataset, which is used in the *Joint Analysis* contains the total green urban space, in square meters, the average daytime summer surface temperature, the average heat vulnerability index score, and boroughs. This dataset was created to investigate the influence urban green space has on the average daytime summer surface temperature and on the average heat vulnerability index score in NYC. 
+
+<p>&nbsp;</p>
+## Descriptive Analysis & Visualization
+
+
+#### Mean Daytime Summer Surface Temperature in NYC
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 envo_health %>% 
-  group_by(borough) %>% 
   summarise(
-    mean_daytime = mean(daytime_surface_temp)
+    mean_daytime = mean(daytime_surface_temp),
+    mean_heat = mean(heat_vulnerability_index)
   ) %>% 
-  knitr::kable(digits = 3, align = "cc", caption = "Table 1: Mean Surface Daytime Temperature by Borough", col.names = c("Borough", "Mean Temperature (°C)"))
+  knitr::kable(digits = 3, align = "cc", caption = "Table 1: Mean Daytime Summer Surface Temperature in NYC", col.names = c("Mean Temperature (°C)", "Mean Heat Vulnerability Index Score"))
 ```
+Overall, the “envo_health” dataset contains 8 variables related to 188 neighborhoods in NYC, which are defined by NTA codes. The mean daytime summer surface temperature in NYC is 36.92°C. The mean heat vulnerability index score in NYC is 3. 
 
-The daytime surface temperature was collected in Fahrenheit and varies based on vegetative covering and materials that retain heat, such as paved roads, sidewalks, and buildings. Neighborhoods with higher temperatures are seen to have more heat-exacerbated deaths associated with extreme heat events. In Table 1, there does not seem to much variability in the mean surface daytime temperature across the 5 boroughs. 
-
-## Mean Heat Vulnerability Index by Borough
-```{r, echo = FALSE}
+#### Mean Daytime Summer Surface Temperature and Heat Vulnerability Index by Borough
+When stratified by borough, there are no differences in the mean daytime surface temperature but there are appreciably different mean heat vulnerability index scores. 
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 envo_health %>% 
   group_by(borough) %>% 
   summarise(
-    mean_daytime = mean(heat_vulnerability_index)
+    mean_daytime = mean(daytime_surface_temp),
+    mean_heat = mean(heat_vulnerability_index)
   ) %>% 
-  knitr::kable(digits = 3, align = "cc", caption = "Table 2: Mean Heat Vulnerability Index by Borough", col.names = c("Borough", "Mean Heat Vulnerability Score"))
+  knitr::kable(digits = 3, align = "ccc", caption = "Table 2: Mean Daytime Summer Temperature by Borough", col.names = c("Borough", "Mean Temperature (°C)","Mean Heat Vulnerability Score"))
 ```
 *Note: Score ranges from 1 (lowest risk) to 5 (highest risk), with low vulnerability at no risk of heat illness and death.*
 
-In Table 2, Bronx has the highest mean heat vulnerability score (4.086), making it the borough with the high risk of heat illness and death. Staten Island has the lowest mean heat vulnerability score (1.526), with residents having little to no risk of heat illness and death. Bronx is known to have a large Black population and a larger proportion of individuals with lower income. 
+In Table 2, there does not seem to much variability in the mean daytime summer temperature across the 5 boroughs. Bronx has the highest mean heat vulnerability score (4.086), making it the borough with the high risk of heat illness and death. Staten Island has the lowest mean heat vulnerability score (1.526), with residents having little to no risk of heat illness and death. Bronx is known to have a large Black population and a larger proportion of individuals with lower income. 
 
 
-# New York City Map
-#### Daytime Surface Temperature and Heat Vulnerability Index by Location
-```{r, echo = FALSE}
+#### Daytime Summer Surface Temperature and Heat Vulnerability Index by Location
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 pal <- colorNumeric(
   palette = "viridis",
   domain = envo_health$daytime_surface_temp)
@@ -99,19 +119,23 @@ envo_map = envo_health %>%
 envo_map
 ```
 
-# Univariate Models
+Based on the map, Manhattan appears to have lower daytime summer surface temperatures and lower heat vulnerability index scores compared to Bronx and Queens. 
 
-Two univariate, linear models were built to explore the association between:
+<p>&nbsp;</p>
 
-  - boroughs and daytime surface temperature
+## Regression Analyses
+
+To investigate if the differences in daytime summer surface temperature and heat vulnerability index were significant across boroughs, two univariate linear models were built to explore the association between:
+
+  - boroughs and daytime summer surface temperature
   - boroughs and heat vulnerability index
 
-Univariate models were because only one predictor was used. Linear models were used because the outcome variable, `daytime_surface_temp`, was continuous.
+Univariate models were because only one predictor was used. Linear models were used because the outcome variable, `daytime_surface_temp`, was continuous. 
 
-#### Borough and Daytime Surface Temperature  
+#### Daytime Summer Surface Temperature and Borough
 
-In the summary statistics, the mean daytime surface temperature was not appreciably different across the boroughs. A linear model was used to further explore if there was a relationship between borough and daytime surface temperature.
-```{r, echo = FALSE}
+In the first univariate model, we investigated the influence of boroughs on daytime summer surface temperature in NYC. The descriptive analyses showed that the mean daytime summer surface temperature was not appreciably different across boroughs. A linear model was created to further explore if there was an association between borough and daytime summer surface temperature. 
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 envo_health = 
   envo_health %>% 
   mutate(
@@ -127,15 +151,15 @@ envo_surfmodel =
   select(-std.error)
 
 envo_surfmodel %>% 
-  knitr::kable(digits = 3, align = "lcccc", caption = "Table 4: Coefficient Estimates of Linear Model Exploring Association of Borough and Daytime Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+  knitr::kable(digits = 4, align = "lcccc", caption = "Table 3: Coefficient Estimates of Linear Model Exploring Association of Borough and Daytime Summer Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
+The linear model shows that there is a significant difference in daytime summer surface temperature comparing Queens to Manhattan (reference group). This may explain why the daytime summer surface temperatures in Manhattan are lower than those in Queens. There may be multiple factors that contribute to this, such as the amount of urban green space. 
 
+#### Heat Vulnerability Index and Borough
 
-#### Borough and Heat Vulnerability Index
+In the second univariate model, we investigated the influence of boroughs on the heat vulnerability index in NYC. The descriptive analyses showed that the heat vulnerability index score was appreciably different across boroughs, with Bronx having the highest at-risk score. A linear model was created to further explore if there was an association between borough and heat vulnerability index score. 
 
-In the summary statistics, Bronx had the highest mean heat vulnerability score, which makes it the most at-risk borough in NYC to heat-related deaths. A linear model was used to further explore the relationship between borough and heat vulnerability index.
-
-```{r, echo = FALSE}
+```{r,  echo = FALSE, warning = FALSE, message = FALSE}
 envo_heatmodel =
   lm(heat_vulnerability_index ~ borough, data = envo_health) %>% 
   tidy() %>% 
@@ -146,7 +170,15 @@ envo_heatmodel =
   select(-std.error)
 
 envo_heatmodel %>% 
-  knitr::kable(digits = 3, align = "lcccc", caption = "Table 5: Coefficient Estimates of Linear Model Exploring Association of Borough and Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
+  knitr::kable(digits = 4, align = "lcccc", caption = "Table 4: Coefficient Estimates of Linear Model Exploring Association of Borough and Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
 
+<p>&nbsp;</p>
+## Conclusion
 
+In conclusion, throughout this exploratory analysis, plotting, and regression modeling attempts of n=188 Daytime Summer Surface Temperature and Heat Vulnerability Index Dataset (“envo_health) as of 2018, we conclude:
+
+- Overall, within New York City, the average daytime surface temperature is 36.92°C and the average heat vulnerability index score in NYC is 3. 
+- The average daytime summer surface temperature is not appreciably different across the 5 boroughs, but the heat vulnerability index scores vary. The Bronx has the highest at-risk score of heat-related illness and heat-exacerbated deaths. Staten Island has the lowest at-risk score of heat-related illness and heat-exacerbated deaths.
+- The differences in daytime summer surface temperatures are significant between Queens and Manhattan (reference group). The differences in heat vulnerability index scores are significant between Bronx and Manhattan, Brooklyn and Manhattan, and Staten Island and Manhattan. These significant differences may be influenced by multiple factors, including the amount of urban green space available to bring down the daytime surface temperature and lower the heat vulnerability index score. 
+- There are limitations to the temperature analyses performed. The daytime surface temperature dataset was collected on a single-day in July (July 17, 2018), which may not be an accurate representation of the daytime summer surface temperature. This may have created a false association seen in the univariate linear regression model investigating the influence of borough on daytime summer surface temperature. A dataset that has collected daytime summer surface temperature each day of summer in 2018 may have been a more accurate representation. The heat vulnerability index dataset was collected from multiple data sources. It is not clear how each social and economic predictor was collected and coded, which may affect the true association of borough and heat vulnerability index. Moving forward, we recommend that daytime summer surface temperature and heat vulnerability index scores are collected similarly, with data on comparable social and economic predictors. This would allow a more accurate representation of the differences and influences of each borough in New York City and further assist the New York City department in creating policies that benefit the most vulnerable populations in New York City. 

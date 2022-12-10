@@ -6,6 +6,8 @@ output: html_document
 # [Joint Analysis Dashboard]{style="color: red;"}
 :::
 
+<p>&nbsp;</p>
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(plotly)
@@ -35,6 +37,7 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+<p>&nbsp;</p>
 # Comparison of Daytime Surface Temperature and Heat Vulnerability Index with UGS
 
 #### Visualizations on UGS & Asthma Rates
@@ -109,12 +112,13 @@ envoroof_map = envo_health %>%
 
 envoroof_map
 ```
-**The Christmas trees in the urban green spaces, daytime surface temperature, and heat vulnerability index New York City map represent the urban green spaces in New York City.**
+**The Christmas trees in the urban green spaces, daytime summer surface temperature, and heat vulnerability index New York City map represent the urban green spaces in New York City.**
 
-The map above shows a large percentage of urban green spaces located in lower Manhattan, which also has one of the lowest daytime surface temperatures and heat vulnerability index. In neighborhoods with higher daytime surface temperatures and heat vulnerability index, there is little to no urban green spaces. The amount of urban green spaces present may affect the daytime surface temperatures and heat vulnerability index of neighborhoods in New York City. 
+The map above shows a large percentage of urban green spaces located in lower Manhattan, which also has one of the lowest daytime summer surface temperatures and heat vulnerability index. In neighborhoods with higher daytime summer surface temperatures and heat vulnerability index, there is little to no urban green spaces. The amount of urban green spaces present may affect the daytime summer surface temperatures and heat vulnerability index of neighborhoods in New York City.  
 
 #### Regression Analysis of UGS and Temperature
 
+In this section, we investigated if there is an association with urban green space and daytime surface temperature/heat vulnerability index. We performed univariate regression analyses to understand whether the total number of urban green space influences either the average daytime surface temperature or the average heat vulnerability index score.
 
 ```{r, echo = FALSE, include = FALSE}
 envo_greenroof = read_csv("data/envo_greenroof.csv") %>% 
@@ -127,6 +131,8 @@ envo_greenroof =
     avg_daytime_temp = (avg_daytime_temp - 32)*.5556) 
 ```
 
+
+In the first univariate model, we investigated the influence total urban green space has on the average daytime surface temperature in NYC.
 ```{r, echo = FALSE}
 envo_greenroof_surfmodel = 
   lm(avg_daytime_temp ~ total_green_area, data = envo_greenroof) %>% 
@@ -140,7 +146,9 @@ envo_greenroof_surfmodel =
 envo_greenroof_surfmodel %>% 
   knitr::kable(digits = 8, align = "lcccc", caption = "Table 1: Coefficient Estimates of Linear Model Assessing the Association Between Total Green Roof Surface Area and Average Daytime Surface Temperature", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
-There does not seem to be a relationship between the total area of green roof and average daytime surface temperature. 
+There does not seem to be a relationship between the total area of green roof and average daytime summer surface temperature.
+
+In the second univariate model, we investigated the influence total urban green space has on the average heat vulnerability index in NYC.
 
 ```{r, echo = FALSE}
 envo_greenroof_heatmodel = 
@@ -155,7 +163,7 @@ envo_greenroof_heatmodel =
 envo_greenroof_heatmodel %>% 
   knitr::kable(digits = 8, align = "lcccc", caption = "Table 2: Coefficient Estimates of Linear Model Assessing the Association Between Total Green Roof Surface Area and Average Heat Vulnerability Index", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
-There does not seem to be a relationship between the total area of green roof and average heat vulnerability index. 
+There does not seem to be a relationship between the total area of green roof and average heat vulnerability index.
 
 While this analysis did not find an association between the amount of urban green spaces present and daytime surface temperature or the amount of urban green spaces present and heat vulnerability index, we believe this can be caused by weaknesses in the data available to us. More specifically:
 
@@ -165,7 +173,7 @@ While this analysis did not find an association between the amount of urban gree
 
 Ultimately, we believe it is important to keep exploring the impact on urban green spaces, especially as a means to fight climate change!
 
-
+<p>&nbsp;</p>
 # Comparison of Asthma Rates with UGS
 
 Next we will compare the UGS dataset with the asthma dataset, first visually and then also based on linear models.
@@ -460,7 +468,7 @@ fit6 %>%
 
 To our surprise, all three models return statistically significant values for the effect of cumulative UGS surface area on the studied indicators, while accounting for borough differences. The direction of the effect is how we would expect: increase in cumulative UGS surface area leads to a reduction in ED visit rate, hospitalization rate, and our severity measure! We conclude that urban green spaces might indeed have played a role in reducing asthma rates across New York City.
 
-
+<p>&nbsp;</p>
 # Comparison of Earned Income Tax Credit (EITC) with UGS
 
 When trying to find some association between greenspace data and average EITC tax credit amount, it's not possible to draw statistical conclusions with the information we have.  The data were collected with different methods and it would be wrong to do statistical comparisons.  That being said, we can create visualizations that give an overall idea of trends.  
@@ -573,7 +581,7 @@ eitc_model %>%
   knitr::kable(digits = 3, align = "lcccc", caption = "Regression Analysis of Tax and Borough on Cummulative Greenspace in New York City")
 ```
 
-
+<p>&nbsp;</p>
 # Full Model: Regression
 ```{r, echo = FALSE}
 

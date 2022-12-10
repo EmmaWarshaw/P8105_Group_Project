@@ -6,6 +6,7 @@ output: html_document
 # [Urban Green Spaces in NYC]{style="color: red;"}
 :::
 
+<p>&nbsp;</p>
 ```{r, include = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(broom)
@@ -32,6 +33,7 @@ Roofs planted with vegetation — **Urban Green Spaces (UGS)** — can help citi
 
 Hereby we present a **secondary analysis of the publicly available dataset**, which includes data from n=736 UGS as of 2016. In complementary analyses found within the project website, we **draw links to economical, clinical and environmental factors** which could potentially be associated with the distribution of UGS within New York City (NYC).
 
+<p>&nbsp;</p>
 ## Goals of the analysis
 
 The primary goal of this analysis is to provide a primary dataset of NYC Urban Green Spaces upon which regression analysis can be conducted with potentially associated dimensions (temperature, econometrics, and health outcomes).
@@ -42,6 +44,7 @@ Secondly, this analysis aims to provide:
 * relevant data visualizations of the above (notably including a map using the `leaflet` package);
 * an attempt to fit the dataset into a linear regression model to elucidate differences in the distributuion of UGS surfaces at the City Council District and Borough levels.
 
+<p>&nbsp;</p>
 ## Data load & wrangling
 
 The **primary Urban Green Spaces (UGS) dataset** is loaded and wrangled to generate a **`UG_df` dataframe**. The dataset is available in the "data" folder within the project's repository. The following procedure is then applied: 
@@ -117,6 +120,7 @@ UG_agg_df = read_csv("./data/NYC_CounDist_GreenRoof_Bldg_MaxHVI_PctCSO.csv", na 
 
 Note that all variable names are available in the [project's codebook](codebook.html).
 
+<p>&nbsp;</p>
 ## Descriptive Analysis & Visualization
 
 Next, we perform a descriptive analysis of the NYC Urban Green Spaces (UGS) primary dataset, as well as stratified analysis at the City Council District and Borough levels.
@@ -269,6 +273,7 @@ UG_overtime %>%
 
 We observe a progressive construction of UGS overtime, with a rampant trend as of early 2000s (potentially linked to urban planning regulations and greater interest in climate change mitigation strategies).
 
+<p>&nbsp;</p>
 ## Regression Analyses
 
 In this section, we investigate the geographical differences we have noted above graphically. We perform statistical tests and univariate regression analyses to understand whether the location within NYC (x: predictor variables, both "borough" and "city council district") influences either the size or number of UGS (y: outcome variable, both "green_area" and "num_greenroofs").
@@ -352,17 +357,10 @@ UGarea_borough_model %>%
   knitr::kable(digits = 3, align = "lcccc", caption = "Table 8: Coefficient Estimates of Linear Model Assessing the Association Between  Green Area Surface of Urban Green Roof Spaces and Borough in NYC", col.names = c("Term", "Estimate", "p-value", "Lower Confidence Interval", "Upper Confidence Interval"))
 ```
 
-
+<p>&nbsp;</p>
 ## Conclusions
 In conclusion, throughout this exploratory analysis, plotting and regression modelling attempts of n=736 Urban Green Spaces (UGS) present in NYC as of 2018, we conclude:
 
 * Overall, within New York City, UGS have an **mean size of 334.52 sqm (range 0.94-25,763.66 sqm)**. On average, UGS in NYC are situated at **43.47 m of height**, and **cover 19.63% of the total building's surface**.
 * **Manhattan** contains over 63% of all NYC's UGS (n=465), situated at a considerably higher altitude (mean height 54.24 m). Nevertheless, its UGS are also the smallest in percentual terms when asessing the proportion of building coverage (15.24%). Conversely, **Queens** and **Staten Island** have the lowest amoung of UGS (n=50 and n=4, respectively), but their UGS area the biggest on average (mean sizes of 468.55 and 456.72 sqm, respectively). 
 * Such uneven distribution of UGS becomes apparent when visualizing it, as well as running statistical test (that is, we observe significant differences in terms of the number of green spaces as well as its surface at the borough level). 
-
-
-## Acknowledgement
-
-*The primary dataset was developed by The Nature Conservancy's New York City Program (Mike Treglia and Emily Maxwell) with contributions (data aggregation and additional support) from Timon McPhearson of The Urban Systems Lab at The New School, Eric Sanderson of The Wildlife Conservation Society, and Greg Yetman of CIESIN at Columbia University.*
-
-Treglia, Michael L., McPhearson, Timon, Sanderson, Eric W., Yetman, Greg, & Maxwell, Emily Nobel. (2018). Green Roofs Footprints for New York City, Assembled from Available Data and Remote Sensing (Version 1.0.0) [Available here](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/CurrentDatasets). Zenodo. http://doi.org/10.5281/zenodo.1469674
