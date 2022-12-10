@@ -281,10 +281,11 @@ The F-test gives a p-value of 0.4237.  For Noncustodial EITC, at the 5% level of
 <p>&nbsp;</p>
 ## Conclusion
 
-Based on this tax data, we can see that the overall trend in the number of claims filed between 2006-2020 scales directly with the population of each borough.  When find the proportion of claimants in each borough, however, we see that there is a difference.  When compared to Manhattan, the Bronx, Brooklyn, and Queens all file a higher proportion of claims.  
+Based on this tax data, we can see that the overall trend in the number of claims filed between 2006-2020 scales directly with the population of each borough. When finding the proportion of claimants in each borough, however, we see that there is a difference. When compared to Manhattan, the Bronx, Brooklyn, and Queens all file a higher proportion of claims.
 
-Moving on to average dollar amount of the credit in each borough, there's no statistical difference in Noncustodial EITC among the boroughs.  
+Moving on to the average dollar amount of the credit in each borough, there’s no statistical difference in Noncustodial EITC among the boroughs.
 
-For EITC between 2016-2018, however, the Bronx, Brooklyn, Queens and Staten Island all claims a higher dollar amount in credit, on average.  
+For EITC between 2016-2018, however, the Bronx, Brooklyn, Queens and Staten Island all claimed a higher dollar amount in credit, on average.
 
-From our visualizations, we can see that Manhattan has the lowest proportion or residents filing an EITC claim, and that the credit amount if generally lower compared to other boroughs.
+From our visualizations, we can see that Manhattan has the lowest proportion of residents filing an EITC claim, and that the credit amount is generally lower compared to other boroughs.
+
