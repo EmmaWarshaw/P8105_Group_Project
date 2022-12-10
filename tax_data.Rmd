@@ -266,7 +266,7 @@ When we analyze against a reference group, we see that Bronx, Brooklyn, Queens a
 
 Repeating the same process, we'll now run the same model for Noncustodial EITC: 
 
-```{r}
+```{r, echo=FALSE}
 noncust.lm.model = lm(noncust_eitc ~ borough, data = average_claim)
 
 noncust_model_output = summary(noncust.lm.model)
