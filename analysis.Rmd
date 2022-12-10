@@ -37,10 +37,18 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+After having explored the four data sets separately, honoring our interest in systems thinking, we decided to also conduct a **joint analysis of all data sets**. Importantly, before throwing all variables into a single large regression model, we started with individual bi-variable analyses (visualization and regression).
+
+The following sections explore relationships of Asthma, Temperature, Boroughs, Dates, and EITC with UGS. The results provide very interesting insights and ultimately inform the construction of our final model. 
+
+We ultimately end with the Results, Discussion, and Conclusion of this Project's **Full Model**.
+
+
+
 <p>&nbsp;</p>
 # Comparison of Daytime Surface Temperature and Heat Vulnerability Index with UGS
 
-#### Visualizations on UGS & Asthma Rates
+#### Visualizations on UGS & Temperature
 
 ```{r, echo = FALSE, include = FALSE}
 envo_health = read_csv("./data/envo_health.csv") %>% 

@@ -58,8 +58,7 @@ The same authors provide an additional dataset aggregated at the City Council Di
 
 ## Temperature in NYC
 
-The datasets to analyze the s
-(NYC.gov)[https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/]. The full dataset came be found on [Github][https://github.com/nychealth/EHDP-data/tree/production/indicators]. 
+The datasets for the temperature analysis is available [here](https://a816-dohbesp.nyc.gov/IndicatorPublic/beta/). The full dataset came be found on [Github](https://github.com/nychealth/EHDP-data/tree/production/indicators). 
 
 #### Heat Vulnerability Index (NTA)
 
