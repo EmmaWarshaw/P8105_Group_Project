@@ -14,7 +14,15 @@ This website is constructed as the final deliverable for the ***P8105 final proj
 3.    **Research Questions** of this projects
 4.    **The Data** that is used throughout the project
 
-The outcome of our work is something we are very excited about and hope will be the starting point of more research. Additionally, like every good public health professional, it is our goal to support positive change - the findings of this project provide initial insights that individuals, organizations, and governments can directly act upon.
+The outcome of our work is something we are very excited about and hope will be the starting point of more research. Additionally, like every good public health professional, it is our goal to support positive change - the findings of this project provide initial insights that individuals, organizations, and governments can directly act upon. For quick overview, please check-out our **Screencast** here:
+
+::: {align="center"}
+```{r echo=FALSE, warning=FALSE}
+library("vembedr")
+
+embed_url("https://vimeo.com/779995401")
+```
+:::
 
 <p>&nbsp;</p>
 ::: {align="center"}
