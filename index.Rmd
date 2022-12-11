@@ -7,7 +7,7 @@ output: html_document
 :::
 
 <p>&nbsp;</p>
-This website is constructed as the final deliverable for the ***P8105 final project***. Before jumping into the actual analysis, four main topics need to be explained.
+This website is constructed as the final deliverable for the ***P8105 final project*** and can we found **[HERE](https://github.com/EmmaWarshaw/P8105_Group_Project.github.io){style="color: red;"}**. Before jumping into the actual analysis, four main topics need to be explained.
 
 1.    **Our Team** and how we each contribute
 2.    **Key Motivations** and **Related Work** that will show the intention behind this project
@@ -48,7 +48,7 @@ The beauty of a final project within this format is the ability to present impor
 ## Related Work
 :::
 
-This project was inspired by the [data set](https://ecologyandsociety.org/vol27/iss3/art20/) from Examining the distribution of green roofs in New York City through a lens of social, ecological, and technological filters. This study examined the presence of rooftop greenspaces in New York City, noting that although about 20% of NYC landscape is covered in buildings, rooftop greenspace is only detected in a small fraction of those areas. We were interested in comparing rooftop greenspace to additional variables that can give a better overall understanding of the social determinants of health in the five boroughs.
+This project was inspired by a [data set](https://ecologyandsociety.org/vol27/iss3/art20/) examining the distribution of green roofs in New York City through a lens of social, ecological, and technological filters. This study examined the presence of rooftop greenspaces in New York City, noting that although about 20% of NYC landscape is covered in buildings, rooftop greenspace is only detected in a small fraction of those areas. We were interested in comparing rooftop greenspace to additional variables that can give a better overall understanding of the social determinants of health in the five boroughs.
 
 
 <p>&nbsp;</p>

@@ -1,0 +1,72 @@
+---
+output: html_document
+---
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+::: {align="center"}
+# [Welcome to our FINAL PROJECT]{style="color: red;"}
+:::
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+
+::: {align="center"}
+### Our Motivation
+:::
+<p>&nbsp;</p>
+
+::: {align="center"}
+<img src="images/Screencast5.jpg" style="width:100%"/>
+:::
+
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+
+::: {align="center"}
+### 4 Datasets & Variables
+:::
+<p>&nbsp;</p>
+
+::: {align="center"}
+<img src="images/Screencast4.jpg" style="width:100%"/>
+:::
+
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+
+::: {align="center"}
+### Multivariable Analyses
+:::
+<p>&nbsp;</p>
+
+
+::: {align="center"}
+<img src="images/Screencast1.jpg" style="width:100%"/>
+:::
+
+<p>&nbsp;</p>
+
+
+::: {align="center"}
+<img src="images/Screencast2.jpg" style="width:100%"/>
+:::
+
+<p>&nbsp;</p>
+
+::: {align="center"}
+<img src="images/Screencast3.jpg" style="width:100%"/>
+:::
+
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+::: {align="center"}
+### Final Model: Design
+:::
+<p>&nbsp;</p>
+
+::: {align="center"}
+<img src="images/UGS_diagram.jpg" style="width:100%"/>
+:::
+
+<p>&nbsp;</p><p>&nbsp;</p>
+::: {align="center"}
+### Final Model: Output
+:::
+
+::: {align="center"}
+<img src="images/Screencast6.jpg" style="width:100%"/>
+:::

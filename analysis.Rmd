@@ -596,7 +596,7 @@ full_model %>%
   
 ```
 
-#### Discussion
+#### Results
 
 The full regression model uses ETIC, borough and cumulative green area as predictors of ED visits per 10,000 inhabitants. The model shows statistically significant results for two boroughs, using Manhattan as a reference group: the Bronx and Queens. This is an effect we have already observed in univariate analysis of the asthma data set. Unsurprisingly, the model did not yield statistically significant results for the effects of cumulative green space and tax on asthma rates. However, the direction of the effect is as expected: the model does show lower asthma rates for higher cumulative greenspace. This effect was not statistically significant, however, the p value of 0.098 is moderately strong. What is unexpected is the effect of tax on asthma rates: asthma rates decrease as EITC increases in this model. We would have expected the opposite relationship, however the effect in this model was not statistically significant, with a p-value of 0.91. 
 
